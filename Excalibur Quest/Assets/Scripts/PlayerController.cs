@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Cameras")]
     [SerializeField] private CinemachineCamera freeLookCamera;
     [SerializeField] private CinemachineCamera aimCamera;
+    private CinemachineBrain brain;
 
     [Header("Look")]
     [SerializeField] private Transform aimCameraTarget;
@@ -34,8 +35,36 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private float currentSpeed;
     private bool aiming = false;
+    private bool isFreelookEnabled = true;
     private bool previousAiming = false;
     private float cameraPitch;
+
+    public bool HasBlendFinished => isFreelookEnabled;
+
+    private void LateUpdate()
+    {
+        if (brain == null || freeLookCamera == null)
+        {
+            isFreelookEnabled = false;
+            return;
+        }
+
+        // If Cinemachine is currently blending,
+        // the blend to our target camera has NOT finished yet.
+        if (brain.IsBlending)
+        {
+            isFreelookEnabled = false;
+            return;
+        }
+
+        // There is no active blend.
+        // Check whether our target camera is now the active camera.
+        var activeCamera = brain.ActiveVirtualCamera;
+
+        isFreelookEnabled =
+            activeCamera != null &&
+            activeCamera.Name == freeLookCamera.Name;
+    }
 
     private void Awake()
     {
@@ -51,7 +80,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         if (Camera.main != null)
+        {
             cameraTransform = Camera.main.transform;
+            brain = cameraTransform.GetComponent<CinemachineBrain>();
+        }
+            
     }
 
     private void OnEnable()
@@ -79,7 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
 
-        if (!aiming)
+        if (isFreelookEnabled) //!aiming
         {
             Vector3 inputDirection = new Vector3(
                 input.x,
