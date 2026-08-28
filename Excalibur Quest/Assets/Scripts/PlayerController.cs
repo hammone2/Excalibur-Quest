@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundedForce = -2f;
 
     [Header("Cameras")]
-    [SerializeField] private CinemachineCamera freeLookCamera;
+    public CinemachineCamera freeLookCamera;
     [SerializeField] private CinemachineCamera aimCamera;
     private CinemachineBrain brain;
 
