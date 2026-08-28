@@ -342,8 +342,7 @@ GameObject:
   - component: {fileID: 5207059752570970417}
   - component: {fileID: 6090538790240449203}
   - component: {fileID: 7682038891152363936}
-  - component: {fileID: 7072799560013862436}
-  - component: {fileID: 8363524289720232052}
+  - component: {fileID: 564815420317668275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -390,7 +389,9 @@ MonoBehaviour:
   gravity: -25
   groundedForce: -2
   freeLookCamera: {fileID: 0}
+  confinedFreeLookCamera: {fileID: 0}
   aimCamera: {fileID: 0}
+  currentFreeLookCam: {fileID: 0}
   aimCameraTarget: {fileID: 3685883800140169951}
   mouseSensitivity: 0.1
   controllerSensitivity: 100
@@ -419,56 +420,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &7072799560013862436
-Rigidbody:
+--- !u!114 &564815420317668275
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7476506061648580119}
-  serializedVersion: 5
-  m_Mass: 100
-  m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 2
---- !u!136 &8363524289720232052
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7476506061648580119}
-  m_Material: {fileID: 13400000, guid: d990a4f3f8129944f889fb39960219b9, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  canPush: 1
+  strength: 1.1
 --- !u!1 &7675527840365985327
 GameObject:
   m_ObjectHideFlags: 0

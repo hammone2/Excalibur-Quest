@@ -83,8 +83,7 @@ public class PlayerController : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
             brain = cameraTransform.GetComponent<CinemachineBrain>();
-        }
-            
+        }     
     }
 
     private void OnEnable()
