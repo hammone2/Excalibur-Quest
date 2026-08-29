@@ -18,13 +18,24 @@ public class PlayerController : MonoBehaviour
     [Header("Ground")]
     [SerializeField] private float groundedForce = -2f;
 
-    [Header("Cameras")]
-    public CinemachineCamera freeLookCamera;
+    [Header("Camera Settings")]
+    public CinemachineCamera followCamera;
     [SerializeField] private CinemachineCamera aimCamera;
     private CinemachineBrain brain;
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
+    private const float threshold = 0.01f;
+    [Tooltip("How far in degrees can you move the camera up")]
+    public float TopClamp = 70.0f;
+    [Tooltip("How far in degrees can you move the camera down")]
+    public float BottomClamp = -30.0f;
+    public bool LockCameraPosition = false;
+    [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+    public float CameraAngleOverride = 0.0f;
 
     [Header("Look")]
     [SerializeField] private Transform aimCameraTarget;
+    [SerializeField] private Transform followCameraTarget;
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float controllerSensitivity = 100f;
 
@@ -41,9 +52,12 @@ public class PlayerController : MonoBehaviour
 
     public bool HasBlendFinished => isFreelookEnabled;
 
+
     private void LateUpdate()
     {
-        if (brain == null || freeLookCamera == null)
+        CameraRotation();
+
+        if (brain == null || followCamera == null)
         {
             isFreelookEnabled = false;
             return;
@@ -63,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         isFreelookEnabled =
             activeCamera != null &&
-            activeCamera.Name == freeLookCamera.Name;
+            activeCamera.Name == followCamera.Name;
     }
 
     private void Awake()
@@ -83,6 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
             brain = cameraTransform.GetComponent<CinemachineBrain>();
+            cinemachineTargetYaw = followCameraTarget.rotation.eulerAngles.y;
         }     
     }
 
@@ -105,6 +120,34 @@ public class PlayerController : MonoBehaviour
         HandleJump();
         
         previousAiming = aiming;
+    }
+
+    private void CameraRotation()
+    {
+        Vector2 lookInput = inputActions.Player.Look.ReadValue<Vector2>();
+        // if there is an input and camera position is not fixed
+        if (lookInput.sqrMagnitude >= threshold && !LockCameraPosition)
+        {
+            if (inputActions.Player.Look.activeControl?.device is Mouse)
+            {
+                lookInput *= mouseSensitivity;
+            }
+            else
+            {
+                lookInput *= controllerSensitivity * Time.deltaTime;
+            }
+
+            cinemachineTargetYaw += lookInput.x;
+            cinemachineTargetPitch -= lookInput.y;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
+
+        // Cinemachine will follow this target
+        followCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride,
+            cinemachineTargetYaw, 0.0f);
     }
 
     private void HandleMovement()
@@ -145,7 +188,7 @@ public class PlayerController : MonoBehaviour
                 ? sprintSpeed
                 : moveSpeed;
 
-            if (inputDirection.sqrMagnitude < 0.01f)
+            if (inputDirection.sqrMagnitude < threshold)
             {
                 targetSpeed = 0f;
             }
@@ -161,7 +204,7 @@ public class PlayerController : MonoBehaviour
             );
 
             // Rotate toward movement direction.
-            if (moveDirection.sqrMagnitude > 0.01f)
+            if (moveDirection.sqrMagnitude > threshold)
             {
                 Quaternion targetRotation =
                     Quaternion.LookRotation(moveDirection);
@@ -250,7 +293,7 @@ public class PlayerController : MonoBehaviour
 
             //rotate player to camera forward
             cameraForward.y = 0f;
-            if (cameraForward.sqrMagnitude > 0.01f)
+            if (cameraForward.sqrMagnitude > threshold)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
                 transform.rotation = targetRotation;
@@ -263,6 +306,13 @@ public class PlayerController : MonoBehaviour
     {
         //Transition between camera views
         aimCamera.Priority = aiming ? 20 : 10;
-        freeLookCamera.Priority = aiming ? 10 : 20;
+        followCamera.Priority = aiming ? 10 : 20;
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 }

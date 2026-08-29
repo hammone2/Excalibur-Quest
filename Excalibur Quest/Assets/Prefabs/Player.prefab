@@ -388,11 +388,14 @@ MonoBehaviour:
   jumpHeight: 1.5
   gravity: -25
   groundedForce: -2
-  freeLookCamera: {fileID: 0}
-  confinedFreeLookCamera: {fileID: 0}
+  followCamera: {fileID: 0}
   aimCamera: {fileID: 0}
-  currentFreeLookCam: {fileID: 0}
+  TopClamp: 70
+  BottomClamp: -30
+  LockCameraPosition: 0
+  CameraAngleOverride: 0
   aimCameraTarget: {fileID: 3685883800140169951}
+  followCameraTarget: {fileID: 2716618070745045517}
   mouseSensitivity: 0.1
   controllerSensitivity: 100
 --- !u!143 &7682038891152363936
