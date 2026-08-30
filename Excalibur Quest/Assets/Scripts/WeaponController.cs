@@ -5,8 +5,9 @@ public class WeaponController : MonoBehaviour
 {
     public List<Transform> slots = new List<Transform>();
     public int currentWeaponIndex;
+    public Weapon currentWeapon;
 
-    public void Awake()
+    private void Awake()
     {
         SwitchWeapon(0);
     }
@@ -16,7 +17,12 @@ public class WeaponController : MonoBehaviour
         currentWeaponIndex = index;
         for (int i = 0; i < slots.Count; i++)
         {
-            if (slots[i] == slots[currentWeaponIndex]) continue;
+            if (slots[i] == slots[currentWeaponIndex])
+            {
+                slots[i].gameObject.SetActive(true);
+                currentWeapon = slots[i].GetComponent<Weapon>();
+                continue;
+            }
 
             slots[i].gameObject.SetActive(false);
         }

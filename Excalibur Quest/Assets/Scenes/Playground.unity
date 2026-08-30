@@ -14790,6 +14790,14 @@ PrefabInstance:
       propertyPath: followCamera
       value: 
       objectReference: {fileID: 1172908173}
+    - target: {fileID: 6090538790240449203, guid: fbced3d35d600a0429520aa58f689d07, type: 3}
+      propertyPath: attackDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090538790240449203, guid: fbced3d35d600a0429520aa58f689d07, type: 3}
+      propertyPath: attackForwardDistance
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7476506061648580119, guid: fbced3d35d600a0429520aa58f689d07, type: 3}
       propertyPath: m_Name
       value: Player

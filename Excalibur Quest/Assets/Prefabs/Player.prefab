@@ -41,6 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6466233933442816207}
+  - component: {fileID: 2624514560606332127}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -64,6 +65,20 @@ Transform:
   - {fileID: 4262926680961629040}
   m_Father: {fileID: 7146140870622633358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2624514560606332127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457842268112296933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  weaponName: 
+  attackAnimation: 
 --- !u!1 &2833587065799671574
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +255,76 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5011376515657490214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5928591217807205917}
+  - component: {fileID: 7801707830131126476}
+  - component: {fileID: 3074245769188417051}
+  m_Layer: 0
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5928591217807205917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5899999, y: 0, z: 0.329}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6074724465292609326}
+  m_Father: {fileID: 7146140870622633358}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7801707830131126476
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 192608798ee5f4d49a4a259e950aa5b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3074245769188417051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  weaponName: Sword
+  attackAnimation: TestSwordAnimation
 --- !u!1 &5212205461220265240
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +470,9 @@ MonoBehaviour:
   sprintSpeed: 8
   acceleration: 15
   rotationSpeed: 15
+  dashSpeed: 25
+  dashDuration: 0.2
+  dashCooldown: 0.4
   jumpHeight: 1.5
   gravity: -25
   groundedForce: -2
@@ -397,7 +485,8 @@ MonoBehaviour:
   aimCameraTarget: {fileID: 3685883800140169951}
   followCameraTarget: {fileID: 2716618070745045517}
   mouseSensitivity: 0.1
-  controllerSensitivity: 100
+  controllerSensitivity: 250
+  weaponController: {fileID: 4686589327339721185}
 --- !u!143 &7682038891152363936
 CharacterController:
   m_ObjectHideFlags: 0
@@ -472,7 +561,7 @@ Transform:
   m_Children:
   - {fileID: 6466233933442816207}
   - {fileID: 605500351418423338}
-  - {fileID: 6074724465292609326}
+  - {fileID: 5928591217807205917}
   m_Father: {fileID: 3685883800140169951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4686589327339721185
@@ -488,10 +577,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   slots:
-  - {fileID: 6074724465292609326}
+  - {fileID: 5928591217807205917}
   - {fileID: 6466233933442816207}
   - {fileID: 605500351418423338}
   currentWeaponIndex: 0
+  currentWeapon: {fileID: 0}
 --- !u!1 &9197948910084327663
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,8 +747,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e16426531b5669241ad5eb9625252b93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2907752545129682799}
   m_SourcePrefab: {fileID: 100100000, guid: e16426531b5669241ad5eb9625252b93, type: 3}
+--- !u!1 &228834689687421584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e16426531b5669241ad5eb9625252b93, type: 3}
+  m_PrefabInstance: {fileID: 1147734154559242177}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2907752545129682799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228834689687421584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  weaponName: 
+  attackAnimation: 
 --- !u!4 &605500351418423338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e16426531b5669241ad5eb9625252b93, type: 3}
@@ -670,7 +782,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7146140870622633358}
+    m_TransformParent: {fileID: 5928591217807205917}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalScale.x
@@ -686,7 +798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -694,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.329
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -702,15 +814,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -730,7 +842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_Name
-      value: Sword
+      value: SwordModel
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4840eb799a85efb4b9ac5362bc79dfd9, type: 3}
       propertyPath: m_IsActive

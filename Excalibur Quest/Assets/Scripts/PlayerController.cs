@@ -11,9 +11,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float acceleration = 15f;
     [SerializeField] private float rotationSpeed = 15f;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+    private float dashTimer = 0f;
+    private float dashCooldownTimer = 0f;
+    private Vector3 dashDirection;
+
     [Header("Jump & Gravity")]
     [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravity = -25f;
+    private bool canDoubleJump = false;
 
     [Header("Ground")]
     [SerializeField] private float groundedForce = -2f;
@@ -39,6 +48,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float controllerSensitivity = 100f;
 
+    [Header("Weapon System")]
+    [SerializeField] private WeaponController weaponController;
+    [SerializeField] private float attackDuration = 0.35f;
+    [SerializeField] private float attackForwardDistance = 1.0f;
+    private float attackTimer;
+    private Vector3 attackDirection;
+    private Vector3 attackStartPosition;
+
     private CharacterController controller;
     private InputSystem_Actions inputActions;
     private Transform cameraTransform;
@@ -52,6 +69,93 @@ public class PlayerController : MonoBehaviour
 
     public bool HasBlendFinished => isFreelookEnabled;
 
+
+    private enum PlayerState
+    {
+        Normal,
+        Dashing,
+        Attacking
+    }
+    private PlayerState currentState = PlayerState.Normal;
+
+
+    public static PlayerController Instance { get; private set; }
+
+
+
+    #region Start & Awake
+    private void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+
+        inputActions = new InputSystem_Actions();
+
+        //Lock the cursor to the center of the screen and make it invisible
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+            brain = cameraTransform.GetComponent<CinemachineBrain>();
+            cinemachineTargetYaw = followCameraTarget.rotation.eulerAngles.y;
+        }     
+    }
+    #endregion
+
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
+
+    #region Updates
+    private void Update()
+    {
+        if (dashCooldownTimer > 0f)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+        }
+
+        switch (currentState)
+        {
+            case PlayerState.Normal:
+                HandleAiming();
+                HandleMovement();
+                HandleGravity();
+                HandleJump();
+                HandleDash();
+                HandleAttack();
+
+                previousAiming = aiming;
+                break;
+
+            case PlayerState.Dashing:
+                HandleDashMovement();
+                break;
+
+            case PlayerState.Attacking:
+                HandleGravity();
+                HandleAttackMovement();
+                break;
+        }
+    }
 
     private void LateUpdate()
     {
@@ -79,79 +183,78 @@ public class PlayerController : MonoBehaviour
             activeCamera != null &&
             activeCamera.Name == followCamera.Name;
     }
+    #endregion
 
-    private void Awake()
+
+    #region Dashing
+    private void HandleDash()
     {
-        controller = GetComponent<CharacterController>();
+        if (!inputActions.Player.Dash.WasPressedThisFrame())
+            return;
 
-        inputActions = new InputSystem_Actions();
+        if (dashCooldownTimer > 0f)
+            return;
 
-        //Lock the cursor to the center of the screen and make it invisible
-        Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;
+        StartDash();
     }
 
-    private void Start()
+    private void StartDash()
     {
-        if (Camera.main != null)
+        Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
+
+        Vector3 direction;
+
+        if (input.sqrMagnitude > threshold)
         {
-            cameraTransform = Camera.main.transform;
-            brain = cameraTransform.GetComponent<CinemachineBrain>();
-            cinemachineTargetYaw = followCameraTarget.rotation.eulerAngles.y;
-        }     
-    }
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
 
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-    }
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
 
-    private void OnDisable()
-    {
-        inputActions.Player.Disable();
-    }
+            cameraForward.Normalize();
+            cameraRight.Normalize();
 
-
-    private void Update()
-    {
-        HandleAiming();
-        HandleMovement();
-        HandleGravity();
-        HandleJump();
-        
-        previousAiming = aiming;
-    }
-
-    private void CameraRotation()
-    {
-        Vector2 lookInput = inputActions.Player.Look.ReadValue<Vector2>();
-        // if there is an input and camera position is not fixed
-        if (lookInput.sqrMagnitude >= threshold && !LockCameraPosition)
+            direction =
+                cameraForward * input.y +
+                cameraRight * input.x;
+        }
+        else
         {
-            if (inputActions.Player.Look.activeControl?.device is Mouse)
-            {
-                lookInput *= mouseSensitivity;
-            }
-            else
-            {
-                lookInput *= controllerSensitivity * Time.deltaTime;
-            }
-
-            cinemachineTargetYaw += lookInput.x;
-            cinemachineTargetPitch -= lookInput.y;
+            direction = transform.forward;
         }
 
-        // clamp our rotations so our values are limited 360 degrees
-        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
+        direction.y = 0f;
 
-        // Cinemachine will follow this target
-        followCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride,
-            cinemachineTargetYaw, 0.0f);
+        if (direction.sqrMagnitude <= threshold)
+            direction = transform.forward;
+
+        dashDirection = direction.normalized;
+
+        dashTimer = dashDuration;
+        dashCooldownTimer = dashCooldown;
+
+        currentState = PlayerState.Dashing;
     }
 
+    private void HandleDashMovement()
+    {
+        controller.Move(dashDirection * dashSpeed * Time.deltaTime);
+
+        dashTimer -= Time.deltaTime;
+
+        if (dashTimer <= 0f)
+        {
+            currentState = PlayerState.Normal;
+        }
+    }
+    #endregion
+
+
+    #region HandeMovement
     private void HandleMovement()
     {
+        
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
 
         if (isFreelookEnabled) //!aiming
@@ -226,15 +329,28 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (!controller.isGrounded)
-            return;
-
         if (inputActions.Player.Jump.WasPressedThisFrame())
         {
-            velocity.y =
-                Mathf.Sqrt(jumpHeight * -2f * gravity);
+            if (controller.isGrounded)
+            {
+                canDoubleJump = true;
+                Jump();
+                return;
+            }
+
+            if (!controller.isGrounded && canDoubleJump)
+            {
+                canDoubleJump = false;
+                Jump();
+            }
         }
     }
+
+    private void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
 
     private void HandleGravity()
     {
@@ -249,7 +365,121 @@ public class PlayerController : MonoBehaviour
             velocity * Time.deltaTime
         );
     }
+    #endregion
 
+
+    #region Attacking
+    private void HandleAttack()
+    {
+        if (weaponController.currentWeapon == null)
+            return;
+
+        if (!inputActions.Player.Attack.WasPressedThisFrame())
+            return;
+
+        currentState = PlayerState.Attacking;
+        weaponController.currentWeapon.PlayAttackAnimation();
+        StartAttack();
+    }
+
+    private void StartAttack()
+    {
+        currentState = PlayerState.Attacking;
+
+        attackTimer = attackDuration;
+
+        // Lock the attack direction when the swing starts.
+        //attackDirection = transform.forward;
+
+        // Make sure the direction is horizontal.
+        //attackDirection.y = 0f;
+        //attackDirection.Normalize();
+
+        // Get the camera's forward direction.
+        Vector3 cameraForward = cameraTransform.forward;
+
+        // Ignore vertical camera rotation.
+        cameraForward.y = 0f;
+
+        if (cameraForward.sqrMagnitude > threshold)
+        {
+            cameraForward.Normalize();
+
+            // Immediately face the camera's direction.
+            transform.rotation = Quaternion.LookRotation(cameraForward);
+
+            // Lock the attack movement direction.
+            attackDirection = cameraForward;
+        }
+        else
+        {
+            attackDirection = transform.forward;
+        }
+
+        attackStartPosition = transform.position;
+
+        // Stop normal movement immediately.
+        currentSpeed = 0f;
+    }
+
+    private void HandleAttackMovement()
+    {
+        /*float previousProgress = 1f - (attackTimer / attackDuration);
+
+        attackTimer -= Time.deltaTime;
+
+        float currentProgress = 1f - (attackTimer / attackDuration);
+
+        // Clamp between 0 and 1.
+        currentProgress = Mathf.Clamp01(currentProgress);
+
+        // Smooth movement during the swing.
+        float previousDistance =
+            Mathf.SmoothStep(0f, attackForwardDistance, previousProgress);
+
+        float currentDistance =
+            Mathf.SmoothStep(0f, attackForwardDistance, currentProgress);
+
+        float distanceThisFrame = currentDistance - previousDistance;
+
+        controller.Move(attackDirection * distanceThisFrame);
+
+        if (attackTimer <= 0f)
+        {
+            currentState = PlayerState.Normal;
+        }*/
+
+        float progress = 1f - (attackTimer / attackDuration);
+        progress = Mathf.Clamp01(progress);
+
+        // Move quickly at the beginning, then slow down.
+        float movementMultiplier = 1f - progress;
+
+        float moveAmount =
+            attackForwardDistance *
+            movementMultiplier *
+            Time.deltaTime /
+            attackDuration;
+
+        controller.Move(attackDirection * moveAmount);
+
+        attackTimer -= Time.deltaTime;
+
+        if (attackTimer <= 0f)
+        {
+            currentState = PlayerState.Normal;
+        }
+    }
+
+    public void EndAttack()
+    {
+        currentState = PlayerState.Normal;
+    }
+
+    #endregion
+
+
+    #region CameraFunctionality
     private void HandleLook()
     {
         Vector2 lookInput = inputActions.Player.Look.ReadValue<Vector2>();
@@ -279,7 +509,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAiming()
     {
-        aiming = inputActions.Player.Attack.IsPressed();
+        aiming = inputActions.Player.Aim.IsPressed();
         if (aiming && !previousAiming)
         {
             // On transition to aiming, rotate player to camera's forward direction (XZ plane)
@@ -308,6 +538,37 @@ public class PlayerController : MonoBehaviour
         aimCamera.Priority = aiming ? 20 : 10;
         followCamera.Priority = aiming ? 10 : 20;
     }
+
+
+    private void CameraRotation()
+    {
+        Vector2 lookInput = inputActions.Player.Look.ReadValue<Vector2>();
+        // if there is an input and camera position is not fixed
+        if (lookInput.sqrMagnitude >= threshold && !LockCameraPosition)
+        {
+            if (inputActions.Player.Look.activeControl?.device is Mouse)
+            {
+                lookInput *= mouseSensitivity;
+            }
+            else
+            {
+                lookInput *= controllerSensitivity * Time.deltaTime;
+            }
+
+            cinemachineTargetYaw += lookInput.x;
+            cinemachineTargetPitch -= lookInput.y;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
+
+        // Cinemachine will follow this target
+        followCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride,
+            cinemachineTargetYaw, 0.0f);
+    }
+
+    #endregion
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
