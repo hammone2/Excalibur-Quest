@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: 
   attackAnimation: 
+  meleeHitbox: {fileID: 0}
 --- !u!1 &2833587065799671574
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -266,6 +267,9 @@ GameObject:
   - component: {fileID: 5928591217807205917}
   - component: {fileID: 7801707830131126476}
   - component: {fileID: 3074245769188417051}
+  - component: {fileID: 5601838747961923100}
+  - component: {fileID: 5571119396463250055}
+  - component: {fileID: 5164213649958587230}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -325,6 +329,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   weaponName: Sword
   attackAnimation: TestSwordAnimation
+  meleeHitbox: {fileID: 5571119396463250055}
+--- !u!65 &5601838747961923100
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13285804, y: 0.31520098, z: 2.033946}
+  m_Center: {x: -0.000000059604645, y: -0.0020260513, z: 1.1166785}
+--- !u!114 &5571119396463250055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a25d93aef843d44b5dc46c35b2905f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
+  damage: 25
+  hitbox: {fileID: 5601838747961923100}
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  active: 0
+--- !u!54 &5164213649958587230
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5212205461220265240
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +558,8 @@ MonoBehaviour:
   mouseSensitivity: 0.1
   controllerSensitivity: 250
   weaponController: {fileID: 4686589327339721185}
+  attackDuration: 0.25
+  attackForwardDistance: 5.5
 --- !u!143 &7682038891152363936
 CharacterController:
   m_ObjectHideFlags: 0
@@ -771,6 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: 
   attackAnimation: 
+  meleeHitbox: {fileID: 0}
 --- !u!4 &605500351418423338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e16426531b5669241ad5eb9625252b93, type: 3}

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -388,13 +388,6 @@ public class PlayerController : MonoBehaviour
 
         attackTimer = attackDuration;
 
-        // Lock the attack direction when the swing starts.
-        //attackDirection = transform.forward;
-
-        // Make sure the direction is horizontal.
-        //attackDirection.y = 0f;
-        //attackDirection.Normalize();
-
         // Get the camera's forward direction.
         Vector3 cameraForward = cameraTransform.forward;
 
@@ -424,31 +417,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttackMovement()
     {
-        /*float previousProgress = 1f - (attackTimer / attackDuration);
-
-        attackTimer -= Time.deltaTime;
-
-        float currentProgress = 1f - (attackTimer / attackDuration);
-
-        // Clamp between 0 and 1.
-        currentProgress = Mathf.Clamp01(currentProgress);
-
-        // Smooth movement during the swing.
-        float previousDistance =
-            Mathf.SmoothStep(0f, attackForwardDistance, previousProgress);
-
-        float currentDistance =
-            Mathf.SmoothStep(0f, attackForwardDistance, currentProgress);
-
-        float distanceThisFrame = currentDistance - previousDistance;
-
-        controller.Move(attackDirection * distanceThisFrame);
-
-        if (attackTimer <= 0f)
-        {
-            currentState = PlayerState.Normal;
-        }*/
-
         float progress = 1f - (attackTimer / attackDuration);
         progress = Mathf.Clamp01(progress);
 
@@ -575,5 +543,11 @@ public class PlayerController : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    public void TakeDamage(DamageInfo damage)
+    {
+        // Handle taking damage here
+        Debug.Log($"Player took {damage.amount} damage from {damage.attacker.name} at {damage.hitPoint}");
     }
 }
