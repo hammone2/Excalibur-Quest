@@ -8,6 +8,7 @@ public class AIBrain : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private float detectionDistance = 20f;
     [SerializeField] private float attackDistance = 5f;
+    [SerializeField] private float rotationSpeed = 5f;
 
     private NavMeshAgent agent;
     private Transform target;
@@ -58,6 +59,17 @@ public class AIBrain : MonoBehaviour
 
             case EnemyState.Attack:
                 
+                Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
+
+                transform.rotation = Quaternion.Lerp(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                
+                );
+
+
+
                 break;
 
             case EnemyState.Stun:
@@ -76,8 +88,12 @@ public class AIBrain : MonoBehaviour
 
     private IEnumerator StartAttack()
     {
+        agent.isStopped = true;
+        agent.ResetPath();
         currentState = EnemyState.Attack;
+        Debug.Log("Enemy is attacking!");
         yield return new WaitForSeconds(1f);
-        currentState = EnemyState.Idle;
+        agent.isStopped = false;
+        currentState = EnemyState.Chase;
     }
 }

@@ -2468,7 +2468,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.92, y: 1.76, z: -8.98}
+  m_LocalPosition: {x: -3.47, y: 1.76, z: -10.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8981,7 +8981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0.8, y: -0.4, z: 0}
+  ShoulderOffset: {x: 0.8, y: -0.85, z: 1.61}
   VerticalArmLength: 1.2
   CameraSide: 1
   CameraDistance: 4
@@ -9046,7 +9046,7 @@ Transform:
   m_GameObject: {fileID: 810103921}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000000031478546, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.67, y: 1.83, z: -10.45}
+  m_LocalPosition: {x: -2.67, y: 1.38, z: -8.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11155,10 +11155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0.55, y: 0.33, z: 0}
+  ShoulderOffset: {x: 0, y: 0.33, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 2.53
+  CameraDistance: 4
   AvoidObstacles:
     Enabled: 1
     CollisionFilter:
@@ -11220,7 +11220,7 @@ Transform:
   m_GameObject: {fileID: 1172908171}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.92, y: 1.76, z: -8.98}
+  m_LocalPosition: {x: -3.47, y: 1.76, z: -10.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13206,7 +13206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   detectionDistance: 20
-  attackDistance: 5
+  attackDistance: 2
+  rotationSpeed: 5
 --- !u!136 &1286009757
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13434,7 +13435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf1121457470d6243981abd887c6c29f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.294
+      value: 1.201
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf1121457470d6243981abd887c6c29f, type: 3}
       propertyPath: m_LocalPosition.z
