@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2561183662538123077}
   - component: {fileID: 2913909922554658479}
+  - component: {fileID: 8308494745571149334}
   m_Layer: 0
   m_Name: PineTreeLeavesThin1
   m_TagString: Untagged
@@ -56,6 +57,39 @@ CapsuleCollider:
   m_Height: 10.822792
   m_Direction: 1
   m_Center: {x: -0.1, y: 4.484213, z: -0.19}
+--- !u!205 &8308494745571149334
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023189304029980723}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.22385597, y: 4.5762105, z: -0.44876623}
+  m_Size: 10.748736
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 9084674920718222063}
+    - renderer: {fileID: 1677526109305022762}
+    - renderer: {fileID: 5150196969614569296}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 9084674920718222063}
+    - renderer: {fileID: 1677526109305022762}
+    - renderer: {fileID: 5150196969614569296}
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 9084674920718222063}
+    - renderer: {fileID: 1677526109305022762}
+    - renderer: {fileID: 5150196969614569296}
+  m_Enabled: 1
 --- !u!1001 &7048958354354556647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,8 +151,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b377ddab3bf5e624386caa0a40aaa313, type: 3}
+--- !u!23 &1677526109305022762 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -678588488315902003, guid: b377ddab3bf5e624386caa0a40aaa313, type: 3}
+  m_PrefabInstance: {fileID: 7048958354354556647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5150196969614569296 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2786534777698132407, guid: b377ddab3bf5e624386caa0a40aaa313, type: 3}
+  m_PrefabInstance: {fileID: 7048958354354556647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7374740304046205196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b377ddab3bf5e624386caa0a40aaa313, type: 3}
+  m_PrefabInstance: {fileID: 7048958354354556647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9084674920718222063 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6935031107039785976, guid: b377ddab3bf5e624386caa0a40aaa313, type: 3}
   m_PrefabInstance: {fileID: 7048958354354556647}
   m_PrefabAsset: {fileID: 0}

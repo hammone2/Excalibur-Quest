@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7563560266542963006}
   - component: {fileID: 6513287696187136671}
+  - component: {fileID: 7728861476772841845}
   m_Layer: 0
   m_Name: PineTreeLeaves1
   m_TagString: Untagged
@@ -56,6 +57,36 @@ CapsuleCollider:
   m_Height: 10.792697
   m_Direction: 1
   m_Center: {x: 0.24000001, y: 4.5934415, z: -0.14999998}
+--- !u!205 &7728861476772841845
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710299777311695782}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.5978775, y: 4.622873, z: -0.10074854}
+  m_Size: 10.842061
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 4029722275341074205}
+    - renderer: {fileID: 5794410353449042505}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 4029722275341074205}
+    - renderer: {fileID: 5794410353449042505}
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 4029722275341074205}
+    - renderer: {fileID: 5794410353449042505}
+  m_Enabled: 1
 --- !u!1001 &6652966561002872076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,6 +144,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b62748f57f8d0d241992b83528fdd64c, type: 3}
+--- !u!23 &4029722275341074205 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1461304994638716399, guid: b62748f57f8d0d241992b83528fdd64c, type: 3}
+  m_PrefabInstance: {fileID: 6652966561002872076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5794410353449042505 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 882129737928793925, guid: b62748f57f8d0d241992b83528fdd64c, type: 3}
+  m_PrefabInstance: {fileID: 6652966561002872076}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6619918356572912359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b62748f57f8d0d241992b83528fdd64c, type: 3}
