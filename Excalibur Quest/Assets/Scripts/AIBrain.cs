@@ -3,15 +3,27 @@ using UnityEngine.AI;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class AIBrain : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private float detectionDistance = 20f;
-    [SerializeField] private float attackDistance = 5f;
+    [SerializeField] private float detectionRange = 20f;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private float stoppingDistance = 2f;
     [SerializeField] private float rotationSpeed = 5f;
 
+    [Header("Repositioning")]
+    [SerializeField] private float circleRadius = 19f;
+
     private NavMeshAgent agent;
+    private Animator animator;
     private Transform target;
+
+    private float attackTimer;
+    private bool hasAttackSlot;
+
+    private bool isRepositioning = false;
 
     private enum EnemyState
     {
@@ -19,8 +31,10 @@ public class AIBrain : MonoBehaviour
         Patrol,
         Search,
         Chase,
+        Reposition,
         Attack,
-        Stun,
+        Recover,
+        Stagger,
         Dead
     }
     private EnemyState currentState = EnemyState.Idle;
@@ -28,51 +42,74 @@ public class AIBrain : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = stoppingDistance;
+    }
+
+    private void Start()
+    {
+        target = PlayerController.Instance.transform;
     }
 
     private void Update()
     {
+        attackTimer -= Time.deltaTime;
+
+        float distance = Vector3.Distance(
+            transform.position,
+            target.position
+        );
+
         switch (currentState)
         {
             case EnemyState.Idle:
-                HandlePlayerDetection();
+                HandlePlayerDetection(distance);
                 break;
 
             case EnemyState.Patrol:
-                HandlePlayerDetection();
+                HandlePlayerDetection(distance);
                 break;
 
             case EnemyState.Search:
-                HandlePlayerDetection();
+                HandlePlayerDetection(distance);
                 break;
 
             case EnemyState.Chase:
-                target = PlayerController.Instance.transform;
+                UpdateChase(distance);
+                
+                /*target = PlayerController.Instance.transform;
                 agent.SetDestination(target.position);
 
-                if (Vector3.Distance(PlayerController.Instance.transform.position, transform.position) <= attackDistance)
+                if (distance <= attackRange)
                 {
                     StartCoroutine(StartAttack());
-                }
+                }*/
                     
                 break;
 
             case EnemyState.Attack:
-                
-                Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
+                UpdateAttack();
+                /*Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
 
                 transform.rotation = Quaternion.Lerp(
                     transform.rotation,
                     targetRotation,
                     rotationSpeed * Time.deltaTime
                 
-                );
+                );*/
 
 
 
                 break;
 
-            case EnemyState.Stun:
+            case EnemyState.Reposition:
+                UpdateReposition(distance);
+                break;
+
+            case EnemyState.Recover:
+                UpdateRecover();
+                break;
+
+            case EnemyState.Stagger:
                 break;
 
             case EnemyState.Dead:
@@ -80,11 +117,207 @@ public class AIBrain : MonoBehaviour
         }
     }
 
-    private void HandlePlayerDetection()
+    private void HandlePlayerDetection(float distance)
     {
-        if (Vector3.Distance(PlayerController.Instance.transform.position, transform.position) <= detectionDistance)
-            currentState = EnemyState.Chase;
+        if (distance <= detectionRange)
+            ChangeState(EnemyState.Chase);
     }
+
+
+    private void UpdateChase(float distance)
+    {
+        if (distance > attackRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.position);
+
+            SetMovingAnimation(true);
+            return;
+        }
+
+        SetMovingAnimation(false);
+
+        if (attackTimer <= 0)
+        {
+            TryAttack();
+        }
+        else
+        {
+            ChangeState(EnemyState.Reposition);
+        }
+    }
+
+
+    private void TryAttack()
+    {
+        if (EnemyCombatDirector.Instance == null)
+            return;
+
+        if (EnemyCombatDirector.Instance.RequestAttackSlot(this))
+        {
+            hasAttackSlot = true;
+            ChangeState(EnemyState.Attack);
+        }
+        else
+        {
+            ChangeState(EnemyState.Reposition);
+        }
+    }
+
+    private void UpdateReposition(float distance)
+    {
+        if (distance > detectionRange)
+        {
+            ChangeState(EnemyState.Chase);
+            return;
+        }
+
+        if (distance <= attackRange && attackTimer <= 0)
+        {
+            TryAttack();
+        }
+
+        if (isRepositioning) return;
+
+
+        StartCoroutine(Reposition());
+        
+    }
+
+    private IEnumerator Reposition()
+    {
+        isRepositioning = true;
+
+        EnemyCombatDirector.Instance?.RequestFlankSlot(this);
+
+        float distance = Random.Range(10f, circleRadius);
+        Vector2 direction = Random.insideUnitCircle.normalized;
+        Vector3 randomPoint = transform.position + new Vector3(direction.x * distance, 0f, direction.y * distance);
+
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(
+            randomPoint,
+            out hit,
+            12f,
+            NavMesh.AllAreas))
+        {
+            agent.isStopped = false;
+            agent.SetDestination(hit.position);
+        }
+
+        SetMovingAnimation(true);
+
+        yield return new WaitForSeconds(Random.Range(0.5f, 5f));
+
+        isRepositioning = false;
+    }
+
+    private void UpdateAttack()
+    {
+        agent.isStopped = true;
+
+        FacePlayer();
+
+        SetMovingAnimation(false);
+
+        //animator.SetTrigger("Attack");
+    }
+
+    private void UpdateRecover()
+    {
+        FacePlayer();
+
+        if (attackTimer <= 0)
+        {
+            ReleaseAttackSlot();
+            ChangeState(EnemyState.Chase);
+        }
+    }
+
+    // Called by an Animation Event
+    public void AttackFinished()
+    {
+        attackTimer = attackCooldown;
+
+        ChangeState(EnemyState.Recover);
+    }
+
+    public void ReleaseAttackSlot()
+    {
+        if (!hasAttackSlot)
+            return;
+
+        EnemyCombatDirector.Instance?.ReleaseAttackSlot(this);
+
+        hasAttackSlot = false;
+    }
+
+    public void TakeHit()
+    {
+        if (currentState == EnemyState.Dead)
+            return;
+
+        ReleaseAttackSlot();
+
+        agent.isStopped = true;
+
+        ChangeState(EnemyState.Stagger);
+
+        //animator.SetTrigger("Hit");
+    }
+
+    // Called by an Animation Event
+    public void StaggerFinished()
+    {
+        if (currentState == EnemyState.Dead)
+            return;
+
+        ChangeState(EnemyState.Chase);
+    }
+
+    public void Die()
+    {
+        if (currentState == EnemyState.Dead)
+            return;
+
+        ReleaseAttackSlot();
+
+        currentState = EnemyState.Dead;
+
+        agent.isStopped = true;
+
+        //animator.SetTrigger("Death");
+    }
+
+    private void FacePlayer()
+    {
+        if (target == null)
+            return;
+
+        Vector3 direction =
+            target.position - transform.position;
+
+        direction.y = 0;
+
+        if (direction.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+    }
+
+    private void SetMovingAnimation(bool moving)
+    {
+        if (animator != null)
+            animator.SetBool("Moving", moving);
+    }
+
 
     private IEnumerator StartAttack()
     {
@@ -95,5 +328,10 @@ public class AIBrain : MonoBehaviour
         yield return new WaitForSeconds(1f);
         agent.isStopped = false;
         currentState = EnemyState.Chase;
+    }
+
+    private void ChangeState(EnemyState newState)
+    {
+        currentState = newState;
     }
 }
