@@ -21,8 +21,6 @@ public class AIBrain : MonoBehaviour
     private Transform target;
 
     private float attackTimer;
-    private bool hasAttackSlot;
-
     private bool isRepositioning = false;
 
     private enum EnemyState
@@ -87,7 +85,6 @@ public class AIBrain : MonoBehaviour
                 break;
 
             case EnemyState.Attack:
-                UpdateAttack();
                 /*Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
 
                 transform.rotation = Quaternion.Lerp(
@@ -97,7 +94,7 @@ public class AIBrain : MonoBehaviour
                 
                 );*/
 
-
+                FacePlayer();
 
                 break;
 
@@ -139,28 +136,7 @@ public class AIBrain : MonoBehaviour
 
         if (attackTimer <= 0)
         {
-            TryAttack();
-        }
-        else
-        {
-            ChangeState(EnemyState.Reposition);
-        }
-    }
-
-
-    private void TryAttack()
-    {
-        if (EnemyCombatDirector.Instance == null)
-            return;
-
-        if (EnemyCombatDirector.Instance.RequestAttackSlot(this))
-        {
-            hasAttackSlot = true;
-            ChangeState(EnemyState.Attack);
-        }
-        else
-        {
-            ChangeState(EnemyState.Reposition);
+            StartCoroutine(StartAttack());
         }
     }
 
@@ -174,7 +150,7 @@ public class AIBrain : MonoBehaviour
 
         if (distance <= attackRange && attackTimer <= 0)
         {
-            TryAttack();
+            StartCoroutine(StartAttack());
         }
 
         if (isRepositioning) return;
@@ -187,8 +163,6 @@ public class AIBrain : MonoBehaviour
     private IEnumerator Reposition()
     {
         isRepositioning = true;
-
-        EnemyCombatDirector.Instance?.RequestFlankSlot(this);
 
         float distance = Random.Range(10f, circleRadius);
         Vector2 direction = Random.insideUnitCircle.normalized;
@@ -213,24 +187,12 @@ public class AIBrain : MonoBehaviour
         isRepositioning = false;
     }
 
-    private void UpdateAttack()
-    {
-        agent.isStopped = true;
-
-        FacePlayer();
-
-        SetMovingAnimation(false);
-
-        //animator.SetTrigger("Attack");
-    }
-
     private void UpdateRecover()
     {
         FacePlayer();
 
         if (attackTimer <= 0)
         {
-            ReleaseAttackSlot();
             ChangeState(EnemyState.Chase);
         }
     }
@@ -243,22 +205,10 @@ public class AIBrain : MonoBehaviour
         ChangeState(EnemyState.Recover);
     }
 
-    public void ReleaseAttackSlot()
-    {
-        if (!hasAttackSlot)
-            return;
-
-        EnemyCombatDirector.Instance?.ReleaseAttackSlot(this);
-
-        hasAttackSlot = false;
-    }
-
     public void TakeHit()
     {
         if (currentState == EnemyState.Dead)
             return;
-
-        ReleaseAttackSlot();
 
         agent.isStopped = true;
 
@@ -280,8 +230,6 @@ public class AIBrain : MonoBehaviour
     {
         if (currentState == EnemyState.Dead)
             return;
-
-        ReleaseAttackSlot();
 
         currentState = EnemyState.Dead;
 
@@ -321,6 +269,7 @@ public class AIBrain : MonoBehaviour
 
     private IEnumerator StartAttack()
     {
+        //animator.SetTrigger("Attack");
         agent.isStopped = true;
         agent.ResetPath();
         currentState = EnemyState.Attack;
