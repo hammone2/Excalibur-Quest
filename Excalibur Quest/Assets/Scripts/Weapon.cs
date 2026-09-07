@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = PlayerController.Instance.animator;
     }
 
     public void PlayAttackAnimation()

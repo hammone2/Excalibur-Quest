@@ -16,8 +16,11 @@ public class AIBrain : MonoBehaviour
     [Header("Repositioning")]
     [SerializeField] private float circleRadius = 19f;
 
+
+    [Header("References")]
+    [SerializeField] private Animator animator;
+
     private NavMeshAgent agent;
-    private Animator animator;
     private Transform target;
 
     private float attackTimer;
@@ -263,13 +266,13 @@ public class AIBrain : MonoBehaviour
     private void SetMovingAnimation(bool moving)
     {
         if (animator != null)
-            animator.SetBool("Moving", moving);
+            animator.SetBool("IsWalking", moving);
     }
 
 
     private IEnumerator StartAttack()
     {
-        //animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
         agent.isStopped = true;
         agent.ResetPath();
         currentState = EnemyState.Attack;
