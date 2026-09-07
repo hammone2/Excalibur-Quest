@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private WeaponController weaponController;
     [SerializeField] private float attackDuration = 0.35f;
     [SerializeField] private float attackForwardDistance = 1.0f;
+    public Animator animator;
     private float attackTimer;
     private Vector3 attackDirection;
     private Vector3 attackStartPosition;
@@ -257,6 +258,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
 
+        //Animate walk cycle
+        if (controller.isGrounded)
+            animator.SetBool("IsWalking", input.sqrMagnitude > threshold);
+        else
+            animator.SetBool("IsWalking", false);
+
         if (isFreelookEnabled) //!aiming
         {
             Vector3 inputDirection = new Vector3(
@@ -266,6 +273,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             );
 
             inputDirection = Vector3.ClampMagnitude(inputDirection, 1f);
+
 
             if (cameraTransform == null)
                 return;
@@ -348,6 +356,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Jump()
     {
+        animator.Play("Jump", 0, 0f);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
