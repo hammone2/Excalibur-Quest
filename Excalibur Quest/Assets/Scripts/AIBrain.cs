@@ -239,6 +239,8 @@ public class AIBrain : MonoBehaviour
         agent.isStopped = true;
 
         //animator.SetTrigger("Death");
+
+        Destroy(gameObject); //temporary
     }
 
     private void FacePlayer()
@@ -276,7 +278,6 @@ public class AIBrain : MonoBehaviour
         agent.isStopped = true;
         agent.ResetPath();
         currentState = EnemyState.Attack;
-        Debug.Log("Enemy is attacking!");
         yield return new WaitForSeconds(1f);
         agent.isStopped = false;
         currentState = EnemyState.Chase;
