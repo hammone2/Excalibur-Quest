@@ -3,7 +3,6 @@ using UnityEngine.AI;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Animator))]
 public class AIBrain : MonoBehaviour
 {
     [Header("Stats")]
@@ -238,9 +237,12 @@ public class AIBrain : MonoBehaviour
 
         agent.isStopped = true;
 
-        //animator.SetTrigger("Death");
+        GetComponent<Collider>().enabled = false;
 
-        Destroy(gameObject); //temporary
+        animator.StopPlayback();
+        animator.enabled = false;
+
+        //animator.SetTrigger("Death");
     }
 
     private void FacePlayer()
@@ -274,13 +276,21 @@ public class AIBrain : MonoBehaviour
 
     private IEnumerator StartAttack()
     {
-        animator.SetTrigger("Attack");
-        agent.isStopped = true;
-        agent.ResetPath();
-        currentState = EnemyState.Attack;
+        if (currentState != EnemyState.Dead) //doing this so the enemy wont become a zombie after dying
+        {
+            animator.SetTrigger("Attack");
+            agent.isStopped = true;
+            agent.ResetPath();
+            currentState = EnemyState.Attack;
+        }
+        
         yield return new WaitForSeconds(1f);
-        agent.isStopped = false;
-        currentState = EnemyState.Chase;
+
+        if (currentState != EnemyState.Dead)
+        {
+            agent.isStopped = false;
+            currentState = EnemyState.Chase;
+        }
     }
 
     private void ChangeState(EnemyState newState)
