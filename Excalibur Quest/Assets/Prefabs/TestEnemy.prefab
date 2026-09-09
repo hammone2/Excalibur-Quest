@@ -182,7 +182,19 @@ MonoBehaviour:
   healthPoints: 50
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1006082511439364562}
+        m_TargetAssemblyTypeName: AIBrain, Assembly-CSharp
+        m_MethodName: TakeHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -1484,6 +1496,36 @@ MonoBehaviour:
   - {fileID: 4777722288452471478}
   - {fileID: 6752207833164384984}
   - {fileID: 5703866839211968810}
+  OnStaggerFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1006082511439364562}
+        m_TargetAssemblyTypeName: AIBrain, Assembly-CSharp
+        m_MethodName: StaggerFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAttackFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1006082511439364562}
+        m_TargetAssemblyTypeName: AIBrain, Assembly-CSharp
+        m_MethodName: AttackFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7933219784927125419 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1106905167135058885, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}

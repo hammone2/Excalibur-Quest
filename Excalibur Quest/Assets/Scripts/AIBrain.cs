@@ -216,7 +216,7 @@ public class AIBrain : MonoBehaviour
 
         ChangeState(EnemyState.Stagger);
 
-        //animator.SetTrigger("Hit");
+        animator.SetTrigger("Hit");
     }
 
     // Called by an Animation Event
@@ -241,8 +241,6 @@ public class AIBrain : MonoBehaviour
 
         animator.StopPlayback();
         animator.enabled = false;
-
-        //animator.SetTrigger("Death");
     }
 
     private void FacePlayer()

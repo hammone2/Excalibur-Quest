@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerRigAnimEventController : MonoBehaviour
 {
     [SerializeField] private WeaponController weaponController;
     [SerializeField] private Transform[] ragDollBones;
+
+    public UnityEvent OnStaggerFinished;
+    public UnityEvent OnAttackFinished;
 
     private void Awake()
     {
@@ -12,8 +16,15 @@ public class PlayerRigAnimEventController : MonoBehaviour
 
     public void OnAttackAnimationFinished()
     {
-        if (weaponController)
-            weaponController.currentWeapon.OnAnimationFinished();
+        OnAttackFinished?.Invoke();
+
+        //if (weaponController)
+            //weaponController.currentWeapon.OnAnimationFinished();
+    }
+
+    public void OnStaggerAnimationFinished()
+    {
+        OnStaggerFinished?.Invoke();
     }
 
     public void SetRagdoll(bool enabled)
