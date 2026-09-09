@@ -75,27 +75,10 @@ public class AIBrain : MonoBehaviour
 
             case EnemyState.Chase:
                 UpdateChase(distance);
-                
-                /*target = PlayerController.Instance.transform;
-                agent.SetDestination(target.position);
-
-                if (distance <= attackRange)
-                {
-                    StartCoroutine(StartAttack());
-                }*/
                     
                 break;
 
             case EnemyState.Attack:
-                /*Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
-
-                transform.rotation = Quaternion.Lerp(
-                    transform.rotation,
-                    targetRotation,
-                    rotationSpeed * Time.deltaTime
-                
-                );*/
-
                 FacePlayer();
 
                 break;
@@ -138,10 +121,11 @@ public class AIBrain : MonoBehaviour
 
         if (attackTimer <= 0)
         {
-            StartCoroutine(StartAttack());
+            StartAttack();
         }
     }
 
+    #region Reposition logic
     private void UpdateReposition(float distance)
     {
         if (distance > detectionRange)
@@ -152,7 +136,7 @@ public class AIBrain : MonoBehaviour
 
         if (distance <= attackRange && attackTimer <= 0)
         {
-            StartCoroutine(StartAttack());
+            StartAttack();
         }
 
         if (isRepositioning) return;
@@ -188,6 +172,7 @@ public class AIBrain : MonoBehaviour
 
         isRepositioning = false;
     }
+    #endregion
 
     private void UpdateRecover()
     {
@@ -203,7 +188,7 @@ public class AIBrain : MonoBehaviour
     public void AttackFinished()
     {
         attackTimer = attackCooldown;
-
+        agent.isStopped = false;
         ChangeState(EnemyState.Recover);
     }
 
@@ -248,8 +233,7 @@ public class AIBrain : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 direction =
-            target.position - transform.position;
+        Vector3 direction = target.position - transform.position;
 
         direction.y = 0;
 
@@ -272,7 +256,7 @@ public class AIBrain : MonoBehaviour
     }
 
 
-    private IEnumerator StartAttack()
+    private void StartAttack()
     {
         if (currentState != EnemyState.Dead) //doing this so the enemy wont become a zombie after dying
         {
@@ -280,14 +264,6 @@ public class AIBrain : MonoBehaviour
             agent.isStopped = true;
             agent.ResetPath();
             currentState = EnemyState.Attack;
-        }
-        
-        yield return new WaitForSeconds(1f);
-
-        if (currentState != EnemyState.Dead)
-        {
-            agent.isStopped = false;
-            currentState = EnemyState.Chase;
         }
     }
 

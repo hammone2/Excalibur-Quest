@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   detectionRange: 20
   attackRange: 2
-  attackCooldown: 1.5
+  attackCooldown: 0.75
   stoppingDistance: 2
   rotationSpeed: 5
   circleRadius: 19

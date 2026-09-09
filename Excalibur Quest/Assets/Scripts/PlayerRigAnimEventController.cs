@@ -17,9 +17,6 @@ public class PlayerRigAnimEventController : MonoBehaviour
     public void OnAttackAnimationFinished()
     {
         OnAttackFinished?.Invoke();
-
-        //if (weaponController)
-            //weaponController.currentWeapon.OnAnimationFinished();
     }
 
     public void OnStaggerAnimationFinished()
