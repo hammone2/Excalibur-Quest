@@ -838,6 +838,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -268795200643149159, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
   m_PrefabInstance: {fileID: 7008992169802314862}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2098841858120630338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -259972160606440404, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2388189118338027748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4584527635275422582, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
@@ -901,6 +906,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &3096284997866447055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5457456693879035041, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4245514480960309797 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2616615763936199093, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
@@ -1108,6 +1118,11 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &4840757839988152696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6743820871009178346, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5177472367178763054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2782910734350745408, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
@@ -1325,6 +1340,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -5691248987585618756, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
   m_PrefabInstance: {fileID: 7008992169802314862}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5828003390988969812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3577488727106442042, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5870617083560376908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5747597955888902622, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
@@ -1338,6 +1358,11 @@ Transform:
 --- !u!4 &6752207833164384984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4832265636101996874, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6762552640408155609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4855556656997088841, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
   m_PrefabInstance: {fileID: 7008992169802314862}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6919790320888190402 stripped
@@ -1439,6 +1464,11 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &7004294004138309392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 31720322344436606, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7407937890681017221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
@@ -1483,7 +1513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1cdfece2abad4e8007c4167f9c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRigAnimEventController
-  weaponController: {fileID: 0}
   ragDollBones:
   - {fileID: 922209677398948750}
   - {fileID: 6099900484941615482}
@@ -1496,6 +1525,40 @@ MonoBehaviour:
   - {fileID: 4777722288452471478}
   - {fileID: 6752207833164384984}
   - {fileID: 5703866839211968810}
+  bodyparts:
+  - bodypartJointTransform: {fileID: 5703866839211968810}
+    bodypartMesh: {fileID: 0}
+    dismemberable: 0
+  - bodypartJointTransform: {fileID: 922209677398948750}
+    bodypartMesh: {fileID: 0}
+    dismemberable: 0
+  - bodypartJointTransform: {fileID: 6099900484941615482}
+    bodypartMesh: {fileID: 4840757839988152696}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 2090229939434055415}
+    bodypartMesh: {fileID: 5828003390988969812}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 1514767176230416269}
+    bodypartMesh: {fileID: 7004294004138309392}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 2950910403390600810}
+    bodypartMesh: {fileID: 8685560821879324624}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 5870617083560376908}
+    bodypartMesh: {fileID: 8897578156014850607}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 2388189118338027748}
+    bodypartMesh: {fileID: 3096284997866447055}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 5782742924800813266}
+    bodypartMesh: {fileID: 8602447042225470243}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 4777722288452471478}
+    bodypartMesh: {fileID: 6762552640408155609}
+    dismemberable: 1
+  - bodypartJointTransform: {fileID: 6752207833164384984}
+    bodypartMesh: {fileID: 2098841858120630338}
+    dismemberable: 1
   OnStaggerFinished:
     m_PersistentCalls:
       m_Calls:
@@ -1728,3 +1791,18 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &8602447042225470243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7627134867436023987, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8685560821879324624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1859351896740137918, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8897578156014850607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1891086398061405761, guid: 7c409c5f03843f0439cdf37ae777f8de, type: 3}
+  m_PrefabInstance: {fileID: 7008992169802314862}
+  m_PrefabAsset: {fileID: 0}

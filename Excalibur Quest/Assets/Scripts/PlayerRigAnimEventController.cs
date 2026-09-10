@@ -3,8 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerRigAnimEventController : MonoBehaviour
 {
-    [SerializeField] private WeaponController weaponController;
-    [SerializeField] private Transform[] ragDollBones;
+    [SerializeField] private BodypartData[] bodyparts;
 
     public UnityEvent OnStaggerFinished;
     public UnityEvent OnAttackFinished;
@@ -26,8 +25,9 @@ public class PlayerRigAnimEventController : MonoBehaviour
 
     public void SetRagdoll(bool enabled)
     {
-        foreach(Transform bone in ragDollBones)
+        foreach(BodypartData data in bodyparts)
         {
+            Transform bone = data.bodypartJointTransform;
             Rigidbody rb = bone.GetComponent<Rigidbody>();
             if (rb)
             {
