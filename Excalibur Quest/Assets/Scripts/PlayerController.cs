@@ -451,6 +451,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void EndAttack()
     {
         currentState = PlayerState.Normal;
+        weaponController.currentWeapon.OnAnimationFinished();
     }
 
     #endregion

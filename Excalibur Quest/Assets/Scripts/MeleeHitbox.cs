@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class MeleeHitbox : MonoBehaviour
 {
-    [SerializeField] private float damage = 25f;
+    [SerializeField] private int damage = 25;
     [SerializeField] private BoxCollider hitbox;
     [SerializeField] private LayerMask damageableLayers;
 
-    [HideInInspector] public bool active = false;
+    [HideInInspector] public bool active;
     private GameObject attacker;
 
     private readonly HashSet<IDamageable> hitTargets = new();
+
+    private void Awake()
+    {
+        active = false;
+    }
 
     public void BeginAttack(GameObject attacker)
     {

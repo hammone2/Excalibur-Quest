@@ -20,7 +20,6 @@ public class Weapon : MonoBehaviour
 
     public void OnAnimationFinished()
     {
-        PlayerController.Instance.EndAttack();
         meleeHitbox.EndAttack();
     }
 

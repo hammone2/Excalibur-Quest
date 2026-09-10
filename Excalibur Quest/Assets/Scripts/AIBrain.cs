@@ -3,7 +3,6 @@ using UnityEngine.AI;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Animator))]
 public class AIBrain : MonoBehaviour
 {
     [Header("Stats")]
@@ -76,27 +75,10 @@ public class AIBrain : MonoBehaviour
 
             case EnemyState.Chase:
                 UpdateChase(distance);
-                
-                /*target = PlayerController.Instance.transform;
-                agent.SetDestination(target.position);
-
-                if (distance <= attackRange)
-                {
-                    StartCoroutine(StartAttack());
-                }*/
                     
                 break;
 
             case EnemyState.Attack:
-                /*Quaternion targetRotation = Quaternion.LookRotation(PlayerController.Instance.transform.position - transform.position);
-
-                transform.rotation = Quaternion.Lerp(
-                    transform.rotation,
-                    targetRotation,
-                    rotationSpeed * Time.deltaTime
-                
-                );*/
-
                 FacePlayer();
 
                 break;
@@ -139,10 +121,11 @@ public class AIBrain : MonoBehaviour
 
         if (attackTimer <= 0)
         {
-            StartCoroutine(StartAttack());
+            StartAttack();
         }
     }
 
+    #region Reposition logic
     private void UpdateReposition(float distance)
     {
         if (distance > detectionRange)
@@ -153,7 +136,7 @@ public class AIBrain : MonoBehaviour
 
         if (distance <= attackRange && attackTimer <= 0)
         {
-            StartCoroutine(StartAttack());
+            StartAttack();
         }
 
         if (isRepositioning) return;
@@ -189,6 +172,7 @@ public class AIBrain : MonoBehaviour
 
         isRepositioning = false;
     }
+    #endregion
 
     private void UpdateRecover()
     {
@@ -204,7 +188,7 @@ public class AIBrain : MonoBehaviour
     public void AttackFinished()
     {
         attackTimer = attackCooldown;
-
+        agent.isStopped = false;
         ChangeState(EnemyState.Recover);
     }
 
@@ -217,7 +201,7 @@ public class AIBrain : MonoBehaviour
 
         ChangeState(EnemyState.Stagger);
 
-        //animator.SetTrigger("Hit");
+        animator.SetTrigger("Hit");
     }
 
     // Called by an Animation Event
@@ -238,7 +222,10 @@ public class AIBrain : MonoBehaviour
 
         agent.isStopped = true;
 
-        //animator.SetTrigger("Death");
+        GetComponent<Collider>().enabled = false;
+
+        animator.StopPlayback();
+        animator.enabled = false;
     }
 
     private void FacePlayer()
@@ -246,8 +233,7 @@ public class AIBrain : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 direction =
-            target.position - transform.position;
+        Vector3 direction = target.position - transform.position;
 
         direction.y = 0;
 
@@ -270,16 +256,15 @@ public class AIBrain : MonoBehaviour
     }
 
 
-    private IEnumerator StartAttack()
+    private void StartAttack()
     {
-        animator.SetTrigger("Attack");
-        agent.isStopped = true;
-        agent.ResetPath();
-        currentState = EnemyState.Attack;
-        Debug.Log("Enemy is attacking!");
-        yield return new WaitForSeconds(1f);
-        agent.isStopped = false;
-        currentState = EnemyState.Chase;
+        if (currentState != EnemyState.Dead) //doing this so the enemy wont become a zombie after dying
+        {
+            animator.SetTrigger("Attack");
+            agent.isStopped = true;
+            agent.ResetPath();
+            currentState = EnemyState.Attack;
+        }
     }
 
     private void ChangeState(EnemyState newState)
