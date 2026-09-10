@@ -89,6 +89,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _Brightness: 1
     - _BumpScale: 1
+    - _Clarity: 0.5
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
