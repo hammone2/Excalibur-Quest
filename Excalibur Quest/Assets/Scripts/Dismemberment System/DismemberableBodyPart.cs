@@ -16,18 +16,17 @@ public class DismemberableBodyPart : MonoBehaviour
 
         if (isDismembered) return;
 
-        isDismembered = true;
-        
+        isDismembered = true; 
         data.bodypartMesh.SetActive(false);
 
         GameObject dismemberedPart = Instantiate(data.dismemberedPartPrefab);
         dismemberedPart.transform.position = transform.position;
         dismemberedPart.transform.rotation = transform.rotation;
+        dismemberedPart.GetComponent<DismemberedPart>().StartLifeTimer();
 
         //these need to be destroyed/deactivated in this exact order
         Destroy(GetComponent<CharacterJoint>());
         Destroy(GetComponent<Rigidbody>());
-        Destroy(GetComponent<Collider>());
-        
+        Destroy(GetComponent<Collider>());  
     }
 }

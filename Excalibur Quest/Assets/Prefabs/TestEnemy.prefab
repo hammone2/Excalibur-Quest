@@ -43,12 +43,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1434179940799939915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  weaponName: Sword
-  attackAnimation: SwordAttack
-  meleeHitbox: {fileID: 5106252095845008729}
+  damage: 25
+  hitbox: {fileID: 0}
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  active: 0
 --- !u!114 &5106252095845008729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,15 +61,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1434179940799939915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a25d93aef843d44b5dc46c35b2905f, type: 3}
+  m_Script: {fileID: 11500000, guid: 490e69cb4f308004db3fa0ea5c107cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
-  damage: 25
-  hitbox: {fileID: 0}
-  damageableLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  active: 0
+  weaponName: 
+  attackAnimation: SwordAttack
+  meleeHitbox: {fileID: 3375178688237741806}
 --- !u!1 &4181463034543194881
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,10 +176,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4181463034543194881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c8c7dd844473374abe8c20dfb5eb72a, type: 3}
+  m_Script: {fileID: 11500000, guid: 179bd55aa77ffa04e8f7f922b28f6cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
-  healthPoints: 50
+  healthPoints: 3
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:
