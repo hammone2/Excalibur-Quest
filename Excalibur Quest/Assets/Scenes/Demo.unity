@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.45
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: fe11275162319e346baebad65a72d656, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5150311059170904eba0bf252692edf1, type: 2}
   m_HaloStrength: 0.694
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 400553614}
   - component: {fileID: 400553613}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: InfiniteOcean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
