@@ -24,6 +24,54 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BlackTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DefaultWhiteTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalBlank:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TerrainHolesTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,15 +86,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _HorizonBlend: 1
-    - _NadirBlend: 0
+    - _CloudScale: 5
+    - _CloudSpeed: 10
+    - _EnableInstancedPerPixelNormal: 1
+    - _HorizonBlend: 3
+    - _Metallic0: 0
+    - _Metallic1: 0
+    - _Metallic2: 0
+    - _Metallic3: 0
+    - _MoonSize: -1.38
+    - _NadirBlend: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Smoothness0: 1
+    - _Smoothness1: 1
+    - _Smoothness2: 1
+    - _Smoothness3: 1
+    - _SunSharpness: -0.16
+    - _SunSize: -0.5
     - _ZenithBlend: 1.1
     m_Colors:
-    - _GroundColor: {r: 0.9056604, g: 0.8160015, b: 0.6635813, a: 1}
+    - White: {r: 1, g: 1, b: 1, a: 1}
+    - _GroundColor: {r: 1, g: 1, b: 1, a: 0.9607843}
     - _HorizonColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SkyColor: {r: 0.40439454, g: 0.6445378, b: 0.7987421, a: 1}
+    - _MoonColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+    - _SkyColor: {r: 0.47306263, g: 0.63828164, b: 0.7484276, a: 1}
+    - _SunColor: {r: 1, g: 0.716416, b: 0.5686275, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &77377443873873423
