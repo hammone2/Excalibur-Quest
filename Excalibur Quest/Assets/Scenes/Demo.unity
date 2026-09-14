@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.45
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: fe11275162319e346baebad65a72d656, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5150311059170904eba0bf252692edf1, type: 2}
   m_HaloStrength: 0.694
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 400553614}
   - component: {fileID: 400553613}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: InfiniteOcean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,13 +450,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841037300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08850303, y: -0.25773036, z: 0.023714283, w: 0.96186274}
+  m_LocalRotation: {x: 0.26047987, y: -0.24923061, z: 0.069795355, w: 0.9301414}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 10.514, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 31.289, y: -30, z: 0}
 --- !u!114 &841037303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,10 +810,10 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 3
   m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
+  m_StopNaN: 1
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1
@@ -828,7 +828,7 @@ MonoBehaviour:
     m_JitterScale: 1
     m_MipBias: 0
     m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
+    m_ContrastAdaptiveSharpening: 0.565
   m_Version: 2
 --- !u!81 &1384272165
 AudioListener:
