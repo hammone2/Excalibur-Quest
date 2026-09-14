@@ -958,7 +958,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6466233933442816207}
-  - component: {fileID: 2624514560606332127}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -982,21 +981,6 @@ Transform:
   - {fileID: 4262926680961629040}
   m_Father: {fileID: 7146140870622633358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2624514560606332127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2457842268112296933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  weaponName: 
-  attackAnimation: 
-  meleeHitbox: {fileID: 0}
 --- !u!1 &2793867155573926395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,8 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1cdfece2abad4e8007c4167f9c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  weaponController: {fileID: 4686589327339721185}
-  ragDollBones: []
+  bodyparts: []
   OnStaggerFinished:
     m_PersistentCalls:
       m_Calls: []
@@ -2169,9 +2152,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5928591217807205917}
-  - component: {fileID: 3074245769188417051}
-  - component: {fileID: 5601838747961923100}
+  - component: {fileID: 4873425136508890641}
   - component: {fileID: 5571119396463250055}
+  - component: {fileID: 5601838747961923100}
   - component: {fileID: 5164213649958587230}
   m_Layer: 0
   m_Name: Sword
@@ -2196,7 +2179,7 @@ Transform:
   - {fileID: 6074724465292609326}
   m_Father: {fileID: 7146140870622633358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3074245769188417051
+--- !u!114 &4873425136508890641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2205,12 +2188,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 5011376515657490214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 490e69cb4f308004db3fa0ea5c107cb8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Sword
   attackAnimation: SwordAttack
   meleeHitbox: {fileID: 5571119396463250055}
+--- !u!114 &5571119396463250055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011376515657490214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
+  damage: 25
+  hitbox: {fileID: 5601838747961923100}
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  active: 0
 --- !u!65 &5601838747961923100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2232,24 +2233,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.005, y: 0.0074, z: 0.053750616}
   m_Center: {x: -0.00000003121245, y: -0.000000098578084, z: 0.030562885}
---- !u!114 &5571119396463250055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5011376515657490214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a25d93aef843d44b5dc46c35b2905f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
-  damage: 25
-  hitbox: {fileID: 5601838747961923100}
-  damageableLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  active: 0
 --- !u!54 &5164213649958587230
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3135,15 +3118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7675527840365985327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb7b5c6902c52749a862603b1aeaeb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 30856830582b5b44f9a378d89b5d7138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   slots:
   - {fileID: 5928591217807205917}
-  - {fileID: 6466233933442816207}
-  - {fileID: 605500351418423338}
   currentWeaponIndex: 0
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 4873425136508890641}
 --- !u!1 &7816826828378385527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3628,31 +3609,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e16426531b5669241ad5eb9625252b93, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2907752545129682799}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e16426531b5669241ad5eb9625252b93, type: 3}
---- !u!1 &228834689687421584 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e16426531b5669241ad5eb9625252b93, type: 3}
-  m_PrefabInstance: {fileID: 1147734154559242177}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2907752545129682799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 228834689687421584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b6c69d02d0e8b48b4a0084752a0bbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  weaponName: 
-  attackAnimation: 
-  meleeHitbox: {fileID: 0}
 --- !u!4 &605500351418423338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e16426531b5669241ad5eb9625252b93, type: 3}
