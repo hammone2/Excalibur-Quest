@@ -111,7 +111,7 @@ Material:
     - _HorizonColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoonColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
     - _SkyColor: {r: 0.47306263, g: 0.63828164, b: 0.7484276, a: 1}
-    - _SunColor: {r: 1, g: 0.716416, b: 0.5686275, a: 1}
+    - _SunColor: {r: 1, g: 0.8614726, b: 0.5686275, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &77377443873873423
