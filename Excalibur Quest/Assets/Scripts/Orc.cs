@@ -7,10 +7,22 @@ public class Orc : MonoBehaviour
     [SerializeField] private float detectionRange = 20f;
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private float attackTime = 3f;
     [SerializeField] private float stoppingDistance = 2f;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float chargeSpeed = 20f;
     [SerializeField] private float acceleration = 5f;
+    [SerializeField] private LayerMask wallLayerMask;
+
+    
+
+    [Header("Ground")]
+    [SerializeField] private float groundedForce = -2f;
+    [SerializeField] private float gravity = -25f;
+
+    [Header("Box Check Settings")]
+    [SerializeField] private Vector3 boxHalfExtents = new Vector3(0.5f, 1f, 0.5f);
+    [SerializeField] private Vector3 boxOffset = new Vector3(0f, 1.7f, 0.75f);
 
     [Header("References")]
     [SerializeField] private Animator animator;
@@ -20,6 +32,8 @@ public class Orc : MonoBehaviour
     private CharacterController characterController;
     private Transform target;
     private bool touchingWall;
+    private float currentAttackTime;
+    private Vector3 velocity;
 
     enum OrcState
     {
@@ -76,11 +90,24 @@ public class Orc : MonoBehaviour
                 );
 
                 characterController.Move(direction * chargeSpeed * Time.deltaTime);
+                HandleGravity();
 
-                if (touchingWall)
+                // Box check from eye level forward to detect wall or player
+                Vector3 boxCenter = transform.position + transform.rotation * boxOffset;
+                touchingWall = Physics.CheckBox(
+                    boxCenter,
+                    boxHalfExtents,
+                    transform.rotation,
+                    wallLayerMask
+                );
+
+                // Countdown attack time
+                currentAttackTime -= Time.deltaTime;
+                if (touchingWall || currentAttackTime <= 0f)
                 {
                     StartRecover();
                 }
+
                 break;
 
             case OrcState.Recover:
@@ -133,6 +160,7 @@ public class Orc : MonoBehaviour
             agent.isStopped = true;
             agent.enabled = false;
             characterController.enabled = true;
+            currentAttackTime = attackTime;
             currentState = OrcState.Attack;
         }
     }
@@ -153,14 +181,39 @@ public class Orc : MonoBehaviour
         currentState = OrcState.Idle;
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    private void HandleGravity()
     {
-        if (currentState != OrcState.Attack) return;
-
-        // Ignore floors and ceilings
-        if (hit.normal.y < 0.7f)
+        if (characterController.isGrounded && velocity.y < 0f)
         {
-            touchingWall = true;
+            velocity.y = groundedForce;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+
+        characterController.Move(
+            velocity * Time.deltaTime
+        );
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw the box used for wall detection
+        Gizmos.color = Color.red;
+        if (Application.isPlaying)
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(boxOffset, boxHalfExtents * 2f);
+        }
+        else
+        {
+            // Preview in editor using current transform
+            Matrix4x4 matrix = Matrix4x4.TRS(
+                transform.position,
+                transform.rotation,
+                Vector3.one
+            );
+            Gizmos.matrix = matrix;
+            Gizmos.DrawWireCube(boxOffset, boxHalfExtents * 2f);
         }
     }
 }
