@@ -2724,6 +2724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5207059752570970417}
   - component: {fileID: 6090538790240449203}
+  - component: {fileID: 8908429560392057914}
   - component: {fileID: 7682038891152363936}
   - component: {fileID: 564815420317668275}
   m_Layer: 7
@@ -2788,6 +2789,25 @@ MonoBehaviour:
   attackDuration: 0.25
   attackForwardDistance: 5.5
   animator: {fileID: 6902295585187557896}
+--- !u!114 &8908429560392057914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476506061648580119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179bd55aa77ffa04e8f7f922b28f6cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
+  healthPoints: 1000
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!143 &7682038891152363936
 CharacterController:
   m_ObjectHideFlags: 0

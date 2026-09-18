@@ -25,4 +25,10 @@ public class HealthComponent : MonoBehaviour, IDamageable
 
         OnTakeDamage?.Invoke();
     }
+
+    public void Heal(int amount)
+    {
+        healthPoints += amount;
+        Debug.Log($"{name} healed {amount} points. Current health: {healthPoints}");
+    }
 }
