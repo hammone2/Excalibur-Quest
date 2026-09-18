@@ -9,7 +9,13 @@ public class WeaponController : MonoBehaviour
 
     private void Awake()
     {
-        SwitchWeapon(0);
+        //SwitchWeapon(0);
+    }
+
+    public void EquipWeapon(int index)
+    {
+        slots[index].GetComponent<Weapon>().isEquipped = true;
+        SwitchWeapon(index);
     }
 
     public void SwitchWeapon(int index)
@@ -19,8 +25,13 @@ public class WeaponController : MonoBehaviour
         {
             if (slots[i] == slots[currentWeaponIndex])
             {
-                slots[i].gameObject.SetActive(true);
-                currentWeapon = slots[i].GetComponent<Weapon>();
+                Weapon weapon = slots[i].GetComponent<Weapon>();
+
+                if (!weapon.isEquipped)
+                    continue;
+
+                weapon.gameObject.SetActive(true);
+                currentWeapon = weapon;
                 continue;
             }
 

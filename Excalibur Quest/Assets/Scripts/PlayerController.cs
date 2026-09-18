@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private float controllerSensitivity = 100f;
 
     [Header("Weapon System")]
-    [SerializeField] private WeaponController weaponController;
+    public WeaponController weaponController;
     [SerializeField] private float attackDuration = 0.35f;
     [SerializeField] private float attackForwardDistance = 1.0f;
     public Animator animator;

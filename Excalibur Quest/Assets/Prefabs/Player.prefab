@@ -2072,7 +2072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5928591217807205917
 Transform:
   m_ObjectHideFlags: 0
@@ -2962,7 +2962,7 @@ MonoBehaviour:
   slots:
   - {fileID: 5928591217807205917}
   currentWeaponIndex: 0
-  currentWeapon: {fileID: 4873425136508890641}
+  currentWeapon: {fileID: 0}
 --- !u!1 &7816826828378385527
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     public string attackAnimation;
     private Animator animator;
     [SerializeField] private MeleeHitbox meleeHitbox;
+    public bool isEquipped = false;
 
     private void Start()
     {
