@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     public string attackAnimation;
     private Animator animator;
     [SerializeField] private MeleeHitbox meleeHitbox;
+    [SerializeField] private GameObject owner;
     public bool isEquipped = false;
 
     private void Start()
@@ -16,7 +17,7 @@ public class Weapon : MonoBehaviour
     public void PlayAttackAnimation()
     {
         animator.Play(attackAnimation, 0, 0f);
-        meleeHitbox.BeginAttack(PlayerController.Instance.gameObject);
+        meleeHitbox.BeginAttack(owner);
     }
 
     public void OnAnimationFinished()

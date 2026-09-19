@@ -67,6 +67,8 @@ MonoBehaviour:
   weaponName: 
   attackAnimation: SwordAttack
   meleeHitbox: {fileID: 3375178688237741806}
+  owner: {fileID: 4181463034543194881}
+  isEquipped: 0
 --- !u!1 &4181463034543194881
 GameObject:
   m_ObjectHideFlags: 0
