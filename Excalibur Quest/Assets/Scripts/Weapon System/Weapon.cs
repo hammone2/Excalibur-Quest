@@ -4,15 +4,10 @@ public class Weapon : MonoBehaviour
 {
     public string weaponName;
     public string attackAnimation;
-    private Animator animator;
     [SerializeField] private MeleeHitbox meleeHitbox;
     [SerializeField] private GameObject owner;
+    [SerializeField] private Animator animator;
     public bool isEquipped = false;
-
-    private void Start()
-    {
-        animator = PlayerController.Instance.animator;
-    }
 
     public void PlayAttackAnimation()
     {

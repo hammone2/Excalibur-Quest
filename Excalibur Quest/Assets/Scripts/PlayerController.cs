@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -553,11 +553,5 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    public void TakeDamage(DamageInfo damage)
-    {
-        // Handle taking damage here
-        Debug.Log($"Player took {damage.amount} damage from {damage.attacker.name} at {damage.hitPoint}");
     }
 }

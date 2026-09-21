@@ -75,8 +75,7 @@ public class MeleeHitbox : MonoBehaviour
         hitTargets.Add(target);
 
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        Vector3 direction =
-            (other.transform.position - attacker.transform.position).normalized;
+        Vector3 direction = (other.transform.position - attacker.transform.position).normalized;
 
         DamageInfo info = new DamageInfo(
             damage,
