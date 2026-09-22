@@ -7,12 +7,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] private MeleeHitbox meleeHitbox;
     [SerializeField] private GameObject owner;
     [SerializeField] private Animator animator;
+    [SerializeField] private bool enemyFriendlyFire = false;
     public bool isEquipped = false;
 
     public void PlayAttackAnimation()
     {
         animator.Play(attackAnimation, 0, 0f);
-        meleeHitbox.BeginAttack(owner);
+        meleeHitbox.BeginAttack(owner, enemyFriendlyFire);
     }
 
     public void OnAnimationFinished()

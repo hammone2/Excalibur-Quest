@@ -75,7 +75,8 @@ public class PlayerController : MonoBehaviour
     {
         Normal,
         Dashing,
-        Attacking
+        Attacking,
+        Dead
     }
     private PlayerState currentState = PlayerState.Normal;
 
@@ -154,6 +155,9 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Attacking:
                 HandleGravity();
                 HandleAttackMovement();
+                break;
+
+            case PlayerState.Dead:
                 break;
         }
     }
@@ -547,6 +551,19 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    public void Die()
+    {
+        if (currentState == PlayerState.Dead)
+            return;
+
+        //animator.SetTrigger("Die");
+        currentState = PlayerState.Dead;
+        controller.enabled = false;
+        inputActions.Player.Disable();
+        animator.StopPlayback();
+        animator.enabled = false;
+    }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
