@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("Camera Settings")]
     public CinemachineCamera followCamera;
     [SerializeField] private CinemachineCamera aimCamera;
+    [SerializeField] private CinemachineCamera deathCamera;
     private CinemachineBrain brain;
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
@@ -158,6 +159,9 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.Dead:
+                //slowly move camera out
+                deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance 
+                    = Mathf.MoveTowards(deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance, 10f, 0.5f * Time.deltaTime);
                 break;
         }
     }
@@ -558,11 +562,14 @@ public class PlayerController : MonoBehaviour
             return;
 
         //animator.SetTrigger("Die");
+        deathCamera.Priority = 30;
         currentState = PlayerState.Dead;
         controller.enabled = false;
         inputActions.Player.Disable();
         animator.StopPlayback();
         animator.enabled = false;
+
+        HUDManager.Instance.OnPlayerDeath();
     }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
