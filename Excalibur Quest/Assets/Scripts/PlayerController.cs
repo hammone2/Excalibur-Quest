@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("Camera Settings")]
     public CinemachineCamera followCamera;
     [SerializeField] private CinemachineCamera aimCamera;
+    [SerializeField] private CinemachineCamera deathCamera;
     private CinemachineBrain brain;
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private float controllerSensitivity = 100f;
 
     [Header("Weapon System")]
-    [SerializeField] private WeaponController weaponController;
+    public WeaponController weaponController;
     [SerializeField] private float attackDuration = 0.35f;
     [SerializeField] private float attackForwardDistance = 1.0f;
     public Animator animator;
@@ -75,7 +76,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         Normal,
         Dashing,
-        Attacking
+        Attacking,
+        Dead
     }
     private PlayerState currentState = PlayerState.Normal;
 
@@ -154,6 +156,12 @@ public class PlayerController : MonoBehaviour, IDamageable
             case PlayerState.Attacking:
                 HandleGravity();
                 HandleAttackMovement();
+                break;
+
+            case PlayerState.Dead:
+                //slowly move camera out
+                deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance 
+                    = Mathf.MoveTowards(deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance, 10f, 0.5f * Time.deltaTime);
                 break;
         }
     }
@@ -548,16 +556,26 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     #endregion
 
+    public void Die()
+    {
+        if (currentState == PlayerState.Dead)
+            return;
+
+        //animator.SetTrigger("Die");
+        deathCamera.Priority = 30;
+        currentState = PlayerState.Dead;
+        controller.enabled = false;
+        inputActions.Player.Disable();
+        animator.StopPlayback();
+        animator.enabled = false;
+
+        HUDManager.Instance.OnPlayerDeath();
+    }
+
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    public void TakeDamage(DamageInfo damage)
-    {
-        // Handle taking damage here
-        Debug.Log($"Player took {damage.amount} damage from {damage.attacker.name} at {damage.hitPoint}");
     }
 }

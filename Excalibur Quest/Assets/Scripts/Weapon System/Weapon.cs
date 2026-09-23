@@ -4,18 +4,16 @@ public class Weapon : MonoBehaviour
 {
     public string weaponName;
     public string attackAnimation;
-    private Animator animator;
     [SerializeField] private MeleeHitbox meleeHitbox;
-
-    private void Start()
-    {
-        animator = PlayerController.Instance.animator;
-    }
+    [SerializeField] private GameObject owner;
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool enemyFriendlyFire = false;
+    public bool isEquipped = false;
 
     public void PlayAttackAnimation()
     {
         animator.Play(attackAnimation, 0, 0f);
-        meleeHitbox.BeginAttack(PlayerController.Instance.gameObject);
+        meleeHitbox.BeginAttack(owner, enemyFriendlyFire);
     }
 
     public void OnAnimationFinished()

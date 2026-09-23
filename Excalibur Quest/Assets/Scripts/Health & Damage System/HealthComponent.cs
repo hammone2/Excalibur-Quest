@@ -11,11 +11,12 @@ public class HealthComponent : MonoBehaviour, IDamageable
     public void TakeDamage(DamageInfo damage)
     {
         if (healthPoints <= 0) return;
-
-        Debug.Log($"{name} took {damage.amount} damage from {damage.attacker.name} at {damage.hitPoint}");
+        
         HitStop.Instance.Play(0.1f);
 
         healthPoints -= damage.amount;
+
+        Debug.Log($"{name} took {damage.amount} damage from {damage.attacker.name} at {damage.hitPoint}. {name} has {healthPoints} remaining");
 
         if (healthPoints <= 0)
         {
@@ -24,5 +25,11 @@ public class HealthComponent : MonoBehaviour, IDamageable
         }
 
         OnTakeDamage?.Invoke();
+    }
+
+    public void Heal(int amount)
+    {
+        healthPoints += amount;
+        Debug.Log($"{name} healed {amount} points. Current health: {healthPoints}");
     }
 }

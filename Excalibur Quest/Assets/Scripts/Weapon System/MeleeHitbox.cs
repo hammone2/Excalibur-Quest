@@ -9,6 +9,7 @@ public class MeleeHitbox : MonoBehaviour
 
     [HideInInspector] public bool active;
     private GameObject attacker;
+    private bool enemyFriendlyFire = false;
 
     private readonly HashSet<IDamageable> hitTargets = new();
 
@@ -17,9 +18,10 @@ public class MeleeHitbox : MonoBehaviour
         active = false;
     }
 
-    public void BeginAttack(GameObject attacker)
+    public void BeginAttack(GameObject attacker, bool enemyFriendlyFire)
     {
         this.attacker = attacker;
+        this.enemyFriendlyFire = enemyFriendlyFire;
         active = true;
         hitTargets.Clear();
         CheckForTargets();
@@ -62,6 +64,9 @@ public class MeleeHitbox : MonoBehaviour
         if (other.transform.root.gameObject == attacker)
             return;
 
+        //check enemy FF
+        if (!enemyFriendlyFire && other.CompareTag("Enemy") && attacker.CompareTag("Enemy"))
+            return;
 
         IDamageable target = other.GetComponent<IDamageable>();
 
@@ -75,8 +80,7 @@ public class MeleeHitbox : MonoBehaviour
         hitTargets.Add(target);
 
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        Vector3 direction =
-            (other.transform.position - attacker.transform.position).normalized;
+        Vector3 direction = (other.transform.position - attacker.transform.position).normalized;
 
         DamageInfo info = new DamageInfo(
             damage,
