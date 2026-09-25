@@ -1,6 +1,8 @@
+using NUnit.Framework;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -58,6 +60,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 attackDirection;
     private Vector3 attackStartPosition;
 
+    [Header("ArmorSlots")]
+    public ArmorComponent armorComponent;
+
     private CharacterController controller;
     private InputSystem_Actions inputActions;
     private Transform cameraTransform;
@@ -114,10 +119,11 @@ public class PlayerController : MonoBehaviour
             cameraTransform = Camera.main.transform;
             brain = cameraTransform.GetComponent<CinemachineBrain>();
             cinemachineTargetYaw = followCameraTarget.rotation.eulerAngles.y;
-        }     
+        }
     }
     #endregion
 
+    #region Enable/Disable
     private void OnEnable()
     {
         inputActions.Player.Enable();
@@ -127,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         inputActions.Player.Disable();
     }
+    #endregion
 
     #region Updates
     private void Update()
