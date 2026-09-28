@@ -10,8 +10,8 @@ public class Checkpoint : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            //GameManager.Instance.SetCheckpoint(transform.position);
             Debug.Log("Checkpoint reached at: " + transform.position);
+            HUDManager.Instance.OnCheckpointReached();
             isActivated = true;
         }
     }

@@ -4,6 +4,7 @@ public class HUDManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private Animator checkpointText;
 
 
     public static HUDManager Instance { get; private set; }
@@ -23,5 +24,10 @@ public class HUDManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         deathScreen.GetComponent<Animator>().SetTrigger("Death");
+    }
+
+    public void OnCheckpointReached()
+    {
+        checkpointText.SetTrigger("Checkpoint");
     }
 }
