@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class ItemPickup : MonoBehaviour
 {
+    [SerializeField] private bool destroyOnPickup = true;
     public UnityEvent OnPickedUp;
 
     private void OnTriggerEnter(Collider other)
@@ -10,7 +11,10 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnPickedUp?.Invoke();
-            Destroy(gameObject);
+
+            //useful for instances where you run over health potions but your HP is full and you dont want to destroy the pickup
+            if (destroyOnPickup) 
+                Destroy(gameObject);
         }
     }
 }

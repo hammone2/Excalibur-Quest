@@ -5,12 +5,15 @@ public class ArmorComponent : MonoBehaviour
 {
     [Header("ArmorSlots")]
     [SerializeField] private ArmorPiece[] armorPieces;
+    public int maxArmorCount;
+    public int currentArmorCount;
 
     private void Start()
     {
         //disable armor
         for (int i = 0; i < armorPieces.Length; i++)
         {
+            maxArmorCount++;
             armorPieces[i].Deplete();
         }
     }
@@ -33,6 +36,7 @@ public class ArmorComponent : MonoBehaviour
         {
             int randomIndex = Random.Range(0, unequippedArmor.Count);
             unequippedArmor[randomIndex].Equip();
+            currentArmorCount++;
         }
     }
 }

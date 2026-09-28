@@ -4,6 +4,13 @@ public class ArmorPickup : MonoBehaviour
 {
     public void EquipArmor()
     {
-        PlayerController.Instance.armorComponent.EquipArmor();
+        ArmorComponent ac = PlayerController.Instance.armorComponent;
+
+        if (ac.currentArmorCount >= ac.maxArmorCount)
+            return;
+
+        ac.EquipArmor();
+
+        Destroy(gameObject);
     }
 }

@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: destroyOnPickup
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
       propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
