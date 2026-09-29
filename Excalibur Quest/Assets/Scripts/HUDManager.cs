@@ -5,6 +5,7 @@ public class HUDManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private Animator checkpointText;
+    public Healthbar healthBar;
 
 
     public static HUDManager Instance { get; private set; }
