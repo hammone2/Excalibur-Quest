@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class HealthComponent : MonoBehaviour, IDamageable
 {
     public int healthPoints = 3;
+    public int maxHealth = 3;
 
     public UnityEvent OnTakeDamage;
     public UnityEvent OnDeath;
@@ -30,6 +31,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
     public void Heal(int amount)
     {
         healthPoints += amount;
+        if (healthPoints > maxHealth) healthPoints = maxHealth;
         Debug.Log($"{name} healed {amount} points. Current health: {healthPoints}");
     }
 }

@@ -7,9 +7,13 @@ public class HealthPotion : MonoBehaviour
     public void OnPickedUp()
     {
         HealthComponent hc = PlayerController.Instance.GetComponent<HealthComponent>();
-        if (hc != null)
-        {
-            hc.Heal(healthAmount);
-        }
+        if (hc == null)
+            return;
+
+        if (hc.healthPoints >= hc.maxHealth)
+            return;
+
+        hc.Heal(healthAmount);
+        Destroy(gameObject);
     }
 }
