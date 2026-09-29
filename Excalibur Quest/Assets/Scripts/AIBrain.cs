@@ -18,6 +18,7 @@ public class AIBrain : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator animator;
+    [SerializeField] private Weapon weapon;
 
     private NavMeshAgent agent;
     private Transform target;
@@ -187,6 +188,7 @@ public class AIBrain : MonoBehaviour
     // Called by an Animation Event
     public void AttackFinished()
     {
+        weapon.OnAnimationFinished();
         attackTimer = attackCooldown;
         agent.isStopped = false;
         ChangeState(EnemyState.Recover);
@@ -260,7 +262,8 @@ public class AIBrain : MonoBehaviour
     {
         if (currentState != EnemyState.Dead) //doing this so the enemy wont become a zombie after dying
         {
-            animator.SetTrigger("Attack");
+            //animator.SetTrigger("Attack");
+            weapon.PlayAttackAnimation();
             agent.isStopped = true;
             agent.ResetPath();
             currentState = EnemyState.Attack;

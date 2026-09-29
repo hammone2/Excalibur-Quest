@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - CameraBoundary
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - Effects
   - Water
   - UI
-  - 
-  - 
+  - LevelGEO
+  - Player
   - 
   - 
   - 

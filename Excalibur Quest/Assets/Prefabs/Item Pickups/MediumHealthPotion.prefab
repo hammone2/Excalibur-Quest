@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3043344212341181454
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: destroyOnPickup
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1511713886207066740}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPickedUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthPotion, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3864924271625294913, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867245708868780899, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c7a4be693d5b86943a59f5ca768074c9, type: 2}
+    - target: {fileID: 4274099747561829059, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: m_Name
+      value: MediumHealthPotion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4274099747561829059, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1511713886207066740}
+  m_SourcePrefab: {fileID: 100100000, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+--- !u!1 &1255526265777307341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4274099747561829059, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+  m_PrefabInstance: {fileID: 3043344212341181454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511713886207066740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255526265777307341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37dd8074eecd60408ca3418ad31d3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  healthAmount: 25
