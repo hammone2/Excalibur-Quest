@@ -14,6 +14,8 @@ public class HealthPotion : MonoBehaviour
             return;
 
         hc.Heal(healthAmount);
+
+        GetComponent<ItemPickup>().ShowPickupText();
         Destroy(gameObject);
     }
 }

@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 attackDirection;
     private Vector3 attackStartPosition;
 
-    [Header("ArmorSlots")]
+    [Header("Health System")]
+    public HealthComponent healthComponent;
     public ArmorComponent armorComponent;
 
     private CharacterController controller;
@@ -120,6 +121,9 @@ public class PlayerController : MonoBehaviour
             brain = cameraTransform.GetComponent<CinemachineBrain>();
             cinemachineTargetYaw = followCameraTarget.rotation.eulerAngles.y;
         }
+
+        Healthbar healthbar = HUDManager.Instance.healthBar;
+        healthbar.InitializeHealthBar(healthComponent, "Player");
     }
     #endregion
 

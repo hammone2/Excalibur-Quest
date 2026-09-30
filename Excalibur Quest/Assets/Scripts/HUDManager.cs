@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class HUDManager : MonoBehaviour
@@ -5,6 +6,9 @@ public class HUDManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private Animator checkpointText;
+    [SerializeField] private GameObject itemPickupTextPrefab;
+    [SerializeField] private Transform itemPickupTextLayout;
+    public Healthbar healthBar;
 
 
     public static HUDManager Instance { get; private set; }
@@ -29,5 +33,11 @@ public class HUDManager : MonoBehaviour
     public void OnCheckpointReached()
     {
         checkpointText.SetTrigger("Checkpoint");
+    }
+
+    public void ShowItemPickupText(string itemName)
+    {
+        GameObject itemPickupText = Instantiate(itemPickupTextPrefab, itemPickupTextLayout);
+        itemPickupText.GetComponent<TextMeshProUGUI>().SetText("Picked up " + itemName);
     }
 }

@@ -11,6 +11,7 @@ public class ArmorPickup : MonoBehaviour
 
         ac.EquipArmor();
 
+        GetComponent<ItemPickup>().ShowPickupText();
         Destroy(gameObject);
     }
 }

@@ -520,6 +520,7 @@ MonoBehaviour:
   attackDuration: 0.25
   attackForwardDistance: 5.5
   animator: {fileID: 7723397287872058309}
+  healthComponent: {fileID: 8908429560392057914}
   armorComponent: {fileID: 7077518566335100340}
 --- !u!114 &8908429560392057914
 MonoBehaviour:
@@ -534,6 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
   healthPoints: 100
+  maxHealth: 100
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -596,6 +598,8 @@ MonoBehaviour:
     - {fileID: 6520455575896452241}
     - {fileID: 8736435268957903414}
     - {fileID: 1524581429611979491}
+  maxArmorCount: 0
+  currentArmorCount: 0
 --- !u!143 &7682038891152363936
 CharacterController:
   m_ObjectHideFlags: 0
