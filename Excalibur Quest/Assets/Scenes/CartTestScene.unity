@@ -991,6 +991,7 @@ GameObject:
   - component: {fileID: 876741043}
   - component: {fileID: 876741045}
   - component: {fileID: 876741044}
+  - component: {fileID: 876741046}
   m_Layer: 0
   m_Name: PedalCartTest
   m_TagString: Untagged
@@ -1066,6 +1067,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &876741046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876741042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac0605174519bf49af517f3c26bcd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  control: 0
+  maxAcceleration: 30
+  brakeAcceleration: 50
+  turnSensitivity: 1
+  maxSteerAngle: 30
+  _centerOfMass: {x: 0, y: 0, z: 0}
+  wheels: []
 --- !u!1 &984638511
 GameObject:
   m_ObjectHideFlags: 0
