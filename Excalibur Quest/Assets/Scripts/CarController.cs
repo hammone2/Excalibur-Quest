@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 public class CarController : MonoBehaviour
 {
-    public enum ControlMode
-    {
-        Keyboard,
-        Buttons
-    };
-
     public enum Axel
     {
         Front,
@@ -26,7 +20,7 @@ public class CarController : MonoBehaviour
         public Axel axel;
     }
 
-    public ControlMode control;
+    private InputSystem_Actions inputActions;
 
     public float maxAcceleration = 30.0f;
     public float brakeAcceleration = 50.0f;
@@ -43,7 +37,13 @@ public class CarController : MonoBehaviour
 
     private Rigidbody carRb;
 
-    private //CarLights carLights;
+    //private CarLights carLights;
+
+    private void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+        inputActions.Enable();
+    }
 
     void Start()
     {
@@ -57,7 +57,7 @@ public class CarController : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
-        WheelEffects();
+        //WheelEffects();
     }
 
     void LateUpdate()
@@ -79,11 +79,9 @@ public class CarController : MonoBehaviour
 
     void GetInputs()
     {
-        if (control == ControlMode.Keyboard)
-        {
-            moveInput = Input.GetAxis("Vertical");
-            steerInput = Input.GetAxis("Horizontal");
-        }
+        Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
+        moveInput = input.y;
+        steerInput = input.x;
     }
 
     void Move()
@@ -101,18 +99,18 @@ public class CarController : MonoBehaviour
             if (wheel.axel == Axel.Front)
             {
                 var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
-                wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+                wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 10f * Time.deltaTime);
             }
         }
     }
 
     void Brake()
     {
-        if (Input.GetKey(KeyCode.Space) || moveInput == 0)
+        if (inputActions.Player.Jump.IsPressed() || moveInput == 0)
         {
             foreach (var wheel in wheels)
             {
-                wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
+                wheel.wheelCollider.brakeTorque = 60000 * brakeAcceleration * Time.deltaTime;
             }
 
             //carLights.isBackLightOn = true;
@@ -146,9 +144,9 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            //var dirtParticleMainSettings = wheel.smokeParticle.main;
+            var dirtParticleMainSettings = wheel.smokeParticle.main;
 
-            if (Input.GetKey(KeyCode.Space) && wheel.axel == Axel.Rear && wheel.wheelCollider.isGrounded == true && carRb.linearVelocity.magnitude >= 10.0f)
+            if (inputActions.Player.Jump.WasPressedThisFrame() && wheel.axel == Axel.Rear && wheel.wheelCollider.isGrounded == true && carRb.linearVelocity.magnitude >= 10.0f)
             {
                 wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = true;
                 wheel.smokeParticle.Emit(1);
@@ -158,5 +156,10 @@ public class CarController : MonoBehaviour
                 wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = false;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        inputActions.Disable();
     }
 }
