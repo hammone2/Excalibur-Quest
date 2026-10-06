@@ -221,6 +221,7 @@ public class AIBrain : MonoBehaviour
             return;
 
         currentState = EnemyState.Dead;
+        weapon.OnAnimationFinished();
 
         agent.isStopped = true;
 
