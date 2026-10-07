@@ -87,7 +87,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CloudScale: 5
-    - _CloudSpeed: 10
+    - _CloudSpeed: 0.2
     - _EnableInstancedPerPixelNormal: 1
     - _HorizonBlend: 3
     - _Metallic0: 0
