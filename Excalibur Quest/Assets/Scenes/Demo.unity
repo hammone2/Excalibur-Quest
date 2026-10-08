@@ -3784,6 +3784,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.036071777
       objectReference: {fileID: 0}
+    - target: {fileID: 3511657431718859215, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
+      propertyPath: m_Dithering
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3511657431718859215, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
+      propertyPath: m_Antialiasing
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3890368790358703876, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.x
       value: 285.75574
@@ -4155,7 +4163,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.99371064, g: 0.85101485, b: 0.70934683, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
