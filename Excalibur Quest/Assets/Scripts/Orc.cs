@@ -142,6 +142,10 @@ public class Orc : MonoBehaviour
                 FacePlayer();
                 break;
 
+            case OrcState.Stagger:
+                // Stagger logic here
+                break;
+
             case OrcState.Dead:
                 // Dead logic here
                 break;
@@ -203,7 +207,6 @@ public class Orc : MonoBehaviour
         agent.enabled = true;
         currentState = OrcState.Recover;
 
-        //Invoke(nameof(StartIdle), 1f);
         animator.SetTrigger("WornOut");
     }
 
@@ -218,6 +221,28 @@ public class Orc : MonoBehaviour
     {
         currentState = OrcState.Idle;
         animator.SetTrigger("Idle");
+    }
+
+    public void StartStagger()
+    {
+        currentState = OrcState.Stagger;
+        animator.SetTrigger("Stun");
+    }
+
+    public void Die()
+    {
+        if (currentState == OrcState.Dead)
+            return;
+
+        currentState = OrcState.Dead;
+        //weapon.OnAnimationFinished();
+
+        agent.isStopped = true;
+
+        GetComponent<Collider>().enabled = false;
+
+        animator.StopPlayback();
+        animator.enabled = false;
     }
 
     private void HandleGravity()
