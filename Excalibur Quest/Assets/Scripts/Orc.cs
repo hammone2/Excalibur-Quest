@@ -14,7 +14,6 @@ public class Orc : MonoBehaviour
     [SerializeField] private float chargeSpeed = 20f;
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private LayerMask wallLayerMask;
-    
 
     [Header("Ground")]
     [SerializeField] private float groundedForce = -2f;
@@ -26,6 +25,8 @@ public class Orc : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator animator;
+    [SerializeField] private Weapon weapon;
+    [SerializeField] private MeleeHitbox chargeHitbox;
 
     private float currentSpeed = 0f;
     private NavMeshAgent agent;
@@ -195,6 +196,7 @@ public class Orc : MonoBehaviour
             agent.enabled = false;
             characterController.enabled = true;
             currentAttackTime = chaseTime;
+            chargeHitbox.BeginAttack(gameObject, true);
             currentState = OrcState.Chase;
         }
     }
@@ -206,7 +208,7 @@ public class Orc : MonoBehaviour
         characterController.enabled = false;
         agent.enabled = true;
         currentState = OrcState.Recover;
-
+        chargeHitbox.EndAttack();
         animator.SetTrigger("WornOut");
     }
 
@@ -214,11 +216,13 @@ public class Orc : MonoBehaviour
     {
         animator.ResetTrigger("LookLeft");
         currentState = OrcState.Attack;
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
+        weapon.PlayAttackAnimation();   
     }
 
     public void StartIdle()
     {
+        weapon.OnAnimationFinished();
         currentState = OrcState.Idle;
         animator.SetTrigger("Idle");
     }
@@ -235,7 +239,7 @@ public class Orc : MonoBehaviour
             return;
 
         currentState = OrcState.Dead;
-        //weapon.OnAnimationFinished();
+        weapon.OnAnimationFinished();
 
         agent.isStopped = true;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class MeleeHitbox : MonoBehaviour
 {
     [SerializeField] private int damage = 25;
-    [SerializeField] private BoxCollider hitbox;
+    [SerializeField] private Collider hitbox;
     [SerializeField] private LayerMask damageableLayers;
 
     [HideInInspector] public bool active;
