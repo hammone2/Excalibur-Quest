@@ -223,6 +223,7 @@ public class Orc : MonoBehaviour
     public void StartIdle()
     {
         weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
         currentState = OrcState.Idle;
         animator.SetTrigger("Idle");
     }
@@ -231,6 +232,8 @@ public class Orc : MonoBehaviour
     {
         currentState = OrcState.Stagger;
         animator.SetTrigger("Stun");
+        weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
     }
 
     public void Die()
@@ -240,6 +243,7 @@ public class Orc : MonoBehaviour
 
         currentState = OrcState.Dead;
         weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
 
         agent.isStopped = true;
 

@@ -89,6 +89,9 @@ public class MeleeHitbox : MonoBehaviour
             attacker
         );
 
+        if (other.gameObject == attacker)
+            return;
+
         target.TakeDamage(info);
     }
 }
