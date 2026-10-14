@@ -83,7 +83,7 @@ public class CarController : MonoBehaviour
         }
 
         moveInput = arduinoInput.Speed;
-        steerInput = arduinoInput.Steering * arduinoInput.steeringMultiplier;
+        steerInput = arduinoInput.Steering * arduinoInput.steeringMultiplier * -1;
 
         Debug.Log($"Arduino Input - Speed: {arduinoInput.Speed}, Steering: {arduinoInput.Speed}");
     }
