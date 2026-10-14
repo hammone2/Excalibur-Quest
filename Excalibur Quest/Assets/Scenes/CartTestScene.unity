@@ -1183,6 +1183,7 @@ GameObject:
   - component: {fileID: 876741044}
   - component: {fileID: 876741046}
   - component: {fileID: 876741047}
+  - component: {fileID: 876741048}
   m_Layer: 0
   m_Name: PedalCartTest
   m_TagString: Untagged
@@ -1302,6 +1303,7 @@ MonoBehaviour:
     wheelEffectObj: {fileID: 0}
     smokeParticle: {fileID: 0}
     axel: 1
+  ardionoInputEnabled: 0
 --- !u!114 &876741047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,6 +1321,21 @@ MonoBehaviour:
     m_Bits: 0
   canPush: 0
   strength: 1.1
+--- !u!114 &876741048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876741042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8bd168accccb744a1a74f05e264693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArduinoInput
+  portName: COM4
+  baudRate: 115200
+  steeringMultiplier: 1.5
 --- !u!1 &942716186
 GameObject:
   m_ObjectHideFlags: 0
