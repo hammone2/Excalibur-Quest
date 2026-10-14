@@ -72,16 +72,6 @@ public class CarController : MonoBehaviour
         Brake();
     }
 
-    public void MoveInput(float input)
-    {
-        moveInput = input;
-    }
-
-    public void SteerInput(float input)
-    {
-        steerInput = input;
-    }
-
     void GetInputs()
     {
         if (!ardionoInputEnabled)
