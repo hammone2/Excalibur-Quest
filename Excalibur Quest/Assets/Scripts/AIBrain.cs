@@ -26,6 +26,8 @@ public class AIBrain : MonoBehaviour
     private float attackTimer;
     private bool isRepositioning = false;
 
+    private float distance;
+
     private enum EnemyState
     {
         Idle,
@@ -48,22 +50,28 @@ public class AIBrain : MonoBehaviour
 
     private void Start()
     {
-        target = PlayerController.Instance.transform;
+        if (PlayerController.Instance != null)
+            target = PlayerController.Instance.transform;
     }
 
     private void Update()
     {
         attackTimer -= Time.deltaTime;
 
-        float distance = Vector3.Distance(
-            transform.position,
-            target.position
-        );
+        if (target)
+        {
+            distance = Vector3.Distance(
+                transform.position,
+                target.position
+            );
+        }
+
 
         switch (currentState)
         {
             case EnemyState.Idle:
-                HandlePlayerDetection(distance);
+                if (target)
+                    HandlePlayerDetection(distance);
                 break;
 
             case EnemyState.Patrol:

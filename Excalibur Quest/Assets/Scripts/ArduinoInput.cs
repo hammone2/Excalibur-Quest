@@ -1,35 +1,49 @@
 using UnityEngine;
-//using System.IO.Ports;
-//using System.Threading;
+using System;
+using System.Globalization;
+using System.IO.Ports;
+using System.Threading;
+using System.IO;
 
 public class ArduinoInput : MonoBehaviour
 {
-    /*[SerializeField] private string portName = "COM3";
+    [SerializeField] private string portName = "COM3";
     [SerializeField] private int baudRate = 115200;
 
     private SerialPort serialPort;
+    private Thread serialThread;
+    private volatile bool running;
+
+    private readonly object dataLock = new object();
+
+    private float steering;
+    private float speed;
+    private bool buttonPressed;
 
     public float Steering { get; private set; }
     public float Speed { get; private set; }
     public bool ButtonPressed { get; private set; }
 
-    private Thread serialThread;
-    private bool running;
+    public float steeringMultiplier;
 
     private void Start()
     {
-        serialPort = new SerialPort(portName, baudRate);
-        serialPort.ReadTimeout = 100;
-
         try
         {
+            serialPort = new SerialPort(portName, baudRate);
+            serialPort.ReadTimeout = 100;
+            serialPort.NewLine = "\n";
+
             serialPort.Open();
 
             running = true;
             serialThread = new Thread(ReadSerial);
+            serialThread.IsBackground = true;
             serialThread.Start();
+
+            Debug.Log("Arduino connected on " + portName);
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             Debug.LogError("Could not open Arduino: " + e.Message);
         }
@@ -41,25 +55,54 @@ public class ArduinoInput : MonoBehaviour
         {
             try
             {
-                string line = serialPort.ReadLine();
-
+                string line = serialPort.ReadLine().Trim();
                 string[] values = line.Split(',');
 
-                if (values.Length >= 3)
-                {
-                    float steering = float.Parse(values[0]);
-                    float speed = float.Parse(values[1]);
-                    bool button = values[2] == "1";
+                if (values.Length != 3)
+                    continue;
 
-                    Steering = steering;
-                    Speed = speed;
-                    ButtonPressed = button;
+                if (float.TryParse(values[0],
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out float newSteering) &&
+                    float.TryParse(values[1],
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out float newSpeed) &&
+                    int.TryParse(values[2], out int newButton))
+                {
+                    lock (dataLock)
+                    {
+                        steering = Mathf.Clamp(newSteering, -1f, 1f);
+                        speed = Mathf.Max(0f, newSpeed);
+                        buttonPressed = newButton == 1;
+                    }
                 }
             }
-            catch
+            catch (TimeoutException)
             {
-                // Ignore incomplete/invalid serial messages
+                // No complete line arrived in time.
             }
+            catch (InvalidOperationException)
+            {
+                break;
+            }
+            catch (IOException)
+            {
+                if (running)
+                    Debug.LogWarning("Arduino serial connection interrupted.");
+                break;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        lock (dataLock)
+        {
+            Steering = steering;
+            Speed = speed;
+            ButtonPressed = buttonPressed;
         }
     }
 
@@ -67,10 +110,19 @@ public class ArduinoInput : MonoBehaviour
     {
         running = false;
 
-        if (serialThread != null)
-            serialThread.Join();
-
         if (serialPort != null && serialPort.IsOpen)
-            serialPort.Close();
-    }*/
+        {
+            try
+            {
+                serialPort.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Error closing serial port: " + e.Message);
+            }
+        }
+
+        if (serialThread != null && serialThread.IsAlive)
+            serialThread.Join(500);
+    }
 }
