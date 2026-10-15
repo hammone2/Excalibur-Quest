@@ -4971,7 +4971,7 @@ GameObject:
   - component: {fileID: 4425563818025665076}
   - component: {fileID: 1048318041412912045}
   - component: {fileID: 7553844286458894599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DismemberedPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5059,3 +5059,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DismemberedPart
   lifeTime: 10
   shrinkSpeed: 3
+  force: 5

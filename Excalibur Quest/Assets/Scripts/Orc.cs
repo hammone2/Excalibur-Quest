@@ -5,16 +5,15 @@ public class Orc : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private float detectionRange = 20f;
-    [SerializeField] private float attackRange = 5f;
-    [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private float attackTime = 3f;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float chaseRange = 5f;
+    [SerializeField] private float chaseCooldown = 1.5f;
+    [SerializeField] private float chaseTime = 3f;
     [SerializeField] private float stoppingDistance = 2f;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float chargeSpeed = 20f;
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private LayerMask wallLayerMask;
-
-    
 
     [Header("Ground")]
     [SerializeField] private float groundedForce = -2f;
@@ -26,6 +25,8 @@ public class Orc : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator animator;
+    [SerializeField] private Weapon weapon;
+    [SerializeField] private MeleeHitbox chargeHitbox;
 
     private float currentSpeed = 0f;
     private NavMeshAgent agent;
@@ -34,6 +35,10 @@ public class Orc : MonoBehaviour
     private bool touchingWall;
     private float currentAttackTime;
     private Vector3 velocity;
+    private float currentAimTime = 0f;
+    private float aimTime = 3f;
+
+    private OrcRigAnimEventController animEventController;
 
     enum OrcState
     {
@@ -56,6 +61,8 @@ public class Orc : MonoBehaviour
         agent.stoppingDistance = stoppingDistance;
 
         characterController = GetComponent<CharacterController>();
+
+        animEventController = GetComponentInChildren<OrcRigAnimEventController>();
     }
 
     private void Start()
@@ -66,21 +73,39 @@ public class Orc : MonoBehaviour
     private void Update()
     {
         float distance = Vector3.Distance(transform.position, target.position);
-
+        Debug.Log(currentState);
         switch (currentState)
         {
             case OrcState.Idle:
-                if (distance <= detectionRange)
+
+                if (distance <= detectionRange && currentState != OrcState.Attack)
                 {
                     StartAiming();
                 }
+
                 break;
 
             case OrcState.Aim:
                 FacePlayer();
+
+                if (distance <= attackRange)
+                {
+                    StartAttack();
+                    return;
+                }
+
+                currentAimTime += Time.deltaTime;
+                Debug.Log(currentAimTime);
+                if (currentAimTime >= aimTime)
+                {
+                    StartChase();
+                }
+
+
+                
                 break;
 
-            case OrcState.Attack:
+            case OrcState.Chase:
                 Vector3 direction = transform.forward;
                 
                 currentSpeed = Mathf.MoveTowards(
@@ -114,6 +139,14 @@ public class Orc : MonoBehaviour
                 // Recovery logic here
                 break;
 
+            case OrcState.Attack:
+                FacePlayer();
+                break;
+
+            case OrcState.Stagger:
+                // Stagger logic here
+                break;
+
             case OrcState.Dead:
                 // Dead logic here
                 break;
@@ -143,25 +176,28 @@ public class Orc : MonoBehaviour
 
     private void StartAiming()
     {
+        if (currentState == OrcState.Attack)
+            return;
+
         currentState = OrcState.Aim;
+        animator.SetTrigger("LookLeft");
 
-        if (target == null) return;
-
-        Invoke(nameof(StartAttack), 3f);
+        currentAimTime = 0f;
     }
 
-    private void StartAttack()
+    private void StartChase()
     {
         if (currentState != OrcState.Dead)
         {
-            //animator.SetTrigger("Attack");
+            animator.SetTrigger("Run");
             currentState = OrcState.Aim;
             agent.ResetPath();
             agent.isStopped = true;
             agent.enabled = false;
             characterController.enabled = true;
-            currentAttackTime = attackTime;
-            currentState = OrcState.Attack;
+            currentAttackTime = chaseTime;
+            chargeHitbox.BeginAttack(gameObject, true);
+            currentState = OrcState.Chase;
         }
     }
 
@@ -172,13 +208,49 @@ public class Orc : MonoBehaviour
         characterController.enabled = false;
         agent.enabled = true;
         currentState = OrcState.Recover;
-
-        Invoke(nameof(StartIdle), 1f);
+        chargeHitbox.EndAttack();
+        animator.SetTrigger("WornOut");
     }
 
-    private void StartIdle()
+    public void StartAttack()
     {
+        animator.ResetTrigger("LookLeft");
+        currentState = OrcState.Attack;
+        //animator.SetTrigger("Attack");
+        weapon.PlayAttackAnimation();   
+    }
+
+    public void StartIdle()
+    {
+        weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
         currentState = OrcState.Idle;
+        animator.SetTrigger("Idle");
+    }
+
+    public void StartStagger()
+    {
+        currentState = OrcState.Stagger;
+        animator.SetTrigger("Stun");
+        weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
+    }
+
+    public void Die()
+    {
+        if (currentState == OrcState.Dead)
+            return;
+
+        currentState = OrcState.Dead;
+        weapon.OnAnimationFinished();
+        chargeHitbox.EndAttack();
+
+        agent.isStopped = true;
+
+        GetComponent<Collider>().enabled = false;
+
+        animator.StopPlayback();
+        animator.enabled = false;
     }
 
     private void HandleGravity()

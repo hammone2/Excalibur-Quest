@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7563560266542963006}
   - component: {fileID: 6513287696187136671}
   - component: {fileID: 7728861476772841845}
-  m_Layer: 0
+  - component: {fileID: -3982395669463803850}
+  m_Layer: 6
   m_Name: PineTreeLeaves1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,6 +88,22 @@ LODGroup:
     - renderer: {fileID: 4029722275341074205}
     - renderer: {fileID: 5794410353449042505}
   m_Enabled: 1
+--- !u!208 &-3982395669463803850
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710299777311695782}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 5.39635, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.24, y: 4.59, z: -0.15}
+  m_TimeToStationary: 0.5
 --- !u!1001 &6652966561002872076
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -39,10 +39,15 @@ public class CarController : MonoBehaviour
 
     //private CarLights carLights;
 
+    public bool ardionoInputEnabled = false;
+    private ArduinoInput arduinoInput;
+
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
         inputActions.Enable();
+        arduinoInput = GetComponent<ArduinoInput>();
+        ardionoInputEnabled = arduinoInput != null;
     }
 
     void Start()
@@ -67,21 +72,20 @@ public class CarController : MonoBehaviour
         Brake();
     }
 
-    public void MoveInput(float input)
-    {
-        moveInput = input;
-    }
-
-    public void SteerInput(float input)
-    {
-        steerInput = input;
-    }
-
     void GetInputs()
     {
-        Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
-        moveInput = input.y;
-        steerInput = input.x;
+        if (!ardionoInputEnabled)
+        {
+            Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
+            moveInput = input.y;
+            steerInput = input.x;
+            return;
+        }
+
+        moveInput = arduinoInput.Speed;
+        steerInput = arduinoInput.Steering * arduinoInput.steeringMultiplier * -1;
+
+        Debug.Log($"Arduino Input - Speed: {arduinoInput.Speed}, Steering: {arduinoInput.Speed}");
     }
 
     void Move()
