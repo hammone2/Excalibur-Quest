@@ -39,15 +39,16 @@ public class CarController : MonoBehaviour
 
     //private CarLights carLights;
 
-    public bool ardionoInputEnabled = false;
+    public bool arduinoInputEnabled = false;
     private ArduinoInput arduinoInput;
+
 
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
         inputActions.Enable();
         arduinoInput = GetComponent<ArduinoInput>();
-        ardionoInputEnabled = arduinoInput != null;
+        arduinoInputEnabled = arduinoInput != null;
     }
 
     void Start()
@@ -74,7 +75,7 @@ public class CarController : MonoBehaviour
 
     void GetInputs()
     {
-        if (!ardionoInputEnabled)
+        if (!arduinoInputEnabled)
         {
             Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
             moveInput = input.y;
