@@ -453,10 +453,10 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
-    targetPosition: 1
+    targetPosition: 0.5
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0
-  m_Mass: 112.31
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -617,10 +617,10 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
-    targetPosition: 1
+    targetPosition: 0.5
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0
-  m_Mass: 112.31
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -1967,6 +1967,7 @@ GameObject:
   - component: {fileID: 876741046}
   - component: {fileID: 876741047}
   - component: {fileID: 876741048}
+  - component: {fileID: 876741049}
   m_Layer: 0
   m_Name: PedalCartTest
   m_TagString: Player
@@ -2086,7 +2087,7 @@ MonoBehaviour:
     wheelEffectObj: {fileID: 0}
     smokeParticle: {fileID: 0}
     axel: 1
-  ardionoInputEnabled: 0
+  arduinoInputEnabled: 0
 --- !u!114 &876741047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,6 +2120,40 @@ MonoBehaviour:
   portName: COM4
   baudRate: 115200
   steeringMultiplier: 1.5
+--- !u!114 &876741049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876741042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5ce1b1639434545bb2f0d493ae0cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  frontLeft: {fileID: 1745223142}
+  frontRight: {fileID: 315230238}
+  rearLeft: {fileID: 199606397}
+  rearRight: {fileID: 2075104187}
+  mass: 20
+  wheelRadius: 1
+  wheelDampingRate: 0.25
+  suspensionDistance: 0.2
+  forceAppPointDistance: 0.1
+  spring: 35000
+  damper: 4500
+  targetPosition: 0.5
+  forwardExtremumSlip: 0.4
+  forwardExtremumValue: 1
+  forwardAsymptoteSlip: 0.8
+  forwardAsymptoteValue: 0.5
+  forwardStiffness: 1
+  sidewaysExtremumSlip: 0.2
+  sidewaysExtremumValue: 1
+  sidewaysAsymptoteSlip: 0.5
+  sidewaysAsymptoteValue: 0.75
+  sidewaysStiffness: 1
 --- !u!1 &942716186
 GameObject:
   m_ObjectHideFlags: 0
@@ -3341,10 +3376,10 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
-    targetPosition: 1
+    targetPosition: 0.5
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0
-  m_Mass: 112.31
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -4284,10 +4319,10 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
-    targetPosition: 1
+    targetPosition: 0.5
   m_SuspensionDistance: 0.2
-  m_ForceAppPointDistance: 0
-  m_Mass: 112.31
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
