@@ -8,7 +8,7 @@ public class Healthbar : MonoBehaviour
     [SerializeField] private Slider healthBarSlider;
     private HealthComponent healthComponent;
     [SerializeField] private Slider flashBarSlider;
-    //[SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI healthText;
     //[SerializeField] private TextMeshProUGUI nameText;
 
     private int maxHealth;
@@ -27,12 +27,12 @@ public class Healthbar : MonoBehaviour
         flashBarSlider.value = healthBarSlider.value;
 
         //nameText.SetText(name);
-        //healthText.SetText(currentHealth + "/" + maxHealth);
+        healthText.SetText(healthComponent.healthPoints + "");
     }
 
     private void Update()
     {
-        //healthText.SetText(currentHealth + "/" + maxHealth);
+        healthText.SetText(healthComponent.healthPoints + "");
         healthBarSlider.value = Mathf.MoveTowards(healthBarSlider.value, healthComponent.healthPoints, Time.deltaTime * 144f);
 
         if (canFlashBarMove)
