@@ -110,8 +110,11 @@ public class AIBrain : MonoBehaviour
 
     private void HandlePlayerDetection(float distance)
     {
-        if (distance <= detectionRange)
-            ChangeState(EnemyState.Chase);
+        if (distance > detectionRange)
+            return;
+
+        animator.SetTrigger("Run");
+        ChangeState(EnemyState.Chase);
     }
 
 
@@ -122,11 +125,11 @@ public class AIBrain : MonoBehaviour
             agent.isStopped = false;
             agent.SetDestination(target.position);
 
-            SetMovingAnimation(true);
+            //SetMovingAnimation(true);
             return;
         }
 
-        SetMovingAnimation(false);
+        //SetMovingAnimation(false);
 
         if (attackTimer <= 0)
         {
@@ -190,6 +193,7 @@ public class AIBrain : MonoBehaviour
         if (attackTimer <= 0)
         {
             ChangeState(EnemyState.Chase);
+            animator.SetTrigger("Run");
         }
     }
 
@@ -221,6 +225,7 @@ public class AIBrain : MonoBehaviour
             return;
 
         ChangeState(EnemyState.Chase);
+        animator.SetTrigger("Run");
     }
 
     public void Die()
