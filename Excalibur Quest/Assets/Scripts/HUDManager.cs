@@ -8,6 +8,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Animator checkpointText;
     [SerializeField] private GameObject itemPickupTextPrefab;
     [SerializeField] private Transform itemPickupTextLayout;
+    [SerializeField] private GameObject locationEntered;
     public Healthbar healthBar;
 
 
@@ -39,5 +40,11 @@ public class HUDManager : MonoBehaviour
     {
         GameObject itemPickupText = Instantiate(itemPickupTextPrefab, itemPickupTextLayout);
         itemPickupText.GetComponent<TextMeshProUGUI>().SetText("Picked up " + itemName);
+    }
+
+    public void UpdateLocationName(string locationName)
+    {
+        locationEntered.GetComponentInChildren<TextMeshProUGUI>().SetText(locationName);
+        locationEntered.GetComponent<Animator>().SetTrigger("Enter");
     }
 }
