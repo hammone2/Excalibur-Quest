@@ -24,8 +24,6 @@ public class RagdollController : MonoBehaviour
                     bone.AddComponent<DismemberableBodyPart>();
                     DismemberableBodyPart dismemberableBodyPart = bone.GetComponent<DismemberableBodyPart>();
 
-
-
                     dismemberableBodyPart.AssignData(data);
                 }
             }
