@@ -1,15 +1,26 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    /*private void OnCollisionEnter(Collision collision)
+    private int damage = 10;
+    private GameObject attacker;
+
+    public void Initialize(int damage, GameObject attacker)
+    {
+        this.damage = damage;
+        this.attacker = attacker;
+    }
+
+    private void OnCollisionEnter(Collision collision)
     {
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            Vector3 hitPoint = other.ClosestPoint(transform.position);
-            Vector3 direction = (other.transform.position - attacker.transform.position).normalized;
+            if (GetComponent<Rigidbody>().linearVelocity.magnitude < 1f)
+                return;
+
+            Vector3 hitPoint = collision.collider.ClosestPoint(transform.position);
+            Vector3 direction = (collision.transform.position - attacker.transform.position).normalized;
 
             DamageInfo info = new DamageInfo(
                 damage,
@@ -18,13 +29,8 @@ public class Projectile : MonoBehaviour
                 attacker
             );
 
-            damageable.TakeDamage(10);
+            damageable.TakeDamage(info);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }*/
 }
