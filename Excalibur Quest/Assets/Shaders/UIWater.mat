@@ -18,7 +18,8 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -41,13 +42,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WaveSize: 10
-    - _WaveSpeed: 0.5
+    - _Distort: 15
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Transparency: 0.8
+    - _WaveSize: 2
+    - _WaveSpeed: 0.3
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
-    - _DeepWaterColor: {r: 1, g: 0.14117646, b: 0.48511958, a: 1}
-    - _Distort: {r: 2, g: 3, b: 2, a: 3}
-    - _ShallowWaterColor: {r: 1, g: 0, b: 0.17254925, a: 1}
+    - _DeepWaterColor: {r: 1, g: 0, b: 0.015109539, a: 1}
+    - _Distort: {r: 0, g: 0.01, b: 0, a: 0}
+    - _ShallowWaterColor: {r: 0.99371064, g: 0.5406035, b: 0.6187868, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1420379876724110137
