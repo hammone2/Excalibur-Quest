@@ -8,6 +8,7 @@ public class Archer : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float arrowVelocity = 20f;
     [SerializeField] private float arrowLinearDamping = 2f;
+    [SerializeField] private float attackRange = 100f;
 
     [SerializeField] private float rotationSpeed = 5f;
 
@@ -16,13 +17,23 @@ public class Archer : MonoBehaviour
     private float cooldownTimer;
 
 
+    private enum ArcherState
+    {
+        Idle,
+        Repositioning,
+        Shooting,
+        Stagger,
+        Dead
+    }
+    private ArcherState state = ArcherState.Idle; 
+
     //stuff for calculating ballistic trajectory
     [SerializeField] private float arcHeight = 3f;
-    public float yMax;
-    private float g = 9.8f; // gravity
-    private float y_0;
-    private float x;
-    private float z;
+    //public float yMax;
+    //private float g = 9.8f; // gravity
+    //private float y_0;
+    //private float x;
+    //private float z;
 
     void Start()
     {
@@ -36,16 +47,42 @@ public class Archer : MonoBehaviour
 
     private void Update()
     {
+        switch (state)
+        {
+            case ArcherState.Idle:
+                
+                break;
+
+            case ArcherState.Repositioning:
+                
+                break;
+
+            case ArcherState.Shooting:
+                
+                break;
+
+            case ArcherState.Stagger:
+                
+                break;
+
+            case ArcherState.Dead:
+                
+                break;
+        }
+
+
+
         if (target == null)
             return;
 
         FacePlayer();
 
-        cooldownTimer -= Time.deltaTime;
+        cooldownTimer -= Time.deltaTime; //cooldown is temporary until we get the archer animations in
 
-        if (cooldownTimer <= 0f)
+        Vector3 distanceToTarget = target.position - transform.position;
+        if (cooldownTimer <= 0f && distanceToTarget.magnitude <= attackRange)
         {
-            ShootArrow();
+            ShootArrow(); //make this an animation event later
             cooldownTimer = attackCooldown;
         }
     }
@@ -92,7 +129,11 @@ public class Archer : MonoBehaviour
             }*/
 
             if (!TryCalculateVelocity(out Vector3 launchVelocity))
+            {
+                Debug.LogWarning("Cannot calculate a valid launch velocity for the arrow.");
                 return;
+            }
+                
 
             GameObject arrow = Instantiate(
                 arrowPrefab,
@@ -105,6 +146,7 @@ public class Archer : MonoBehaviour
             if (rb == null)
             {
                 Destroy(arrow);
+                Debug.LogError("Arrow prefab is missing a Rigidbody component.");
                 return;
             }
 
@@ -120,7 +162,7 @@ public class Archer : MonoBehaviour
         }
     }
 
-    private Vector3 CalculateVelocity()
+    /*private Vector3 CalculateVelocity()
     {
         // Distance X and Z to target location
         Vector3 displacementXZ = new Vector3(x, 0, z);
@@ -131,7 +173,7 @@ public class Archer : MonoBehaviour
 
         Vector3 velocity = velocityXZ + velocityY;
         return velocity;
-    }
+    }*/
 
     private bool TryCalculateVelocity(out Vector3 velocity)
     {
@@ -160,7 +202,10 @@ public class Archer : MonoBehaviour
         float fallToTarget = apexHeight - targetHeight;
 
         if (riseToApex < 0f || fallToTarget < 0f)
+        {
+            Debug.LogWarning("Invalid rise or fall height for ballistic trajectory.");
             return false;
+        }
 
         float timeToApex =
             Mathf.Sqrt(2f * riseToApex / gravity);
@@ -174,6 +219,7 @@ public class Archer : MonoBehaviour
         if (totalFlightTime <= 0f ||
             float.IsNaN(totalFlightTime))
         {
+            Debug.LogWarning("Total flight time is invalid for ballistic trajectory.");
             return false;
         }
 

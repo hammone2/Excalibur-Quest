@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8937150884323396708}
   - component: {fileID: 8122727082220847284}
+  - component: {fileID: 3089181429305268689}
   - component: {fileID: 171461210601706004}
   - component: {fileID: 4314848348446912990}
   m_Layer: 0
@@ -51,10 +52,32 @@ MonoBehaviour:
   arrowPrefab: {fileID: 282676384733523253, guid: a90692b6324859d4684b6377eb1e05b7, type: 3}
   arrowSpawnPoint: {fileID: 4492912842238736261}
   attackCooldown: 1.5
-  arrowVelocity: 50
-  arrowLinearDamping: 0.5
+  arrowVelocity: 20
+  arrowLinearDamping: 2
+  attackRange: 100
   rotationSpeed: 5
+  arcHeight: 3
   yMax: 5
+--- !u!114 &3089181429305268689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292448845484159372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179bd55aa77ffa04e8f7f922b28f6cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
+  healthPoints: 50
+  maxHealth: 50
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &171461210601706004
 CapsuleCollider:
   m_ObjectHideFlags: 0
