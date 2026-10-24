@@ -653,7 +653,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &1643537779900273678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4abe01220e81d45ba7f818b067ef24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  detectionRange: 20
+  detectionRange: 40
   attackRange: 2
   attackCooldown: 0.75
   stoppingDistance: 2
