@@ -8,5 +8,4 @@ public class BodypartData
     public GameObject bodypartMesh;
     public GameObject dismemberedPartPrefab;
     public bool dismemberable;
-
 }
