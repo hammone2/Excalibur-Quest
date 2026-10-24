@@ -233,4 +233,9 @@ public class Archer : MonoBehaviour
 
         return true;
     }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+    }
 }
