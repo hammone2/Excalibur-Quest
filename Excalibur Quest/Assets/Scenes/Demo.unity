@@ -8568,7 +8568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &320677447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69087,7 +69087,7 @@ Canvas:
   m_GameObject: {fileID: 3969498855978892340}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 168842448}
   m_PlaneDistance: 1
   m_PixelPerfect: 1
@@ -72185,7 +72185,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.656
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
