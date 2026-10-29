@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Archer : MonoBehaviour
 {
@@ -7,14 +8,24 @@ public class Archer : MonoBehaviour
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float arrowVelocity = 20f;
-    [SerializeField] private float arrowLinearDamping = 2f;
     [SerializeField] private float attackRange = 100f;
+    [SerializeField] private float targetTooCloseDistance = 15f;
+    [SerializeField] private float retreatDistance = 30f;
+    [SerializeField] private float retreatTimeout = 3.5f;
 
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float strafeDistance = 3f;
+    [SerializeField] private float startStrafeDistance = 25f;
+    [SerializeField] private float strafeDistanceTolerance = 0.5f;
+    [SerializeField] private float strafeCooldown = 0.5f;
+
+    [SerializeField] private float aimRotationSpeed = 5f;
+    [SerializeField] private float moveSpeed = 3.5f;
+    [SerializeField] private float retreatRotateSpeed = 360f;
 
     private NavMeshAgent agent;
     private Transform target;
-    private float cooldownTimer;
+    private float shootCooldownTimer;
+    private float strafeCooldownTimer;
 
 
     private enum ArcherState
@@ -25,21 +36,17 @@ public class Archer : MonoBehaviour
         Stagger,
         Dead
     }
-    private ArcherState state = ArcherState.Idle; 
+    private ArcherState state = ArcherState.Shooting; 
 
     //stuff for calculating ballistic trajectory
     [SerializeField] private float arcHeight = 3f;
-    //public float yMax;
-    //private float g = 9.8f; // gravity
-    //private float y_0;
-    //private float x;
-    //private float z;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        cooldownTimer = attackCooldown;
-
+        shootCooldownTimer = attackCooldown;
+        strafeCooldownTimer = strafeCooldown;
+        agent.speed = moveSpeed;
 
         if (PlayerController.Instance != null)
             target = PlayerController.Instance.transform;
@@ -54,11 +61,25 @@ public class Archer : MonoBehaviour
                 break;
 
             case ArcherState.Repositioning:
-                
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    StopCoroutine(RetreatTimeout());
+                    agent.ResetPath();
+                    state = ArcherState.Shooting;
+                }
                 break;
 
             case ArcherState.Shooting:
                 
+                HandleStrafe();
+
+                HandleShooting();
+
+                float distanceToPlayer = CheckDistanceToPlayer();
+                if (distanceToPlayer < targetTooCloseDistance)
+                {
+                    Retreat();
+                }
                 break;
 
             case ArcherState.Stagger:
@@ -68,22 +89,6 @@ public class Archer : MonoBehaviour
             case ArcherState.Dead:
                 
                 break;
-        }
-
-
-
-        if (target == null)
-            return;
-
-        FacePlayer();
-
-        cooldownTimer -= Time.deltaTime; //cooldown is temporary until we get the archer animations in
-
-        Vector3 distanceToTarget = target.position - transform.position;
-        if (cooldownTimer <= 0f && distanceToTarget.magnitude <= attackRange)
-        {
-            ShootArrow(); //make this an animation event later
-            cooldownTimer = attackCooldown;
         }
     }
 
@@ -104,31 +109,16 @@ public class Archer : MonoBehaviour
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
-            rotationSpeed * Time.deltaTime
+            aimRotationSpeed * Time.deltaTime
         );
     }
 
+    #region Shooting Logic
     private void ShootArrow()
     {
         if (arrowPrefab != null && arrowSpawnPoint != null)
         {
-            /*GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
-            Rigidbody rb = arrow.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                y_0 = arrow.transform.position.y - (target.position.y + 1); //1 is the offset for the target's height, assuming the target is a humanoid character
-                x = target.position.x - arrowSpawnPoint.position.x;
-                z = target.position.z - arrowSpawnPoint.position.z;
-
-                //rb.linearDamping = arrowLinearDamping;
-                rb.linearDamping = 0f;
-
-                arrow.GetComponent<Projectile>().Initialize(10, gameObject);
-                rb.linearVelocity = CalculateVelocity(); //arrowSpawnPoint.forward * arrowVelocity;
-                Destroy(arrow, 5f);
-            }*/
-
-            if (!TryCalculateVelocity(out Vector3 launchVelocity))
+            if (!CalculateArrowVelocity(out Vector3 launchVelocity))
             {
                 Debug.LogWarning("Cannot calculate a valid launch velocity for the arrow.");
                 return;
@@ -162,20 +152,7 @@ public class Archer : MonoBehaviour
         }
     }
 
-    /*private Vector3 CalculateVelocity()
-    {
-        // Distance X and Z to target location
-        Vector3 displacementXZ = new Vector3(x, 0, z);
-
-        // Implement equations derived from kinematic analysis
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(2 * g * (yMax - y_0));
-        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(2 * (yMax - y_0) / g) + Mathf.Sqrt(2 * yMax / g));
-
-        Vector3 velocity = velocityXZ + velocityY;
-        return velocity;
-    }*/
-
-    private bool TryCalculateVelocity(out Vector3 velocity)
+    private bool CalculateArrowVelocity(out Vector3 velocity)
     {
         velocity = Vector3.zero;
 
@@ -234,8 +211,107 @@ public class Archer : MonoBehaviour
         return true;
     }
 
+    private void HandleShooting()
+    {
+        if (target == null)
+            return;
+
+        FacePlayer();
+
+        shootCooldownTimer -= Time.deltaTime; //cooldown is temporary until we get the archer animations in
+
+        float distanceToTarget = CheckDistanceToPlayer();
+        if (shootCooldownTimer <= 0f && distanceToTarget <= attackRange)
+        {
+            ShootArrow(); //make this an animation event later
+            shootCooldownTimer = attackCooldown;
+        }
+    }
+    
+    private float CheckDistanceToPlayer()
+    {
+        return Vector3.Distance(transform.position, target.position);
+    }
+    #endregion
+
+
+    #region Movement Logic
+    private void HandleStrafe()
+    {
+        if (target == null)
+            return;
+
+        agent.angularSpeed = 0f;
+        float distanceToPlayer = CheckDistanceToPlayer();
+        strafeCooldownTimer -= Time.deltaTime;
+
+        if (distanceToPlayer > startStrafeDistance)
+            return;
+
+        float heightThreshold = 5f;
+        if (Mathf.Abs(transform.position.y - target.position.y) > heightThreshold)
+            return;
+
+        if (strafeCooldownTimer <= 0f)
+        {
+            Strafe();
+            strafeCooldownTimer = strafeCooldown;
+        }
+    }
+
+    private void Strafe()
+    {
+        if (target == null)
+            return;
+        
+        Vector3 directionToPlayer = (target.position - transform.position).normalized;
+        Vector3 strafeDirection = Vector3.Cross(Vector3.up, directionToPlayer).normalized;
+        
+        // Randomly choose left or right strafe
+        if (Random.value > 0.5f)
+            strafeDirection = -strafeDirection;
+        
+        Vector3 newPosition = transform.position + strafeDirection * strafeDistance;
+        agent.SetDestination(newPosition);
+        if (agent.remainingDistance > strafeDistance + strafeDistanceTolerance)
+            agent.ResetPath(); // If the new position is unreachable, stop moving
+    }
+
+    private void Retreat()
+    {
+        if (target == null)
+            return;
+
+        agent.angularSpeed = retreatRotateSpeed;
+
+        StartCoroutine(RetreatTimeout()); //in case the path is too far
+        state = ArcherState.Repositioning;
+
+        Vector3 directionAwayFromPlayer = (transform.position - target.position).normalized;
+        Vector3 newPosition = transform.position + directionAwayFromPlayer * retreatDistance;
+        agent.SetDestination(newPosition);
+    }
+
+    private IEnumerator RetreatTimeout()
+    {
+        yield return new WaitForSeconds(retreatTimeout);
+        agent.ResetPath();
+        state = ArcherState.Shooting;
+    }
+    #endregion
+
     public void OnDeath()
     {
         Destroy(gameObject);
+    }
+    
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, targetTooCloseDistance);
     }
 }
