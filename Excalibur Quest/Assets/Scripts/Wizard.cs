@@ -24,6 +24,9 @@ public class Wizard : MonoBehaviour
     [Min(1)]
     [SerializeField] private int summonMinAmount = 1;
 
+    [SerializeField] private float summonMaxRange = 10;
+    [SerializeField] private float summonMinRange = 5;
+
     private NavMeshAgent agent;
     private Transform target;
     private float teleportTimer;
@@ -139,10 +142,10 @@ public class Wizard : MonoBehaviour
             for (int j = 0; j < positionAttempts; j++)
             {
                 float angle = Random.Range(0f, 360f);
-                float distance = Random.Range(summonMinAmount, summonMaxAmount);
+                float distance = Random.Range(summonMinRange, summonMaxRange);
 
                 Vector3 direction = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
-                Vector3 desiredPosition = target.position + direction * distance;
+                Vector3 desiredPosition = transform.position + direction * distance;
 
                 if (NavMesh.SamplePosition(
                         desiredPosition,
@@ -152,7 +155,7 @@ public class Wizard : MonoBehaviour
                 {
                     float horizontalDistance = Vector3.Distance(
                         new Vector3(hit.position.x, 0f, hit.position.z),
-                        new Vector3(target.position.x, 0f, target.position.z)
+                        new Vector3(transform.position.x, 0f, transform.position.z)
                     );
 
                     //if (horizontalDistance < summonMinAmount || horizontalDistance > summonMaxAmount)
