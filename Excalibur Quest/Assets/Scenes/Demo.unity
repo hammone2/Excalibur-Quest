@@ -17,15 +17,15 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0
+  m_FogDensity: 0.004
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.61
+  m_AmbientIntensity: 0.92
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.3291799, g: 0.37129518, b: 0.47798735, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 5150311059170904eba0bf252692edf1, type: 2}
   m_HaloStrength: 0.143
   m_FlareStrength: 0.152
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 64
   m_ReflectionBounces: 3
-  m_ReflectionIntensity: 0.797
+  m_ReflectionIntensity: 0.665
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 841037301}
   m_UseRadianceAmbientProbe: 0
@@ -2577,7 +2577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8937150884323396708, guid: eef2576212a1e5642befeedcf918896f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.2003
+      value: 30.34
       objectReference: {fileID: 0}
     - target: {fileID: 8937150884323396708, guid: eef2576212a1e5642befeedcf918896f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5817,15 +5817,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493102452136960575, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000010866672
+      value: 0.000024605542
       objectReference: {fileID: 0}
     - target: {fileID: 3493102452136960575, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2551613
+      value: 0.25527382
       objectReference: {fileID: 0}
     - target: {fileID: 3493102452136960575, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.036008105
+      value: -0.036057778
       objectReference: {fileID: 0}
     - target: {fileID: 3511657431718859215, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_Dithering
@@ -5845,7 +5845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890368790358703876, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.24
+      value: 9.67
       objectReference: {fileID: 0}
     - target: {fileID: 3890368790358703876, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5881,15 +5881,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459607180813990086, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000011397526
+      value: -0.0000028042123
       objectReference: {fileID: 0}
     - target: {fileID: 4459607180813990086, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0324898
+      value: 1.0324936
       objectReference: {fileID: 0}
     - target: {fileID: 4459607180813990086, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.026692118
+      value: -0.02677726
       objectReference: {fileID: 0}
     - target: {fileID: 4683405920251508412, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5897,7 +5897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4683405920251508412, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0361214
+      value: 1.0361242
       objectReference: {fileID: 0}
     - target: {fileID: 4683405920251508412, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5917,15 +5917,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8611056569118453677, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000011397526
+      value: -0.0000028042123
       objectReference: {fileID: 0}
     - target: {fileID: 8611056569118453677, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0324898
+      value: 1.0324936
       objectReference: {fileID: 0}
     - target: {fileID: 8611056569118453677, guid: 4e934ba6b89947f4eb0ee43333deac54, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.026692118
+      value: -0.02677726
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8802,10 +8802,10 @@ Terrain:
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 1f7268e3d63e0974a9fb6eb2a98f6f94, type: 2}
   m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeBillboardDistance: 71
+  m_TreeCrossFadeLength: 1.8
   m_TreeMaximumFullLODCount: 260
-  m_DetailObjectDistance: 500
+  m_DetailObjectDistance: 147
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -15252,6 +15252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree1
       objectReference: {fileID: 0}
+    - target: {fileID: 7322444544763783709, guid: 5630c4520c8bbeb4f9829672e5074d9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4306606477260937843, guid: 5630c4520c8bbeb4f9829672e5074d9b, type: 3}
@@ -16693,6 +16697,10 @@ PrefabInstance:
     - target: {fileID: 6804980938156243542, guid: 3c9e1c2aa19b5cf4a8108195a60bf435, type: 3}
       propertyPath: m_Name
       value: Tree2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804980938156243542, guid: 3c9e1c2aa19b5cf4a8108195a60bf435, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
