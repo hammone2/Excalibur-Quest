@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,12 +19,21 @@ public class Wizard : MonoBehaviour
 
     [Header("Summons")]
     [SerializeField] private GameObject[] summonPrefab;
+    [Min(1)]
+    [SerializeField] private int maxActiveSummons = 7;
+    private int currentActiveSummons = 0;
     [SerializeField] private int summonMaxAmount = 3;
     [Min(1)]
     [SerializeField] private int summonMinAmount = 1;
-
     [SerializeField] private float summonMaxRange = 10;
     [SerializeField] private float summonMinRange = 5;
+
+    [Header("Fireball")]
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private float fireballCooldown = 3f;
+    [SerializeField] private float fireballSpeed = 10f;
+    [SerializeField] private int fireballDamage = 10;
+    [SerializeField] private float fireballTimeAlive = 15f;
 
     private NavMeshAgent agent;
     private Transform target;
@@ -132,7 +140,14 @@ public class Wizard : MonoBehaviour
         if (summonPrefab.Length == 0 || target == null)
             return;
 
+        if (currentActiveSummons >= maxActiveSummons)
+        {
+            FireballAttack();
+            return;
+        }
+
         int amountToSummon = Random.Range(summonMinAmount, summonMaxAmount + 1);
+        amountToSummon = Mathf.Min(amountToSummon, maxActiveSummons - currentActiveSummons);
 
         for (int i = 0; i < amountToSummon; i++)
         {
@@ -170,16 +185,44 @@ public class Wizard : MonoBehaviour
             if (foundPosition)
             {
                 int randomIndex = Random.Range(0, summonPrefab.Length);
-                Instantiate(
+                GameObject enemy = Instantiate(
                     summonPrefab[randomIndex],
                     summonPosition,
                     Quaternion.identity
                 );
+
+                currentActiveSummons++;
+                enemy.AddComponent<SummonedEntity>().Initialize(this);
             }
             else
             {
                 Debug.LogWarning($"{name} could not find a valid NavMesh summon position.");
             }
+        }
+    }
+
+    private void FireballAttack()
+    {
+        if (fireballPrefab == null || target == null)
+            return;
+
+        GameObject fireball = Instantiate(
+            fireballPrefab,
+            transform.position + Vector3.up * 1.5f,
+            Quaternion.identity
+        );
+
+        Fireball fireballScript = fireball.GetComponent<Fireball>();
+        if (fireballScript != null)
+        {
+            fireballScript.Initialize(
+                target,
+                fireballSpeed,
+                fireballDamage,
+                fireballTimeAlive,
+                gameObject,
+                0f
+            );
         }
     }
 
@@ -192,5 +235,10 @@ public class Wizard : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(direction);
         }
+    }
+
+    public void OnSummonedEnemyDestroyed()
+    {
+        currentActiveSummons--;
     }
 }

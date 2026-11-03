@@ -240,8 +240,16 @@ MonoBehaviour:
   facePlayerAfterTeleport: 1
   summonPrefab:
   - {fileID: 4181463034543194881, guid: f84e1b0f0ba154c40850f4a6927b260d, type: 3}
+  maxActiveSummons: 7
+  summonMaxAmount: 3
+  summonMinAmount: 1
   summonMaxRange: 3
   summonMinRange: 1
+  fireballPrefab: {fileID: 6858689087459971888, guid: 2673adb116d5c7548ac266148926ff7c, type: 3}
+  fireballCooldown: 3
+  fireballSpeed: 10
+  fireballDamage: 10
+  fireballTimeAlive: 7
 --- !u!114 &5959172089988713260
 MonoBehaviour:
   m_ObjectHideFlags: 0

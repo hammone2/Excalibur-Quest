@@ -146,7 +146,7 @@ public class Archer : MonoBehaviour
             Projectile projectile = arrow.GetComponent<Projectile>();
 
             if (projectile != null)
-                projectile.Initialize(10, gameObject);
+                projectile.Initialize(10, gameObject, 1f);
 
             Destroy(arrow, 5f);
         }
