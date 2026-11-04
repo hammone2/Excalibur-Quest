@@ -31,16 +31,22 @@ public class Fireball : MonoBehaviour
         bool timeAliveExpired = Time.time - startTime >= timeAlive;
         if (timeAliveExpired)
         {
-            Destroy(gameObject);
+            FizzleOut();
             return;
         }
 
+        //Precise method
+        //Vector3 adjustedTargetPos = new Vector3(target.position.x, target.position.y + 1, target.position.z);
+        //transform.position = Vector3.MoveTowards(transform.position, adjustedTargetPos, speed * Time.deltaTime);
+
         Vector3 adjustedTargetPos = new Vector3(target.position.x, target.position.y + 1, target.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, adjustedTargetPos, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, target.position) < 0.1f)
-        {
-            FizzleOut();
-        }
+        Vector3 directionToTarget = (adjustedTargetPos - transform.position).normalized;
+
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        float rotationLerpSpeed = 5f;
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationLerpSpeed * Time.deltaTime);
+
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     private void FizzleOut()

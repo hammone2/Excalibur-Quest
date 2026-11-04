@@ -30,7 +30,6 @@ public class Wizard : MonoBehaviour
 
     [Header("Fireball")]
     [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private float fireballCooldown = 3f;
     [SerializeField] private float fireballSpeed = 10f;
     [SerializeField] private int fireballDamage = 10;
     [SerializeField] private float fireballTimeAlive = 15f;
@@ -123,16 +122,19 @@ public class Wizard : MonoBehaviour
                 if (facePlayerAfterTeleport)
                 {
                     FacePlayer();
-                    SummonEnemy();
                 }
+
+                //choose spell
+                if (Random.value < 0.5f)
+                    FireballAttack();
+                else
+                    SummonEnemy();
 
                 return;
             }
         }
 
-        Debug.LogWarning(
-            $"{name} could not find a valid NavMesh teleport position."
-        );
+        Debug.LogWarning($"{name} could not find a valid NavMesh teleport position.");
     }
 
     private void SummonEnemy()
@@ -172,9 +174,6 @@ public class Wizard : MonoBehaviour
                         new Vector3(hit.position.x, 0f, hit.position.z),
                         new Vector3(transform.position.x, 0f, transform.position.z)
                     );
-
-                    //if (horizontalDistance < summonMinAmount || horizontalDistance > summonMaxAmount)
-                    //continue;
 
                     summonPosition = hit.position;
                     foundPosition = true;
@@ -240,5 +239,10 @@ public class Wizard : MonoBehaviour
     public void OnSummonedEnemyDestroyed()
     {
         currentActiveSummons--;
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

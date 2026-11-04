@@ -180,7 +180,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7333706841790354184
+--- !u!1 &4045362793176363217
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,141 +188,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 549193267830350632}
-  - component: {fileID: 6628022398414254949}
-  - component: {fileID: 5959172089988713260}
-  - component: {fileID: 6625426671700161844}
-  - component: {fileID: 4554793391214094037}
-  - component: {fileID: 6969230314126454608}
+  - component: {fileID: 6299055073032806764}
+  - component: {fileID: 8955059398249265473}
   m_Layer: 0
-  m_Name: Wizard
+  m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &549193267830350632
+--- !u!4 &6299055073032806764
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
+  m_GameObject: {fileID: 4045362793176363217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4, y: 0, z: 89.6}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7136836066312116844}
-  - {fileID: 3631512644237241257}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 549193267830350632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6628022398414254949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 472fb085f8b37f441b9733c8ddf9d09e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  teleportInterval: 5
-  minimumDistanceFromPlayer: 15
-  maximumDistanceFromPlayer: 25
-  positionAttempts: 30
-  navMeshSampleDistance: 10
-  minimumVerticalOffset: -8
-  maximumVerticalOffset: 8
-  facePlayerAfterTeleport: 1
-  summonPrefab:
-  - {fileID: 4181463034543194881, guid: f84e1b0f0ba154c40850f4a6927b260d, type: 3}
-  maxActiveSummons: 7
-  summonMaxAmount: 3
-  summonMinAmount: 1
-  summonMaxRange: 3
-  summonMinRange: 1
-  fireballPrefab: {fileID: 6858689087459971888, guid: 2673adb116d5c7548ac266148926ff7c, type: 3}
-  fireballCooldown: 3
-  fireballSpeed: 10
-  fireballDamage: 10
-  fireballTimeAlive: 7
---- !u!114 &5959172089988713260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 179bd55aa77ffa04e8f7f922b28f6cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
-  healthPoints: 50
-  maxHealth: 50
-  OnTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!195 &6625426671700161844
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!136 &4554793391214094037
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!96 &6969230314126454608
+--- !u!96 &8955059398249265473
 TrailRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333706841790354184}
+  m_GameObject: {fileID: 4045362793176363217}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -434,3 +331,150 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!1 &7333706841790354184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549193267830350632}
+  - component: {fileID: 6628022398414254949}
+  - component: {fileID: 5959172089988713260}
+  - component: {fileID: 6625426671700161844}
+  - component: {fileID: 4554793391214094037}
+  m_Layer: 0
+  m_Name: Wizard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &549193267830350632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333706841790354184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4, y: 0, z: 89.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7136836066312116844}
+  - {fileID: 3631512644237241257}
+  - {fileID: 6299055073032806764}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6628022398414254949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333706841790354184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472fb085f8b37f441b9733c8ddf9d09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wizard
+  teleportInterval: 5
+  minimumDistanceFromPlayer: 15
+  maximumDistanceFromPlayer: 25
+  positionAttempts: 30
+  navMeshSampleDistance: 10
+  minimumVerticalOffset: -8
+  maximumVerticalOffset: 8
+  facePlayerAfterTeleport: 1
+  summonPrefab:
+  - {fileID: 4181463034543194881, guid: f84e1b0f0ba154c40850f4a6927b260d, type: 3}
+  maxActiveSummons: 7
+  summonMaxAmount: 3
+  summonMinAmount: 1
+  summonMaxRange: 7
+  summonMinRange: 3
+  fireballPrefab: {fileID: 6858689087459971888, guid: 2673adb116d5c7548ac266148926ff7c, type: 3}
+  fireballCooldown: 3
+  fireballSpeed: 10
+  fireballDamage: 25
+  fireballTimeAlive: 7
+--- !u!114 &5959172089988713260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333706841790354184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179bd55aa77ffa04e8f7f922b28f6cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
+  healthPoints: 50
+  maxHealth: 50
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6628022398414254949}
+        m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!195 &6625426671700161844
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333706841790354184}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &4554793391214094037
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333706841790354184}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

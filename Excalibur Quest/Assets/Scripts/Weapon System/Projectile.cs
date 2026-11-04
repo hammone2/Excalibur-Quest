@@ -5,17 +5,25 @@ public class Projectile : MonoBehaviour
     private int damage = 10;
     private float minimumVelocity;
     private GameObject attacker;
+    private bool canDamageAttacker = false;
+    private float attackerDamageDelay = 1.0f;
 
     public void Initialize(int damage, GameObject attacker, float minimumVelocity)
     {
         this.damage = damage;
         this.attacker = attacker;
         this.minimumVelocity = minimumVelocity;
+        Invoke(nameof(EnableAttackerDamage), attackerDamageDelay);
+    }
+
+    private void EnableAttackerDamage()
+    {
+        canDamageAttacker = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == attacker)
+        if (collision.gameObject == attacker && !canDamageAttacker)
         {
             Debug.LogWarning("Projectile collided with its attacker. Ignoring collision.");
             return;
