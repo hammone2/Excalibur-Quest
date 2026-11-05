@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerUpperBodyMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/legiktarget.l
+    m_Weight: 0
+  - m_Path: Armature/legiktarget.l/legiktarget.l_end
+    m_Weight: 0
+  - m_Path: Armature/legiktarget.r
+    m_Weight: 0
+  - m_Path: Armature/legiktarget.r/legiktarget.r_end
+    m_Weight: 0
+  - m_Path: Armature/legpoletarget.l
+    m_Weight: 0
+  - m_Path: Armature/legpoletarget.l/legpoletarget.l_end
+    m_Weight: 0
+  - m_Path: Armature/legpoletarget.r
+    m_Weight: 0
+  - m_Path: Armature/legpoletarget.r/legpoletarget.r_end
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/Thigh.l
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LegCoverL
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LowerLeg.l
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LowerLeg.l/BootL
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LowerLeg.l/Foot.l
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LowerLeg.l/Foot.l/Foot.l_end
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.l/UpperLeg.l/LowerLeg.l/Foot.l/ShoeCoverL
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LegCoverR
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LowerLeg.r
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LowerLeg.r/BootR
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LowerLeg.r/Foot.r
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LowerLeg.r/Foot.r/Foot.r_end
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/Thigh.r/UpperLeg.r/LowerLeg.r/Foot.r/RSHoeCover
+    m_Weight: 0
+  - m_Path: Armature/LowerSpine/UpperSpine
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Chestplate
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Neck
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Neck/Head/Head_end
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Neck/Head/Helmet
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Neck/ShoulderPlate
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Hand.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Hand.l/Handcenter.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Hand.l/Handcenter.l/Handnails.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Hand.l/Handcenter.l/Handnails.l/Handnails.l_end
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/LWristCover
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Thumb.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Thumb.l/Thumbcenter.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Thumb.l/Thumbcenter.l/Thumbnail.l
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/Forearm.l/Thumb.l/Thumbcenter.l/Thumbnail.l/Thumbnail.l_end
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.l/Bicep.l/LArmPlate
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Hand.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Hand.r/Handcenter.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Hand.r/Handcenter.r/Handnails.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Hand.r/Handcenter.r/Handnails.r/Handnails.r_end
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/RWristCover
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Thumb.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Thumb.r/Thumbcenter.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Thumb.r/Thumbcenter.r/Thumbnail.r
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/Forearm.r/Thumb.r/Thumbcenter.r/Thumbnail.r/Thumbnail.r_end
+    m_Weight: 1
+  - m_Path: Armature/LowerSpine/UpperSpine/Shoulder.r/Bicep.r/RArmPlate
+    m_Weight: 1
+  - m_Path: Head
+    m_Weight: 1
+  - m_Path: LeftShoe
+    m_Weight: 1
+  - m_Path: LowerArmL
+    m_Weight: 1
+  - m_Path: LowerArmR
+    m_Weight: 1
+  - m_Path: LowerLegL
+    m_Weight: 1
+  - m_Path: LowerLegR
+    m_Weight: 1
+  - m_Path: Pants
+    m_Weight: 1
+  - m_Path: RightShoe
+    m_Weight: 1
+  - m_Path: Shirt
+    m_Weight: 1
+  - m_Path: Torso
+    m_Weight: 1
+  - m_Path: UpperArmL
+    m_Weight: 1
+  - m_Path: UpperArmR
+    m_Weight: 1
+  - m_Path: UpperThighL
+    m_Weight: 1
+  - m_Path: UpperThighR
+    m_Weight: 1

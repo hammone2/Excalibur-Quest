@@ -27,9 +27,9 @@ Transform:
   m_GameObject: {fileID: 374910059404635277}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.097, y: 0, z: 0.435}
-  m_LocalScale: {x: 0.28, y: 0.28, z: 1.28}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0, y: -0, z: -0.0055}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.04571428}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7364482592771635833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7364482592771635833
 Transform:
   m_ObjectHideFlags: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   slots:
   - {fileID: 1268989647728998734}
+  - {fileID: 7364482592771635833}
   currentWeaponIndex: 0
   currentWeapon: {fileID: 0}
 --- !u!1 &7193797091166317681
@@ -516,6 +517,11 @@ MonoBehaviour:
   followCameraTarget: {fileID: 2716618070745045517}
   mouseSensitivity: 0.1
   controllerSensitivity: 250
+  aimLayerIndex: 1
+  aimLayerBlendSpeed: 10
+  aimPitchBlendSpeed: 10
+  aimDownLimit: -45
+  aimUpLimit: 45
   weaponController: {fileID: 6268857601351308652}
   attackDuration: 0.25
   attackForwardDistance: 5.5
