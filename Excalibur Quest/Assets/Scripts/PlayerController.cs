@@ -521,6 +521,10 @@ public class PlayerController : MonoBehaviour
     private void HandleAiming()
     {
         aiming = inputActions.Player.Aim.IsPressed();
+
+        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+            return;
+
         if (aiming && !previousAiming)
         {
             /*/ On transition to aiming, rotate player to camera's forward direction (XZ plane)

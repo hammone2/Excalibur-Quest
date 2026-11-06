@@ -4,6 +4,7 @@ public class Weapon : MonoBehaviour
 {
     public string weaponName;
     public string attackAnimation;
+    [SerializeField] private int damage = 10;
     [SerializeField] private MeleeHitbox meleeHitbox;
     [SerializeField] private GameObject owner;
     [SerializeField] private Animator animator;
@@ -20,6 +21,9 @@ public class Weapon : MonoBehaviour
     [Header("Ranged Options")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform muzzle;
+    [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float projectileLifetime = 5f;
+    [SerializeField] private int ammoCount = 10;
 
     public void PlayAttackAnimation()
     {
@@ -51,13 +55,21 @@ public class Weapon : MonoBehaviour
         {
             GameObject projectile = Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
             Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+            if (ammoCount <= 0)
+                return;
+
             if (projectileScript != null)
             {
                 //projectileScript.SetOwner(owner);
                 //projectileScript.SetFriendlyFire(enemyFriendlyFire);
 
-                projectileScript.Initialize(10, owner, 5f);
-                projectile.GetComponent<Rigidbody>().AddForce(muzzle.forward * 100f, ForceMode.Impulse);
+                projectileScript.Initialize(damage, owner, 1f);
+                projectile.GetComponent<Rigidbody>().AddForce(muzzle.forward * projectileSpeed, ForceMode.Impulse);
+
+                Destroy(projectile, projectileLifetime);
+
+                ammoCount--;
             }
         }
     }
