@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Bow
   attackAnimation: 
+  damage: 10
   meleeHitbox: {fileID: 0}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 0}
@@ -146,6 +147,9 @@ MonoBehaviour:
   weaponType: 1
   projectilePrefab: {fileID: 282676384733523253, guid: a90692b6324859d4684b6377eb1e05b7, type: 3}
   muzzle: {fileID: 7107276405876601220}
+  projectileSpeed: 100
+  projectileLifetime: 5
+  ammoCount: 100
 --- !u!1 &1436566793679515440
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Sword
   attackAnimation: SwordAttack
+  damage: 10
   meleeHitbox: {fileID: 7987347922224485505}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 7723397287872058309}
@@ -373,6 +378,9 @@ MonoBehaviour:
   weaponType: 0
   projectilePrefab: {fileID: 0}
   muzzle: {fileID: 0}
+  projectileSpeed: 20
+  projectileLifetime: 5
+  ammoCount: 10
 --- !u!114 &7987347922224485505
 MonoBehaviour:
   m_ObjectHideFlags: 0

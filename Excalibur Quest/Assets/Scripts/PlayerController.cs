@@ -567,6 +567,9 @@ public class PlayerController : MonoBehaviour
         if (animator == null)
             return;
 
+        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+            return;
+
         float targetLayerWeight = aiming ? 1f : 0f;
 
         currentAimLayerWeight = Mathf.MoveTowards(

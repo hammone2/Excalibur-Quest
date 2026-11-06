@@ -51,26 +51,26 @@ public class Weapon : MonoBehaviour
 
     private void ShootProjectile()
     {
-        if (projectilePrefab != null)
+        if (projectilePrefab == null)
+            return;
+
+        if (ammoCount <= 0)
+            return;
+
+        GameObject projectile = Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
+        Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+        if (projectileScript != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
-            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //projectileScript.SetOwner(owner);
+            //projectileScript.SetFriendlyFire(enemyFriendlyFire);
 
-            if (ammoCount <= 0)
-                return;
+            projectileScript.Initialize(damage, owner, 1f);
+            projectile.GetComponent<Rigidbody>().AddForce(muzzle.forward * projectileSpeed, ForceMode.Impulse);
 
-            if (projectileScript != null)
-            {
-                //projectileScript.SetOwner(owner);
-                //projectileScript.SetFriendlyFire(enemyFriendlyFire);
+            Destroy(projectile, projectileLifetime);
 
-                projectileScript.Initialize(damage, owner, 1f);
-                projectile.GetComponent<Rigidbody>().AddForce(muzzle.forward * projectileSpeed, ForceMode.Impulse);
-
-                Destroy(projectile, projectileLifetime);
-
-                ammoCount--;
-            }
+            ammoCount--;
         }
     }
 
