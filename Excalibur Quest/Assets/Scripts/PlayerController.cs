@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -50,6 +48,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform followCameraTarget;
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float controllerSensitivity = 100f;
+
+    [Header("Aim Animation")]
+    [SerializeField] private int aimLayerIndex = 1;
+    [SerializeField] private float aimLayerBlendSpeed = 10f;
+    [SerializeField] private float aimPitchBlendSpeed = 10f;
+    [SerializeField] private float aimDownLimit = -45f;
+    [SerializeField] private float aimUpLimit = 45f;
+    private float currentAimLayerWeight;
 
     [Header("Weapon System")]
     public WeaponController weaponController;
@@ -151,6 +157,7 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerState.Normal:
                 HandleAiming();
+                UpdateAimAnimation();
                 HandleMovement();
                 HandleGravity();
                 HandleJump();
@@ -405,9 +412,16 @@ public class PlayerController : MonoBehaviour
         if (!inputActions.Player.Attack.WasPressedThisFrame())
             return;
 
-        currentState = PlayerState.Attacking;
-        weaponController.currentWeapon.PlayAttackAnimation();
-        StartAttack();
+        if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Melee)
+        {
+            currentState = PlayerState.Attacking;
+            weaponController.currentWeapon.PlayAttackAnimation();
+            StartAttack();
+        }
+        else if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
+        {
+            weaponController.currentWeapon.PlayAttackAnimation();
+        }
     }
 
     private void StartAttack()
@@ -491,7 +505,7 @@ public class PlayerController : MonoBehaviour
             lookInput *= controllerSensitivity * Time.deltaTime;
         }
 
-        AdjustCameraPitch(lookInput.y);
+        //AdjustCameraPitch(lookInput.y); //already updated in the animator
 
         // Rotate player left/right
         transform.Rotate(Vector3.up * lookInput.x);
@@ -507,9 +521,13 @@ public class PlayerController : MonoBehaviour
     private void HandleAiming()
     {
         aiming = inputActions.Player.Aim.IsPressed();
+
+        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+            return;
+
         if (aiming && !previousAiming)
         {
-            // On transition to aiming, rotate player to camera's forward direction (XZ plane)
+            /*/ On transition to aiming, rotate player to camera's forward direction (XZ plane)
             Vector3 cameraForward = cameraTransform.forward;
 
             //Adjust aim pitch to match camera
@@ -524,6 +542,14 @@ public class PlayerController : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
                 transform.rotation = targetRotation;
+            }*/
+
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0f;
+
+            if (cameraForward.sqrMagnitude > threshold)
+            {
+                transform.rotation = Quaternion.LookRotation(cameraForward);
             }
         }
         SetAiming(aiming);
@@ -534,6 +560,41 @@ public class PlayerController : MonoBehaviour
         //Transition between camera views
         aimCamera.Priority = aiming ? 20 : 10;
         followCamera.Priority = aiming ? 10 : 20;
+    }
+
+    private void UpdateAimAnimation()
+    {
+        if (animator == null)
+            return;
+
+        float targetLayerWeight = aiming ? 1f : 0f;
+
+        currentAimLayerWeight = Mathf.MoveTowards(
+            currentAimLayerWeight,
+            targetLayerWeight,
+            aimLayerBlendSpeed * Time.deltaTime
+        );
+
+        animator.SetLayerWeight(
+            aimLayerIndex,
+            currentAimLayerWeight
+        );
+
+        // cinemachineTargetPitch is already controlled by the mouse
+        float aimPitch = Mathf.Clamp(
+            cinemachineTargetPitch,
+            aimDownLimit,
+            aimUpLimit
+        );
+
+        /*animator.SetFloat(
+            "AimPitch",
+            aimPitch,
+            aimPitchBlendSpeed,
+            Time.deltaTime
+        );*/
+
+        animator.SetFloat("AimPitch", aimPitch);
     }
 
 
@@ -563,6 +624,8 @@ public class PlayerController : MonoBehaviour
         // Cinemachine will follow this target
         followCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride,
             cinemachineTargetYaw, 0.0f);
+
+        aimCameraTarget.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0f, 0f);
     }
 
     #endregion

@@ -84,8 +84,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4078022613379168997}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000031478546, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.013999939, y: 1.036125, z: -0.04435253}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.79999995, y: 1.38, z: -2.2599993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147,10 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0.8, y: -0.85, z: 1.61}
+  ShoulderOffset: {x: 0.8, y: -0.85, z: 0.07}
   VerticalArmLength: 1.2
   CameraSide: 1
-  CameraDistance: 4
+  CameraDistance: 2.33
   AvoidObstacles:
     Enabled: 1
     CollisionFilter:
@@ -218,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 4441728813684433416}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4336047, y: -0, z: 0, w: 0.9011032}
-  m_LocalPosition: {x: 0, y: 0.25528717, z: -0.036117077}
+  m_LocalPosition: {x: 0, y: 5.7197056, z: -4.0552397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -321,8 +321,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6190494553999628932}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0325028, z: -0.026742935}
+  m_LocalRotation: {x: 0, y: -0.8891437, z: 0, w: -0.45762816}
+  m_LocalPosition: {x: 395.7482, y: 31.48251, z: 617.9656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -490,7 +490,7 @@ Transform:
   m_GameObject: {fileID: 8487008614342846144}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0325028, z: -0.026742935}
+  m_LocalPosition: {x: 0, y: 1.76, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
