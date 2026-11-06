@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7364482592771635833}
+  - component: {fileID: 6266788600086461163}
   m_Layer: 7
   m_Name: Bow
   m_TagString: Untagged
@@ -120,8 +121,31 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 607259788095957065}
+  - {fileID: 7107276405876601220}
   m_Father: {fileID: 894273661193424949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6266788600086461163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642226512573493516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490e69cb4f308004db3fa0ea5c107cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  weaponName: 
+  attackAnimation: 
+  meleeHitbox: {fileID: 0}
+  owner: {fileID: 0}
+  animator: {fileID: 0}
+  enemyFriendlyFire: 0
+  isEquipped: 0
+  weaponType: 1
+  projectilePrefab: {fileID: 282676384733523253, guid: a90692b6324859d4684b6377eb1e05b7, type: 3}
+  muzzle: {fileID: 7107276405876601220}
 --- !u!1 &1436566793679515440
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +314,7 @@ MonoBehaviour:
   - {fileID: 1268989647728998734}
   - {fileID: 7364482592771635833}
   currentWeaponIndex: 0
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 6266788600086461163}
 --- !u!1 &7193797091166317681
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +370,9 @@ MonoBehaviour:
   animator: {fileID: 7723397287872058309}
   enemyFriendlyFire: 0
   isEquipped: 0
+  weaponType: 0
+  projectilePrefab: {fileID: 0}
+  muzzle: {fileID: 0}
 --- !u!114 &7987347922224485505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +675,37 @@ MonoBehaviour:
     m_Bits: 1
   canPush: 1
   strength: 1.1
+--- !u!1 &8417034427025836214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7107276405876601220}
+  m_Layer: 7
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7107276405876601220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417034427025836214}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0.0045, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7364482592771635833}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &2311607313554955333
 PrefabInstance:
   m_ObjectHideFlags: 0

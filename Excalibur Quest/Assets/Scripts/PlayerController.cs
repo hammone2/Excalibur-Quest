@@ -412,9 +412,16 @@ public class PlayerController : MonoBehaviour
         if (!inputActions.Player.Attack.WasPressedThisFrame())
             return;
 
-        currentState = PlayerState.Attacking;
-        weaponController.currentWeapon.PlayAttackAnimation();
-        StartAttack();
+        if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Melee)
+        {
+            currentState = PlayerState.Attacking;
+            weaponController.currentWeapon.PlayAttackAnimation();
+            StartAttack();
+        }
+        else if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
+        {
+            weaponController.currentWeapon.PlayAttackAnimation();
+        }
     }
 
     private void StartAttack()
@@ -516,7 +523,7 @@ public class PlayerController : MonoBehaviour
         aiming = inputActions.Player.Aim.IsPressed();
         if (aiming && !previousAiming)
         {
-            // On transition to aiming, rotate player to camera's forward direction (XZ plane)
+            /*/ On transition to aiming, rotate player to camera's forward direction (XZ plane)
             Vector3 cameraForward = cameraTransform.forward;
 
             //Adjust aim pitch to match camera
@@ -531,6 +538,14 @@ public class PlayerController : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
                 transform.rotation = targetRotation;
+            }*/
+
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0f;
+
+            if (cameraForward.sqrMagnitude > threshold)
+            {
+                transform.rotation = Quaternion.LookRotation(cameraForward);
             }
         }
         SetAiming(aiming);
@@ -568,12 +583,14 @@ public class PlayerController : MonoBehaviour
             aimUpLimit
         );
 
-        animator.SetFloat(
+        /*animator.SetFloat(
             "AimPitch",
             aimPitch,
             aimPitchBlendSpeed,
             Time.deltaTime
-        );
+        );*/
+
+        animator.SetFloat("AimPitch", aimPitch);
     }
 
 
@@ -603,6 +620,8 @@ public class PlayerController : MonoBehaviour
         // Cinemachine will follow this target
         followCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride,
             cinemachineTargetYaw, 0.0f);
+
+        aimCameraTarget.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0f, 0f);
     }
 
     #endregion
