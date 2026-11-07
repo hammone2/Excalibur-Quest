@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
         else if (weaponType == WeaponType.Ranged)
         {
             ShootProjectile();
-            Debug.Log("Shooting projectile from weapon: " + weaponName);
+            //Debug.Log("Shooting projectile from weapon: " + weaponName);
         }
     }
 
