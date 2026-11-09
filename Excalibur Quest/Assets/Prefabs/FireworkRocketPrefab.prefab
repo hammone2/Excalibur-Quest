@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   explosive: 1
   explosionPrefab: {fileID: 8530704680621197974, guid: 4a1fce0ca704ec2459f4155f7d4717f1, type: 3}
-  explosionRadius: 75
+  explosionRadius: 12
   explosionDamageableLayers:
     serializedVersion: 2
     m_Bits: 4294967295

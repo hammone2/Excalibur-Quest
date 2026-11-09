@@ -137,11 +137,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Player.Enable();
+        inputActions.UI.Enable();
     }
 
     private void OnDisable()
     {
         inputActions.Player.Disable();
+        inputActions.UI.Disable();
     }
     #endregion
 
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
                 HandleGravity();
                 HandleJump();
                 HandleDash();
+                HandleScrollThroughWeapons();
                 HandleAttack();
 
                 previousAiming = aiming;
@@ -169,6 +172,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.Dashing:
                 HandleDashMovement();
+                HandleScrollThroughWeapons();
                 break;
 
             case PlayerState.Attacking:
@@ -417,10 +421,16 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerState.Attacking;
             weaponController.currentWeapon.PlayAttackAnimation();
             StartAttack();
+            return;
         }
-        else if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
+
+        if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
         {
-            weaponController.currentWeapon.PlayAttackAnimation();
+            if (aiming)
+            {
+                weaponController.currentWeapon.PlayAttackAnimation();
+                return;
+            }
         }
     }
 
@@ -505,17 +515,8 @@ public class PlayerController : MonoBehaviour
             lookInput *= controllerSensitivity * Time.deltaTime;
         }
 
-        //AdjustCameraPitch(lookInput.y); //already updated in the animator
-
         // Rotate player left/right
         transform.Rotate(Vector3.up * lookInput.x);
-    }
-
-    private void AdjustCameraPitch(float pitch)
-    {
-        cameraPitch -= pitch;
-        cameraPitch = Mathf.Clamp(cameraPitch, -80f, 80f);
-        aimCameraTarget.localRotation = Quaternion.Euler(cameraPitch, 0f, 0f);
     }
 
     private void HandleAiming()
@@ -527,23 +528,6 @@ public class PlayerController : MonoBehaviour
 
         if (aiming && !previousAiming)
         {
-            /*/ On transition to aiming, rotate player to camera's forward direction (XZ plane)
-            Vector3 cameraForward = cameraTransform.forward;
-
-            //Adjust aim pitch to match camera
-            cameraPitch = 0f;
-            float pitch = Mathf.Asin(cameraForward.y);
-            float pitchInDegrees = pitch * Mathf.Rad2Deg;
-            AdjustCameraPitch(pitchInDegrees);
-
-            //rotate player to camera forward
-            cameraForward.y = 0f;
-            if (cameraForward.sqrMagnitude > threshold)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-                transform.rotation = targetRotation;
-            }*/
-
             Vector3 cameraForward = cameraTransform.forward;
             cameraForward.y = 0f;
 
@@ -590,13 +574,6 @@ public class PlayerController : MonoBehaviour
             aimUpLimit
         );
 
-        /*animator.SetFloat(
-            "AimPitch",
-            aimPitch,
-            aimPitchBlendSpeed,
-            Time.deltaTime
-        );*/
-
         animator.SetFloat("AimPitch", aimPitch);
     }
 
@@ -632,6 +609,23 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+
+    private void HandleScrollThroughWeapons()
+    {
+        Vector2 scrollInput = inputActions.UI.ScrollWheel.ReadValue<Vector2>();
+
+        if (scrollInput.y > 0f)
+        {
+            int nextIndex = (weaponController.currentWeaponIndex + 1) % weaponController.slots.Count;
+            weaponController.EquipWeapon(nextIndex);
+        }
+        else if (scrollInput.y < 0f)
+        {
+            int previousIndex = (weaponController.currentWeaponIndex - 1 + weaponController.slots.Count) % weaponController.slots.Count;
+            weaponController.EquipWeapon(previousIndex);
+        }
+    }
 
     public void Die()
     {

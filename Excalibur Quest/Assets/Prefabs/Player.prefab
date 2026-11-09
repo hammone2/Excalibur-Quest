@@ -559,7 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Firework Launcher
   attackAnimation: 
-  damage: 100
+  damage: 75
   meleeHitbox: {fileID: 0}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 0}
@@ -570,7 +570,7 @@ MonoBehaviour:
   muzzle: {fileID: 6859053629110463800}
   projectileSpeed: 25
   projectileLifetime: 5
-  ammoCount: 1000
+  ammoCount: 7
 --- !u!1 &7476506061648580119
 GameObject:
   m_ObjectHideFlags: 0

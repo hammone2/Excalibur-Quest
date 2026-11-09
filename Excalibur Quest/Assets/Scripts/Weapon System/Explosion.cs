@@ -132,6 +132,8 @@ public class Explosion : MonoBehaviour
             damagedEntities.Add(damageable);
         }
 
+
+        CameraShake.Shake(1f);
         Destroy(gameObject, destroyAfterSeconds);
     }
 
