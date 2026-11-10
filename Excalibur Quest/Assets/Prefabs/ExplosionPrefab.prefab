@@ -46,7 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Explosion
   radius: 100
   damage: 100
+  explosionForce: 50
+  upwardsModifier: 10
+  forceMode: 1
   damageableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  forceLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   lineOfSightLayers:

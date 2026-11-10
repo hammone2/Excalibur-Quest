@@ -6,13 +6,23 @@ public class Explosion : MonoBehaviour
     [Header("Explosion Settings")]
     [SerializeField] private float radius = 5f;
     [SerializeField] private int damage = 10;
+    [SerializeField] private float explosionForce = 10f;
+    [SerializeField] private float upwardsModifier = 1f;
+    [SerializeField] private ForceMode forceMode = ForceMode.Impulse;
 
     [Header("Layer Settings")]
     [SerializeField] private LayerMask damageableLayers = ~0;
+    [SerializeField] private LayerMask forceLayers = ~0;
     [SerializeField] private LayerMask lineOfSightLayers = ~0;
 
     [Header("Lifetime")]
     [SerializeField] private float destroyAfterSeconds = 2f;
+
+    [Header("Camera Shake")]
+    [SerializeField] private float cameraShakeStrength = 1f;
+    private float cameraShakeRadius = 10f;
+    [SerializeField]
+    private AnimationCurve cameraShakeFalloff = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
 
     private GameObject attacker;
     private bool canDamageAttacker = true;
@@ -33,6 +43,8 @@ public class Explosion : MonoBehaviour
         damageableLayers = explosionDamageableLayers;
         lineOfSightLayers = explosionLineOfSightLayers;
         canDamageAttacker = allowAttackerDamage;
+        cameraShakeRadius = radius * 3f;
+
 
         Explode();
     }
@@ -132,9 +144,51 @@ public class Explosion : MonoBehaviour
             damagedEntities.Add(damageable);
         }
 
+        StartCoroutine(ApplyExplosionForceAfterRagdoll());
 
-        CameraShake.Shake(1f);
+        ShakeCameraFromExplosion();
         Destroy(gameObject, destroyAfterSeconds);
+    }
+
+    private void ApplyExplosionForce()
+    {
+        Collider[] collidersInRadius = Physics.OverlapSphere(
+            transform.position,
+            radius,
+            forceLayers,
+            QueryTriggerInteraction.Ignore
+        );
+
+        HashSet<Rigidbody> affectedRigidbodies = new HashSet<Rigidbody>();
+
+        foreach (Collider targetCollider in collidersInRadius)
+        {
+            Rigidbody rigidbody = targetCollider.attachedRigidbody;
+
+            if (rigidbody == null || !affectedRigidbodies.Add(rigidbody))
+            {
+                continue;
+            }
+
+            rigidbody.AddExplosionForce(
+                explosionForce,
+                transform.position,
+                radius,
+                upwardsModifier,
+                forceMode
+            );
+        }
+    }
+
+    private System.Collections.IEnumerator ApplyExplosionForceAfterRagdoll()
+    {
+        // Allow TakeDamage to enable the ragdoll.
+        yield return new WaitForFixedUpdate();
+
+        // Allow ragdoll collisions to create dismembered parts.
+        yield return new WaitForFixedUpdate();
+
+        ApplyExplosionForce();
     }
 
     private bool HasLineOfSight(
@@ -195,6 +249,33 @@ public class Explosion : MonoBehaviour
         return first == second ||
                first.transform.IsChildOf(second.transform) ||
                second.transform.IsChildOf(first.transform);
+    }
+
+    private void ShakeCameraFromExplosion()
+    {
+        Camera playerCamera = Camera.main;
+
+        if (playerCamera == null)
+        {
+            return;
+        }
+
+        float distance = Vector3.Distance(
+            transform.position,
+            playerCamera.transform.position
+        );
+
+        float normalizedDistance = Mathf.Clamp01(
+            distance / cameraShakeRadius
+        );
+
+        float falloff = cameraShakeFalloff.Evaluate(normalizedDistance);
+        float shakeStrength = cameraShakeStrength * falloff;
+
+        if (shakeStrength > 0.001f)
+        {
+            CameraShake.Shake(shakeStrength);
+        }
     }
 
     private void OnDrawGizmosSelected()

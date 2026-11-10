@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
     private bool aiming = false;
     private bool isFreelookEnabled = true;
     private bool previousAiming = false;
-    private float cameraPitch;
 
     public bool HasBlendFinished => isFreelookEnabled;
 
@@ -521,10 +520,22 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAiming()
     {
+        bool isRangedWeapon =
+        weaponController.currentWeapon != null &&
+        weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged;
+
         aiming = inputActions.Player.Aim.IsPressed();
 
-        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+        //if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+        //return;
+
+        if (!isRangedWeapon)
+        {
+            aiming = false;
+            previousAiming = false;
+            SetAiming(false);
             return;
+        }
 
         if (aiming && !previousAiming)
         {
@@ -551,10 +562,14 @@ public class PlayerController : MonoBehaviour
         if (animator == null)
             return;
 
-        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
-            return;
+        //if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+            //return;
 
-        float targetLayerWeight = aiming ? 1f : 0f;
+        bool isRangedWeapon =
+        weaponController.currentWeapon != null &&
+        weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged;
+
+        float targetLayerWeight = isRangedWeapon && aiming ? 1f : 0f;
 
         currentAimLayerWeight = Mathf.MoveTowards(
             currentAimLayerWeight,
@@ -566,6 +581,9 @@ public class PlayerController : MonoBehaviour
             aimLayerIndex,
             currentAimLayerWeight
         );
+
+        if (!isRangedWeapon)
+            return;
 
         // cinemachineTargetPitch is already controlled by the mouse
         float aimPitch = Mathf.Clamp(
@@ -615,15 +633,24 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 scrollInput = inputActions.UI.ScrollWheel.ReadValue<Vector2>();
 
-        if (scrollInput.y > 0f)
+        if (scrollInput.y == 0f || weaponController.slots.Count == 0)
+            return;
+
+        int direction = scrollInput.y > 0f ? 1 : -1;
+        int slotCount = weaponController.slots.Count;
+
+        for (int offset = 1; offset <= slotCount; offset++)
         {
-            int nextIndex = (weaponController.currentWeaponIndex + 1) % weaponController.slots.Count;
-            weaponController.EquipWeapon(nextIndex);
-        }
-        else if (scrollInput.y < 0f)
-        {
-            int previousIndex = (weaponController.currentWeaponIndex - 1 + weaponController.slots.Count) % weaponController.slots.Count;
-            weaponController.EquipWeapon(previousIndex);
+            int weaponIndex =
+                (weaponController.currentWeaponIndex + direction * offset + slotCount) % slotCount;
+
+            Weapon weapon = weaponController.GetWeaponAtIndex(weaponIndex);
+
+            if (weapon != null && weapon.isEquipped)
+            {
+                weaponController.SwitchWeapon(weaponIndex);
+                return;
+            }
         }
     }
 

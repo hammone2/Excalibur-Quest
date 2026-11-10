@@ -44,6 +44,11 @@ public class Projectile : MonoBehaviour
 
         if (explosive)
         {
+            ContactPoint contact = collision.GetContact(0);
+
+            // Move the explosion slightly away from the wall.
+            Vector3 explosionPosition = contact.point + contact.normal * 0.05f;
+
             SpawnExplosion();
             Debug.Log("Projectile exploded on collision with: " + collision.gameObject.name);
             Destroy(gameObject);

@@ -33,4 +33,14 @@ public class WeaponController : MonoBehaviour
             slots[i].gameObject.SetActive(false);
         }
     }
+
+    public Weapon GetWeaponAtIndex(int index)
+    {
+        if (index >= 0 && index < slots.Count)
+        {
+            return slots[index].GetComponent<Weapon>();
+        }
+
+        return null;
+    }
 }
