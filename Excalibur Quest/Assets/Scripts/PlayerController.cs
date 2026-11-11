@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
     private bool aiming = false;
     private bool isFreelookEnabled = true;
     private bool previousAiming = false;
-    private float cameraPitch;
 
     public bool HasBlendFinished => isFreelookEnabled;
 
@@ -137,11 +136,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Player.Enable();
+        inputActions.UI.Enable();
     }
 
     private void OnDisable()
     {
         inputActions.Player.Disable();
+        inputActions.UI.Disable();
     }
     #endregion
 
@@ -162,6 +163,7 @@ public class PlayerController : MonoBehaviour
                 HandleGravity();
                 HandleJump();
                 HandleDash();
+                HandleScrollThroughWeapons();
                 HandleAttack();
 
                 previousAiming = aiming;
@@ -169,6 +171,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.Dashing:
                 HandleDashMovement();
+                HandleScrollThroughWeapons();
                 break;
 
             case PlayerState.Attacking:
@@ -417,10 +420,16 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerState.Attacking;
             weaponController.currentWeapon.PlayAttackAnimation();
             StartAttack();
+            return;
         }
-        else if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
+
+        if (weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged)
         {
-            weaponController.currentWeapon.PlayAttackAnimation();
+            if (aiming)
+            {
+                weaponController.currentWeapon.PlayAttackAnimation();
+                return;
+            }
         }
     }
 
@@ -505,45 +514,31 @@ public class PlayerController : MonoBehaviour
             lookInput *= controllerSensitivity * Time.deltaTime;
         }
 
-        //AdjustCameraPitch(lookInput.y); //already updated in the animator
-
         // Rotate player left/right
         transform.Rotate(Vector3.up * lookInput.x);
     }
 
-    private void AdjustCameraPitch(float pitch)
-    {
-        cameraPitch -= pitch;
-        cameraPitch = Mathf.Clamp(cameraPitch, -80f, 80f);
-        aimCameraTarget.localRotation = Quaternion.Euler(cameraPitch, 0f, 0f);
-    }
-
     private void HandleAiming()
     {
+        bool isRangedWeapon =
+        weaponController.currentWeapon != null &&
+        weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged;
+
         aiming = inputActions.Player.Aim.IsPressed();
 
-        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+        //if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+        //return;
+
+        if (!isRangedWeapon)
+        {
+            aiming = false;
+            previousAiming = false;
+            SetAiming(false);
             return;
+        }
 
         if (aiming && !previousAiming)
         {
-            /*/ On transition to aiming, rotate player to camera's forward direction (XZ plane)
-            Vector3 cameraForward = cameraTransform.forward;
-
-            //Adjust aim pitch to match camera
-            cameraPitch = 0f;
-            float pitch = Mathf.Asin(cameraForward.y);
-            float pitchInDegrees = pitch * Mathf.Rad2Deg;
-            AdjustCameraPitch(pitchInDegrees);
-
-            //rotate player to camera forward
-            cameraForward.y = 0f;
-            if (cameraForward.sqrMagnitude > threshold)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-                transform.rotation = targetRotation;
-            }*/
-
             Vector3 cameraForward = cameraTransform.forward;
             cameraForward.y = 0f;
 
@@ -567,10 +562,14 @@ public class PlayerController : MonoBehaviour
         if (animator == null)
             return;
 
-        if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
-            return;
+        //if (weaponController.currentWeapon.weaponType != Weapon.WeaponType.Ranged)
+            //return;
 
-        float targetLayerWeight = aiming ? 1f : 0f;
+        bool isRangedWeapon =
+        weaponController.currentWeapon != null &&
+        weaponController.currentWeapon.weaponType == Weapon.WeaponType.Ranged;
+
+        float targetLayerWeight = isRangedWeapon && aiming ? 1f : 0f;
 
         currentAimLayerWeight = Mathf.MoveTowards(
             currentAimLayerWeight,
@@ -583,19 +582,15 @@ public class PlayerController : MonoBehaviour
             currentAimLayerWeight
         );
 
+        if (!isRangedWeapon)
+            return;
+
         // cinemachineTargetPitch is already controlled by the mouse
         float aimPitch = Mathf.Clamp(
             cinemachineTargetPitch,
             aimDownLimit,
             aimUpLimit
         );
-
-        /*animator.SetFloat(
-            "AimPitch",
-            aimPitch,
-            aimPitchBlendSpeed,
-            Time.deltaTime
-        );*/
 
         animator.SetFloat("AimPitch", aimPitch);
     }
@@ -632,6 +627,32 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+
+    private void HandleScrollThroughWeapons()
+    {
+        Vector2 scrollInput = inputActions.UI.ScrollWheel.ReadValue<Vector2>();
+
+        if (scrollInput.y == 0f || weaponController.slots.Count == 0)
+            return;
+
+        int direction = scrollInput.y > 0f ? 1 : -1;
+        int slotCount = weaponController.slots.Count;
+
+        for (int offset = 1; offset <= slotCount; offset++)
+        {
+            int weaponIndex =
+                (weaponController.currentWeaponIndex + direction * offset + slotCount) % slotCount;
+
+            Weapon weapon = weaponController.GetWeaponAtIndex(weaponIndex);
+
+            if (weapon != null && weapon.isEquipped)
+            {
+                weaponController.SwitchWeapon(weaponIndex);
+                return;
+            }
+        }
+    }
 
     public void Die()
     {
