@@ -12,6 +12,7 @@ public class ArmorPickup : MonoBehaviour
         ac.EquipArmor();
 
         GetComponent<ItemPickup>().ShowPickupText();
+        SoundFXManager.Instance.PlayRandomSoundFXClip(GetComponent<ItemPickup>().pickupSounds, transform, 1f);
         Destroy(gameObject);
     }
 }

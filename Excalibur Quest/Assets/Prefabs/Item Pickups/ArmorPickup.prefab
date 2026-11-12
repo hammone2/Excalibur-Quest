@@ -17,6 +17,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: pickupSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a6000ab58b013943995bf4770605e38, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 23528e9628e82e24e9780282d87d3f0c, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
       propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
