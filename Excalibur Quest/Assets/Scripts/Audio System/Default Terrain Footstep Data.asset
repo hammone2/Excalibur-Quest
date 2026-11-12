@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05eed3bf61dbb6b418a5fdb63a93a386, type: 3}
+  m_Name: Default Terrain Footstep Data
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainFootstepsData
+  surfaces:
+  - surfaceName: Dark Ground
+    terrainLayer: {fileID: 8574412962073106934, guid: 22565e525804a564bb9d35bf34fa31e7, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: c4c9ae06360711c40b0522ce47073faa, type: 3}
+    - {fileID: 8300000, guid: 354fbd6990f52664c80d280c6dcdb022, type: 3}
+    - {fileID: 8300000, guid: ffdb9d78dd978974194b0c759e1000ed, type: 3}
+    - {fileID: 8300000, guid: c9cc599ca746932469ae68833c3317c7, type: 3}
+  - surfaceName: Grass
+    terrainLayer: {fileID: 8574412962073106934, guid: 7fec6e179940b144c860700f5c481cfa, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: b69e720edf262f142a7727b9ffae6501, type: 3}
+    - {fileID: 8300000, guid: 82bf46beda15e6b4fa3d89be757d80b7, type: 3}
+    - {fileID: 8300000, guid: 4759a6e0eb613dd4088bd61b860a63df, type: 3}
+    - {fileID: 8300000, guid: 7d96a7291d95b14488575a7157f188e2, type: 3}
+    - {fileID: 8300000, guid: c6f3a30ee90fd694f9c9fac8bd7f01d0, type: 3}
+    - {fileID: 8300000, guid: e6ffd2fed279de34e9757ab06a25be79, type: 3}
+  - surfaceName: Ground
+    terrainLayer: {fileID: 8574412962073106934, guid: f7a1b8a068716124290917ca8b62ac00, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: c4c9ae06360711c40b0522ce47073faa, type: 3}
+    - {fileID: 8300000, guid: 354fbd6990f52664c80d280c6dcdb022, type: 3}
+    - {fileID: 8300000, guid: ffdb9d78dd978974194b0c759e1000ed, type: 3}
+    - {fileID: 8300000, guid: c9cc599ca746932469ae68833c3317c7, type: 3}
+  - surfaceName: Rock
+    terrainLayer: {fileID: 8574412962073106934, guid: 1848063965936344cb2014e27e2caf41, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: 3989c6e77bff0de46998901643de17e6, type: 3}
+    - {fileID: 8300000, guid: c26032a17f6314040b78821a8390bf86, type: 3}
+    - {fileID: 8300000, guid: 6e3002e66f84cd04aa2c5de6fc58669b, type: 3}
+    - {fileID: 8300000, guid: 34e945068033187489253b4345751226, type: 3}
+    - {fileID: 8300000, guid: 2469235562d118445ba062fb2dce22b8, type: 3}
+    - {fileID: 8300000, guid: db02a68a14bdbeb4ea5c062195d5d46f, type: 3}
+  materialSurfaces:
+  - surfaceName: DarkWood
+    material: {fileID: 2100000, guid: 24654e7ba2d33744894ba8ebc8d9219f, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: 93640cd7a07b12840881f74491e4270a, type: 3}
+    - {fileID: 8300000, guid: e2d746ead1b377e44b6b00272cdde75a, type: 3}
+    - {fileID: 8300000, guid: 64320d4b4dd41a44f830d767908670b8, type: 3}
+    - {fileID: 8300000, guid: d6f0728539a600b4c8ba6be588e38f61, type: 3}
+    - {fileID: 8300000, guid: 569a1f14969579c41b8674e24746da6e, type: 3}
+    - {fileID: 8300000, guid: 56336772362e8324a8325ef5af15c7e3, type: 3}
+  - surfaceName: LightWood
+    material: {fileID: 2100000, guid: 4053577514414d342a95d69b44e9eba0, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: 93640cd7a07b12840881f74491e4270a, type: 3}
+    - {fileID: 8300000, guid: e2d746ead1b377e44b6b00272cdde75a, type: 3}
+    - {fileID: 8300000, guid: 64320d4b4dd41a44f830d767908670b8, type: 3}
+    - {fileID: 8300000, guid: d6f0728539a600b4c8ba6be588e38f61, type: 3}
+    - {fileID: 8300000, guid: 569a1f14969579c41b8674e24746da6e, type: 3}
+    - {fileID: 8300000, guid: 56336772362e8324a8325ef5af15c7e3, type: 3}
+  - surfaceName: Brick
+    material: {fileID: 2100000, guid: 818857c4aec7b534b867971b9e231279, type: 2}
+    footstepSounds:
+    - {fileID: 8300000, guid: 3989c6e77bff0de46998901643de17e6, type: 3}
+    - {fileID: 8300000, guid: c26032a17f6314040b78821a8390bf86, type: 3}
+    - {fileID: 8300000, guid: 6e3002e66f84cd04aa2c5de6fc58669b, type: 3}
+    - {fileID: 8300000, guid: 34e945068033187489253b4345751226, type: 3}
+    - {fileID: 8300000, guid: 2469235562d118445ba062fb2dce22b8, type: 3}
+    - {fileID: 8300000, guid: db02a68a14bdbeb4ea5c062195d5d46f, type: 3}
