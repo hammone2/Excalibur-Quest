@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float controllerSensitivity = 100f;
 
+    [Header("Horse Riding")]
+    [SerializeField] private HorseController nearbyHorse;
+    private HorseController mountedHorse;
+    public bool IsMounted => mountedHorse != null;
+
     [Header("Weapon System")]
     public WeaponController weaponController;
     [SerializeField] private float attackDuration = 0.35f;
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviour
         Normal,
         Dashing,
         Attacking,
+        Mounted,
         Dead
     }
     private PlayerState currentState = PlayerState.Normal;
@@ -127,6 +133,70 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    private void HandleMountInput()
+    {
+        if (!inputActions.Player.Interact.WasPressedThisFrame())
+            return;
+
+        if (IsMounted)
+        {
+            Dismount();
+        }
+        else if (nearbyHorse != null)
+        {
+            Mount(nearbyHorse);
+        }
+    }
+
+    public void SetNearbyHorse(HorseController horse)
+    {
+        nearbyHorse = horse;
+    }
+
+    public void ClearNearbyHorse(HorseController horse)
+    {
+        if (nearbyHorse == horse)
+            nearbyHorse = null;
+    }
+
+    private void Mount(HorseController horse)
+    {
+        mountedHorse = horse;
+        currentState = PlayerState.Mounted;
+
+        currentSpeed = 0f;
+        velocity = Vector3.zero;
+
+        SetAiming(false);
+
+        controller.enabled = false;
+
+        transform.SetParent(horse.mountPoint);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+
+        horse.SetRider(this);
+    }
+
+    private void Dismount()
+    {
+        if (mountedHorse == null)
+            return;
+
+        HorseController horse = mountedHorse;
+
+        transform.SetParent(null);
+        transform.position = horse.dismountPoint.position;
+        transform.rotation = horse.dismountPoint.rotation;
+
+        controller.enabled = true;
+
+        mountedHorse = null;
+        currentState = PlayerState.Normal;
+
+        horse.RemoveRider();
+    }
+
     #region Enable/Disable
     private void OnEnable()
     {
@@ -142,10 +212,10 @@ public class PlayerController : MonoBehaviour
     #region Updates
     private void Update()
     {
+        HandleMountInput();
+
         if (dashCooldownTimer > 0f)
-        {
             dashCooldownTimer -= Time.deltaTime;
-        }
 
         switch (currentState)
         {
@@ -156,7 +226,6 @@ public class PlayerController : MonoBehaviour
                 HandleJump();
                 HandleDash();
                 HandleAttack();
-
                 previousAiming = aiming;
                 break;
 
@@ -169,10 +238,18 @@ public class PlayerController : MonoBehaviour
                 HandleAttackMovement();
                 break;
 
+            case PlayerState.Mounted:
+                // Horse handles movement.
+                break;
+
             case PlayerState.Dead:
-                //slowly move camera out
-                deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance 
-                    = Mathf.MoveTowards(deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance, 10f, 0.5f * Time.deltaTime);
+                deathCamera.GetComponent<CinemachineThirdPersonFollow>()
+                    .CameraDistance = Mathf.MoveTowards(
+                        deathCamera.GetComponent<CinemachineThirdPersonFollow>()
+                            .CameraDistance,
+                        10f,
+                        0.5f * Time.deltaTime
+                    );
                 break;
         }
     }

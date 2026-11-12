@@ -1,84 +1,82 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 [RequireComponent(typeof(CharacterController))]
 public class HorseController : MonoBehaviour
 {
-    [Header("Input")]
-    public InputActionReference moveAction;
+    [Header("Mounting")]
+    public Transform mountPoint;
+    public Transform dismountPoint;
 
     [Header("Movement")]
-    public float walkSpeed = 3f;
-    public float runSpeed = 7f;
-    public float rotationSpeed = 100f;
-    public float gravity = -20f;
+    [SerializeField] private float walkSpeed = 3f;
+    [SerializeField] private float sprintSpeed = 7f;
+    [SerializeField] private float turnSpeed = 100f;
+    [SerializeField] private float gravity = -25f;
 
     [Header("Animation")]
-    public Animator animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private string speedParameter = "Speed";
+    [SerializeField] private string turnParameter = "Turn";
 
     private CharacterController controller;
-    private float verticalVelocity;
-    private bool beingRidden;
+    private InputSystem_Actions inputActions;
+    private PlayerController rider;
 
-    public bool BeingRidden => beingRidden;
+    private float verticalVelocity;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        inputActions = new InputSystem_Actions();
     }
 
     private void OnEnable()
     {
-        moveAction.action.Enable();
+        inputActions.Player.Enable();
     }
 
     private void OnDisable()
     {
-        moveAction.action.Disable();
+        inputActions.Player.Disable();
     }
 
     private void Update()
     {
-        if (!beingRidden)
-        {
-            ApplyGravity();
+        ApplyGravity();
+
+        if (rider == null)
             return;
-        }
 
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
+        Vector2 input = inputActions.Player.Move.ReadValue<Vector2>();
 
-        float forwardInput = input.y;
-        float turnInput = input.x;
-
-        float speed = Keyboard.current != null &&
-                      Keyboard.current.leftShiftKey.isPressed
-            ? runSpeed
+        float speed = inputActions.Player.Sprint.IsPressed()
+            ? sprintSpeed
             : walkSpeed;
 
         transform.Rotate(
             Vector3.up,
-            turnInput * rotationSpeed * Time.deltaTime
+            input.x * turnSpeed * Time.deltaTime
         );
 
         Vector3 movement =
-            transform.forward * forwardInput * speed;
-
-        ApplyGravity();
+            transform.forward * input.y * speed;
 
         movement.y = verticalVelocity;
 
         controller.Move(movement * Time.deltaTime);
 
         animator.SetFloat(
-            "Speed",
-            Mathf.Abs(forwardInput),
+            speedParameter,
+            Mathf.Abs(input.y),
             0.15f,
             Time.deltaTime
         );
 
         animator.SetFloat(
-            "Turn",
-            turnInput,
+            turnParameter,
+            input.x,
             0.15f,
             Time.deltaTime
         );
@@ -86,20 +84,30 @@ public class HorseController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (controller.isGrounded && verticalVelocity < 0)
+        if (controller.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -2f;
 
         verticalVelocity += gravity * Time.deltaTime;
-    }
 
-    public void SetRidden(bool value)
-    {
-        beingRidden = value;
-
-        if (!value)
+        if (rider == null)
         {
-            animator.SetFloat("Speed", 0f);
-            animator.SetFloat("Turn", 0f);
+            controller.Move(
+                Vector3.up * verticalVelocity * Time.deltaTime
+            );
         }
     }
+
+    public void SetRider(PlayerController player)
+    {
+        rider = player;
+    }
+
+    public void RemoveRider()
+    {
+        rider = null;
+
+        animator.SetFloat(speedParameter, 0f);
+        animator.SetFloat(turnParameter, 0f);
+    }
 }
+
