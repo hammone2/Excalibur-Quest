@@ -11,6 +11,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject locationEntered;
     public Healthbar healthBar;
 
+    [Header("Lore Scroll")]
+    [SerializeField] private GameObject loreScroll;
+    [SerializeField] private TextMeshProUGUI loreScrollText;
 
     public static HUDManager Instance { get; private set; }
 
@@ -46,5 +49,17 @@ public class HUDManager : MonoBehaviour
     {
         locationEntered.GetComponentInChildren<TextMeshProUGUI>().SetText(locationName);
         locationEntered.GetComponent<Animator>().SetTrigger("Enter");
+    }
+
+    public void ShowLoreScroll(string loreContent)
+    {
+        loreScroll.SetActive(true);
+        loreScrollText.SetText(loreContent);
+    }
+
+    public void HideLoreScroll()
+    {
+        loreScroll.SetActive(false);
+        PauseManager.Instance.ResumeGame(false);
     }
 }
