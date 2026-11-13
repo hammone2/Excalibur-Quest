@@ -167,7 +167,6 @@ public class TerrainFootsteps : MonoBehaviour
         return materials[0];
     }
 
-
     private TerrainLayer GetDominantTerrainLayer(
         Terrain terrain,
         Vector3 worldPosition)
@@ -220,5 +219,22 @@ public class TerrainFootsteps : MonoBehaviour
             return null;
 
         return data.terrainLayers[dominantIndex];
+    }
+
+    public void PlayLandingFootstep()
+    {
+        if (groundCheck == null)
+            return;
+
+        if (Physics.Raycast(
+            groundCheck.position,
+            Vector3.down,
+            out RaycastHit hit,
+            groundCheckDistance,
+            groundMask,
+            QueryTriggerInteraction.Ignore))
+        {
+            PlayFootstep(hit);
+        }
     }
 }

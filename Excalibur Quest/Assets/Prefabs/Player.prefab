@@ -150,6 +150,10 @@ MonoBehaviour:
   projectileSpeed: 100
   projectileLifetime: 5
   ammoCount: 100
+  shootSounds:
+  - {fileID: 8300000, guid: 94c7dc49ff3d42f488bc2e5f66cda177, type: 3}
+  - {fileID: 8300000, guid: 2e83955ebc072b44f9539a4abfb34017, type: 3}
+  - {fileID: 8300000, guid: 7ac04e6f277ce0747a9d5e46989a2a11, type: 3}
 --- !u!1 &1436566793679515440
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +419,7 @@ MonoBehaviour:
   projectileSpeed: 20
   projectileLifetime: 5
   ammoCount: 10
+  shootSounds: []
 --- !u!114 &7987347922224485505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,9 +501,9 @@ MonoBehaviour:
   audioArrays:
   - audioArrayName: Sword Swoosh
     audioClips:
-    - {fileID: 8300000, guid: 6d383b6d82075984abcd4403f9794c6d, type: 3}
-    - {fileID: 8300000, guid: 3ca871c6bcc309c4eb3ef696b18e2ebe, type: 3}
-    - {fileID: 8300000, guid: bbdcf78322b4fc7429c50d32974a92f0, type: 3}
+    - {fileID: 8300000, guid: 0fa07264f68148f4c9a88f780b09f394, type: 3}
+    - {fileID: 8300000, guid: d72c5500b43d6394f8738e00b550ed71, type: 3}
+    - {fileID: 8300000, guid: 7c4945c19ac59df498d0404b7cd43e0c, type: 3}
 --- !u!1 &7205719317431992751
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +595,7 @@ MonoBehaviour:
   projectileSpeed: 25
   projectileLifetime: 5
   ammoCount: 7
+  shootSounds: []
 --- !u!1 &7476506061648580119
 GameObject:
   m_ObjectHideFlags: 0

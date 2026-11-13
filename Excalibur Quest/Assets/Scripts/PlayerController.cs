@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour
     #region Updates
     private void Update()
     {
+        bool wasGrounded = controller.isGrounded;
+
         if (dashCooldownTimer > 0f)
         {
             dashCooldownTimer -= Time.deltaTime;
@@ -185,6 +187,9 @@ public class PlayerController : MonoBehaviour
                     = Mathf.MoveTowards(deathCamera.GetComponent<CinemachineThirdPersonFollow>().CameraDistance, 10f, 0.5f * Time.deltaTime);
                 break;
         }
+
+        if (!wasGrounded && controller.isGrounded)
+            GetComponent<TerrainFootsteps>().PlayLandingFootstep();
     }
 
     private void LateUpdate()

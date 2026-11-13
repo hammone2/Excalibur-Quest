@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private float projectileLifetime = 5f;
     [SerializeField] private int ammoCount = 10;
+    [SerializeField] private AudioClip[] shootSounds;
 
     public void PlayAttackAnimation()
     {
@@ -71,6 +72,9 @@ public class Weapon : MonoBehaviour
             Destroy(projectile, projectileLifetime);
 
             ammoCount--;
+
+            if (shootSounds.Length > 0)
+                SoundFXManager.Instance.PlayRandomSoundFXClip(shootSounds, muzzle, 1f);
         }
     }
 
