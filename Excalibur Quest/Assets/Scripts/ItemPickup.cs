@@ -19,7 +19,10 @@ public class ItemPickup : MonoBehaviour
             if (destroyOnPickup)
             {
                 ShowPickupText();
-                SoundFXManager.Instance.PlayRandomSoundFXClip(pickupSounds, transform, 1f);
+                if (pickupSounds != null && pickupSounds.Length > 0)
+                {
+                    SoundFXManager.Instance.PlayRandomSoundFXClip(pickupSounds, transform, 1f);
+                }
                 Destroy(gameObject);
             }
                 

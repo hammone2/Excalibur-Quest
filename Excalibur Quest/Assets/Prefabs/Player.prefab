@@ -138,7 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Bow
   attackAnimation: 
-  damage: 10
+  damageData:
+    damageAmount: 10
+    hitStopDuration: 0.1
   meleeHitbox: {fileID: 0}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 0}
@@ -407,7 +409,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Sword
   attackAnimation: SwordAttack
-  damage: 10
+  damageData:
+    damageAmount: 25
+    hitStopDuration: 0.1
   meleeHitbox: {fileID: 7987347922224485505}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 7723397287872058309}
@@ -432,7 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
-  damage: 25
+  damageData:
+    damageAmount: 0
+    hitStopDuration: 0
   hitbox: {fileID: 7407240634248256918}
   damageableLayers:
     serializedVersion: 2
@@ -583,7 +589,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Firework Launcher
   attackAnimation: 
-  damage: 75
+  damageData:
+    damageAmount: 75
+    hitStopDuration: 0.2
   meleeHitbox: {fileID: 0}
   owner: {fileID: 7476506061648580119}
   animator: {fileID: 0}
@@ -612,6 +620,7 @@ GameObject:
   - component: {fileID: 564815420317668275}
   - component: {fileID: 2812339557222983804}
   - component: {fileID: 4487407386971708855}
+  - component: {fileID: 7688367589707297744}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -929,6 +938,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7688367589707297744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476506061648580119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84df62e49bb7a1e49bc4aced218a58e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyHolderComponent
 --- !u!1 &8135556800771068710
 GameObject:
   m_ObjectHideFlags: 0

@@ -726,7 +726,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 34981172}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1768890133}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: ResumeGame
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &34981172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9581,7 +9593,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.0112807e+20, y: 7.225071e+28, z: 1.5793005e-19, w: 3.109223e-39}
+  m_BoundingSphereOverride: {x: 6.91e-43, y: 9.4e-44, z: 0, w: -1.1969941e-37}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -14171,6 +14183,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284541126}
   m_Mesh: {fileID: 5579084936027870618, guid: 19d21f8668242b84583308840635676d, type: 3}
+--- !u!1001 &1287443748
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 404.2948
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.55373
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 609.94183
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450723740587425133, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607730901980077039, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
+      propertyPath: m_Name
+      value: KeyPickup
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a38330576a7431a418e94eb81e82a2c0, type: 3}
 --- !u!1 &1289268068
 GameObject:
   m_ObjectHideFlags: 0
@@ -15407,6 +15476,7 @@ GameObject:
   - component: {fileID: 1455671141}
   - component: {fileID: 1455671140}
   - component: {fileID: 1455671144}
+  - component: {fileID: 1455671145}
   m_Layer: 0
   m_Name: LoreScroll
   m_TagString: Untagged
@@ -15520,6 +15590,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   loreContent: Once Upon A Time In A Kingdom Long, Long Ago...
+  scrollState: 0
+--- !u!114 &1455671145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455671139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 4
+  fadeStartDistance: 10
+  fadeEndDistance: 25
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  bakeValues:
+  - data:
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
 --- !u!1001 &1457811555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19873,7 +19990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7371c194d9186a645a12372577170ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 1946923705}
+  toggleDisabled: 0
 --- !u!4 &1768890134
 Transform:
   m_ObjectHideFlags: 0
@@ -21752,7 +21870,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1956878078}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4287623561137204307}
+        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+        m_MethodName: OnQuitToTitleButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1956878078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24117,7 +24247,7 @@ MonoBehaviour:
   itemPickupTextLayout: {fileID: 3107638008654907753}
   locationEntered: {fileID: 0}
   healthBar: {fileID: 7395412694902803798}
-  loreScroll: {fileID: 284694430}
+  loreScrollUI: {fileID: 284694430}
   loreScrollText: {fileID: 523609304}
 --- !u!95 &4463403956833579365
 Animator:
@@ -24895,3 +25025,4 @@ SceneRoots:
   - {fileID: 308974097}
   - {fileID: 473270235}
   - {fileID: 1455671143}
+  - {fileID: 1287443748}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MeleeHitbox : MonoBehaviour
 {
-    [SerializeField] private int damage = 25;
+    [HideInInspector]public DamageData damageData;
     [SerializeField] private Collider hitbox;
     [SerializeField] private LayerMask damageableLayers;
 
@@ -83,10 +83,11 @@ public class MeleeHitbox : MonoBehaviour
         Vector3 direction = (other.transform.position - attacker.transform.position).normalized;
 
         DamageInfo info = new DamageInfo(
-            damage,
+            damageData.damageAmount,
             hitPoint,
             direction,
-            attacker
+            attacker,
+            damageData.hitStopDuration
         );
 
         if (other.gameObject == attacker)

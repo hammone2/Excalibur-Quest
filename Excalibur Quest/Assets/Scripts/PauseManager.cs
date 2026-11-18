@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
 
     private bool isPaused;
+    public bool toggleDisabled = false;
 
     public static PauseManager Instance { get; private set; }
 
@@ -35,6 +36,12 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
+        if (toggleDisabled)
+            return;
+
+        if (PlayerController.Instance.IsDead()) //disable this check later if in multiplayer
+            return;
+
         if (isPaused)
         {
             ResumeGame();
@@ -52,7 +59,7 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if (pauseMenu != null && showPauseMenu)
+        if (showPauseMenu)
         {
             pauseMenu.SetActive(true);
         }
@@ -65,7 +72,7 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (pauseMenu != null && showPauseMenu)
+        if (showPauseMenu)
         {
             pauseMenu.SetActive(false);
         }
