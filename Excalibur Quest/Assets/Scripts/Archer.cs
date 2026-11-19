@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Archer : MonoBehaviour
 {
+    [SerializeField] private DamageData damageData;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private float attackCooldown = 1.5f;
@@ -146,7 +147,7 @@ public class Archer : MonoBehaviour
             Projectile projectile = arrow.GetComponent<Projectile>();
 
             if (projectile != null)
-                projectile.Initialize(10, gameObject, 1f);
+                projectile.Initialize(damageData, gameObject, 1f);
 
             Destroy(arrow, 5f);
         }

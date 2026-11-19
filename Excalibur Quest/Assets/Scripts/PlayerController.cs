@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     [Header("Health System")]
     public HealthComponent healthComponent;
     public ArmorComponent armorComponent;
+    private bool isDead = false;
 
     private CharacterController controller;
     private InputSystem_Actions inputActions;
@@ -219,7 +220,12 @@ public class PlayerController : MonoBehaviour
     #region Updates
     private void Update()
     {
+        if (PauseManager.Instance.IsPaused())
+            return;
+
         HandleMountInput();
+
+        bool wasGrounded = controller.isGrounded;
 
         if (dashCooldownTimer > 0f)
             dashCooldownTimer -= Time.deltaTime;
@@ -262,10 +268,16 @@ public class PlayerController : MonoBehaviour
                     );
                 break;
         }
+
+        if (!wasGrounded && controller.isGrounded)
+            GetComponent<TerrainFootsteps>().PlayLandingFootstep();
     }
 
     private void LateUpdate()
     {
+        if (PauseManager.Instance.IsPaused())
+            return;
+
         CameraRotation();
 
         if (brain == null || followCamera == null)
@@ -743,8 +755,14 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Disable();
         animator.StopPlayback();
         animator.enabled = false;
+        isDead = true;
 
         HUDManager.Instance.OnPlayerDeath();
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

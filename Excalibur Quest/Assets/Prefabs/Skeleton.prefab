@@ -581,7 +581,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  damage: 25
+  damageData:
+    damageAmount: 0
+    hitStopDuration: 0
   hitbox: {fileID: 6596646256279073285}
   damageableLayers:
     serializedVersion: 2
@@ -601,11 +603,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
   weaponName: 
   attackAnimation: Armature_SkeletonAttack
+  damageData:
+    damageAmount: 10
+    hitStopDuration: 0.1
   meleeHitbox: {fileID: 1468744343041516800}
   owner: {fileID: 4181463034543194881}
   animator: {fileID: 8359818152406715886}
   enemyFriendlyFire: 0
   isEquipped: 0
+  weaponType: 0
+  projectilePrefab: {fileID: 0}
+  muzzle: {fileID: 0}
+  projectileSpeed: 20
+  projectileLifetime: 5
+  ammoCount: 10
+  shootSounds: []
 --- !u!65 &6596646256279073285
 BoxCollider:
   m_ObjectHideFlags: 0

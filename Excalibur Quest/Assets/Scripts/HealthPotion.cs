@@ -16,6 +16,7 @@ public class HealthPotion : MonoBehaviour
         hc.Heal(healthAmount);
 
         GetComponent<ItemPickup>().ShowPickupText();
+        SoundFXManager.Instance.PlayRandomSoundFXClip(GetComponent<ItemPickup>().pickupSounds, transform, 1f);
         Destroy(gameObject);
     }
 }

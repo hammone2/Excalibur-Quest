@@ -4,7 +4,7 @@ public class VehicleHurtbox : MonoBehaviour
 {
     private float speed => transform.parent.GetComponent<Rigidbody>().linearVelocity.magnitude;
     [SerializeField] private float damageThreshold = 10f;
-    [SerializeField] private int damage = 50;
+    [SerializeField] private DamageData damageData;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,10 +17,11 @@ public class VehicleHurtbox : MonoBehaviour
                 Vector3 direction = (other.transform.position - transform.parent.position).normalized;
 
                 DamageInfo info = new DamageInfo(
-                    damage,
+                    damageData.damageAmount,
                     hitPoint,
                     direction,
-                    transform.parent.gameObject
+                    transform.parent.gameObject,
+                    damageData.hitStopDuration
                 );
 
                 damageable.TakeDamage(info);
