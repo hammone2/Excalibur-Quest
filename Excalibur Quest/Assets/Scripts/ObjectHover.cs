@@ -24,7 +24,8 @@ public class ObjectHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         if (objRenderer != null)
         {
-            objRenderer.material.color = Color.orangeRed; // Highlight color
+            objRenderer.material.color = Color.gray5; // Highlight color
+            Debug.Log("Entered");
         }
     }
 
