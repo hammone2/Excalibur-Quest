@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static LoreScroll;
 
 public class HUDManager : MonoBehaviour
 {
@@ -11,6 +13,10 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject locationEntered;
     public Healthbar healthBar;
 
+    [Header("Lore Scroll")]
+    private LoreScroll currentLoreScroll;
+    [SerializeField] private GameObject loreScrollUI;
+    [SerializeField] private TextMeshProUGUI loreScrollText;
 
     public static HUDManager Instance { get; private set; }
 
@@ -46,5 +52,30 @@ public class HUDManager : MonoBehaviour
     {
         locationEntered.GetComponentInChildren<TextMeshProUGUI>().SetText(locationName);
         locationEntered.GetComponent<Animator>().SetTrigger("Enter");
+    }
+
+    public void ShowLoreScroll(string loreContent, LoreScroll loreScroll)
+    {
+        currentLoreScroll = loreScroll;
+        currentLoreScroll.scrollState = ScrollState.Reading;
+        loreScrollUI.SetActive(true);
+        loreScrollText.SetText(loreContent);
+        PauseManager.Instance.toggleDisabled = true;
+        PauseManager.Instance.PauseGame(false);
+    }
+
+    public void HideLoreScroll()
+    {
+        currentLoreScroll.scrollState = ScrollState.NotReading;
+        currentLoreScroll = null;
+        loreScrollUI.SetActive(false);
+        PauseManager.Instance.toggleDisabled = false;
+        PauseManager.Instance.ResumeGame(false);
+    }
+
+    public void OnQuitToTitleButtonPressed()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StartScreen");
     }
 }

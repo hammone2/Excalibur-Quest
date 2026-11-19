@@ -13,9 +13,33 @@ PrefabInstance:
       value: Health Potion
       objectReference: {fileID: 0}
     - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: pickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 962b70b862cebf64a9f25301b56ad43f, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
       propertyPath: destroyOnPickup
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: pickupSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b75016920fdd3f44ae4fbdd8f1ac2b1, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 304d5a683cdb2e44bb956175594a2b75, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: fe5ce40edee18b246a020cc9c548759f, type: 3}
+    - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
+      propertyPath: 'pickupSounds.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a4453e5749377046bd96f49608b6302, type: 3}
     - target: {fileID: 1252936123469045100, guid: eab19b5b7b3a4284688b8ebd4225f34f, type: 3}
       propertyPath: OnPickedUp.m_PersistentCalls.m_Calls.Array.size
       value: 1
