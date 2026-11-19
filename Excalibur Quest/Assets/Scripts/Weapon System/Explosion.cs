@@ -5,7 +5,7 @@ public class Explosion : MonoBehaviour
 {
     [Header("Explosion Settings")]
     [SerializeField] private float radius = 5f;
-    [SerializeField] private int damage = 10;
+    private DamageData damageData;
     [SerializeField] private float explosionForce = 10f;
     [SerializeField] private float upwardsModifier = 1f;
     [SerializeField] private ForceMode forceMode = ForceMode.Impulse;
@@ -29,7 +29,7 @@ public class Explosion : MonoBehaviour
     private bool hasExploded = false;
 
     public void Initialize(
-        int explosionDamage,
+        DamageData damageData,
         GameObject explosionAttacker,
         float explosionRadius,
         LayerMask explosionDamageableLayers,
@@ -37,7 +37,7 @@ public class Explosion : MonoBehaviour
         bool allowAttackerDamage
     )
     {
-        damage = explosionDamage;
+        this.damageData = damageData;
         attacker = explosionAttacker;
         radius = explosionRadius;
         damageableLayers = explosionDamageableLayers;
@@ -132,13 +132,14 @@ public class Explosion : MonoBehaviour
             }
 
             DamageInfo damageInfo = new DamageInfo(
-                damage,
+                damageData.damageAmount,
                 targetPoint,
                 directionToTarget,
-                attacker
+                attacker,
+                damageData.hitStopDuration
             );
 
-            Debug.Log($"Explosion at {transform.position} dealing {damage} damage to {damageableObject.name} at {targetPoint}");
+            Debug.Log($"Explosion at {transform.position} dealing {damageData.damageAmount} damage to {damageableObject.name} at {targetPoint}");
 
             damageable.TakeDamage(damageInfo);
             damagedEntities.Add(damageable);
