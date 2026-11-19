@@ -6,126 +6,76 @@
 //  Copyright © 2018 Chris Nolet. All rights reserved.
 //
 
-Shader "Custom/Outline Fill"
-{
-    Properties
-    {
-        [Enum(UnityEngine.Rendering.CompareFunction)]
-        _ZTest("ZTest", Float) = 0
+Shader "Custom/Outline Fill" {
+  Properties {
+    [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
 
-        _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
-        _OutlineWidth("Outline Width", Range(0, 10)) = 2
+    _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
+    _OutlineWidth("Outline Width", Range(0, 10)) = 2
+  }
 
-        _FadeStartDistance("Fade Start Distance", Float) = 10
-        _FadeEndDistance("Fade End Distance", Float) = 25
+  SubShader {
+    Tags {
+      "Queue" = "Transparent+110"
+      "RenderType" = "Transparent"
+      "DisableBatching" = "True"
     }
 
-    SubShader
-    {
-        Tags
-        {
-            "Queue" = "Transparent+110"
-            "RenderType" = "Transparent"
-            "DisableBatching" = "True"
-        }
+    Pass {
+      Name "Fill"
+      Cull Off
+      ZTest [_ZTest]
+      ZWrite Off
+      Blend SrcAlpha OneMinusSrcAlpha
+      ColorMask RGB
 
-        Pass
-        {
-            Name "Fill"
+      Stencil {
+        Ref 1
+        Comp NotEqual
+      }
 
-            Cull Off
-            ZTest [_ZTest]
-            ZWrite Off
-            Blend SrcAlpha OneMinusSrcAlpha
-            ColorMask RGB
+      CGPROGRAM
+      #include "UnityCG.cginc"
 
-            Stencil
-            {
-                Ref 1
-                Comp NotEqual
-            }
+      #pragma vertex vert
+      #pragma fragment frag
 
-            CGPROGRAM
+      struct appdata {
+        float4 vertex : POSITION;
+        float3 normal : NORMAL;
+        float3 smoothNormal : TEXCOORD3;
+        UNITY_VERTEX_INPUT_INSTANCE_ID
+      };
 
-            #include "UnityCG.cginc"
+      struct v2f {
+        float4 position : SV_POSITION;
+        fixed4 color : COLOR;
+        UNITY_VERTEX_OUTPUT_STEREO
+      };
 
-            #pragma vertex vert
-            #pragma fragment frag
+      uniform fixed4 _OutlineColor;
+      uniform float _OutlineWidth;
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
-                float3 smoothNormal : TEXCOORD3;
+      v2f vert(appdata input) {
+        v2f output;
 
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
+        UNITY_SETUP_INSTANCE_ID(input);
+        UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-            struct v2f
-            {
-                float4 position : SV_POSITION;
-                fixed4 color : COLOR;
-                float3 worldPosition : TEXCOORD0;
+        float3 normal = any(input.smoothNormal) ? input.smoothNormal : input.normal;
+        float3 viewPosition = UnityObjectToViewPos(input.vertex);
+        float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, normal));
 
-                UNITY_VERTEX_OUTPUT_STEREO
-            };
+        output.position = UnityViewToClipPos(viewPosition + viewNormal * -viewPosition.z * _OutlineWidth / 1000.0);
+        output.color = _OutlineColor;
 
-            uniform fixed4 _OutlineColor;
-            uniform float _OutlineWidth;
-            uniform float _FadeStartDistance;
-            uniform float _FadeEndDistance;
+        return output;
+      }
 
-            v2f vert(appdata input)
-            {
-                v2f output;
-
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
-
-                float3 normal =
-                    any(input.smoothNormal)
-                    ? input.smoothNormal
-                    : input.normal;
-
-                float3 viewPosition = UnityObjectToViewPos(input.vertex);
-
-                float3 viewNormal =
-                    normalize(mul((float3x3)UNITY_MATRIX_IT_MV, normal));
-
-                output.position = UnityViewToClipPos(
-                    viewPosition +
-                    viewNormal *
-                    -viewPosition.z *
-                    _OutlineWidth /
-                    1000.0
-                );
-
-                output.color = _OutlineColor;
-
-                output.worldPosition =
-                    mul(unity_ObjectToWorld, input.vertex).xyz;
-
-                return output;
-            }
-
-            fixed4 frag(v2f input) : SV_Target
-            {
-                float distanceFromCamera =
-                    distance(input.worldPosition, _WorldSpaceCameraPos);
-
-                float fadeAmount = saturate(
-                    (distanceFromCamera - _FadeStartDistance) /
-                    max(_FadeEndDistance - _FadeStartDistance, 0.001)
-                );
-
-                fixed4 finalColor = input.color;
-
-                finalColor.a *= 1.0 - fadeAmount;
-
-                return finalColor;
-            }
-
-            ENDCG
-        }
+      fixed4 frag(v2f input) : SV_Target {
+        return input.color;
+      }
+      ENDCG
     }
+  }
 }

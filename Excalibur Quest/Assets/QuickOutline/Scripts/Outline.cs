@@ -61,13 +61,8 @@ public class Outline : MonoBehaviour {
 
   [SerializeField, Range(0f, 10f)]
   private float outlineWidth = 2f;
-    [SerializeField]
-    private float fadeStartDistance = 10f;
 
-    [SerializeField]
-    private float fadeEndDistance = 25f;
-
-    [Header("Optional")]
+  [Header("Optional")]
 
   [SerializeField, Tooltip("Precompute enabled: Per-vertex calculations are performed in the editor and serialized with the object. "
   + "Precompute disabled: Per-vertex calculations are performed at runtime in Awake(). This may cause a pause for large meshes.")]
@@ -278,10 +273,8 @@ public class Outline : MonoBehaviour {
 
     // Apply properties according to mode
     outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
-        outlineFillMaterial.SetFloat("_FadeStartDistance", fadeStartDistance);
-        outlineFillMaterial.SetFloat("_FadeEndDistance", fadeEndDistance);
 
-        switch (outlineMode) {
+    switch (outlineMode) {
       case Mode.OutlineAll:
         outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
         outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
@@ -313,24 +306,4 @@ public class Outline : MonoBehaviour {
         break;
     }
   }
-
-    public float FadeStartDistance
-    {
-        get { return fadeStartDistance; }
-        set
-        {
-            fadeStartDistance = value;
-            needsUpdate = true;
-        }
-    }
-
-    public float FadeEndDistance
-    {
-        get { return fadeEndDistance; }
-        set
-        {
-            fadeEndDistance = value;
-            needsUpdate = true;
-        }
-    }
 }
