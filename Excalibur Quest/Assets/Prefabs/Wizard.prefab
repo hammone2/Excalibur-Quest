@@ -397,10 +397,9 @@ MonoBehaviour:
   summonMaxRange: 7
   summonMinRange: 3
   fireballPrefab: {fileID: 6858689087459971888, guid: 2673adb116d5c7548ac266148926ff7c, type: 3}
+  fireballCooldown: 3
   fireballSpeed: 10
-  fireballDamageData:
-    damageAmount: 15
-    hitStopDuration: 0.2
+  fireballDamage: 25
   fireballTimeAlive: 7
 --- !u!114 &5959172089988713260
 MonoBehaviour:

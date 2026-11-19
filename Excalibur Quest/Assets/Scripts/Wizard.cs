@@ -31,7 +31,7 @@ public class Wizard : MonoBehaviour
     [Header("Fireball")]
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float fireballSpeed = 10f;
-    [SerializeField] private DamageData fireballDamageData;
+    [SerializeField] private int fireballDamage = 10;
     [SerializeField] private float fireballTimeAlive = 15f;
 
     private NavMeshAgent agent;
@@ -217,7 +217,7 @@ public class Wizard : MonoBehaviour
             fireballScript.Initialize(
                 target,
                 fireballSpeed,
-                fireballDamageData,
+                fireballDamage,
                 fireballTimeAlive,
                 gameObject,
                 0f

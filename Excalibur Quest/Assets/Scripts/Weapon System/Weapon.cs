@@ -4,7 +4,7 @@ public class Weapon : MonoBehaviour
 {
     public string weaponName;
     public string attackAnimation;
-    [SerializeField] private DamageData damageData;
+    [SerializeField] private int damage = 10;
     [SerializeField] private MeleeHitbox meleeHitbox;
     [SerializeField] private GameObject owner;
     [SerializeField] private Animator animator;
@@ -24,16 +24,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private float projectileLifetime = 5f;
     [SerializeField] private int ammoCount = 10;
-    [SerializeField] private AudioClip[] shootSounds;
-
-
-    private void Awake()
-    {
-        if (meleeHitbox != null)
-        {
-            meleeHitbox.damageData = damageData;
-        }
-    }
 
     public void PlayAttackAnimation()
     {
@@ -47,6 +37,7 @@ public class Weapon : MonoBehaviour
         else if (weaponType == WeaponType.Ranged)
         {
             ShootProjectile();
+            //Debug.Log("Shooting projectile from weapon: " + weaponName);
         }
     }
 
@@ -71,15 +62,15 @@ public class Weapon : MonoBehaviour
 
         if (projectileScript != null)
         {
-            projectileScript.Initialize(damageData, owner, 1f);
+            //projectileScript.SetOwner(owner);
+            //projectileScript.SetFriendlyFire(enemyFriendlyFire);
+
+            projectileScript.Initialize(damage, owner, 1f);
             projectile.GetComponent<Rigidbody>().AddForce(muzzle.forward * projectileSpeed, ForceMode.Impulse);
 
             Destroy(projectile, projectileLifetime);
 
             ammoCount--;
-
-            if (shootSounds.Length > 0)
-                SoundFXManager.Instance.PlayRandomSoundFXClip(shootSounds, muzzle, 1f);
         }
     }
 

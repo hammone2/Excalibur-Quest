@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private DamageData damageData;
+    private int damage = 10;
     private float minimumVelocity;
     private GameObject attacker;
     private bool canDamageAttacker = false;
@@ -19,9 +19,9 @@ public class Projectile : MonoBehaviour
     [Tooltip("Include walls, terrain, obstacles, and damageable layers.")]
     [SerializeField] private LayerMask explosionLineOfSightLayers = ~0;
 
-    public void Initialize(DamageData damageData, GameObject attacker, float minimumVelocity)
+    public void Initialize(int damage, GameObject attacker, float minimumVelocity)
     {
-        this.damageData = damageData;
+        this.damage = damage;
         this.attacker = attacker;
         this.minimumVelocity = minimumVelocity;
         Invoke(nameof(EnableAttackerDamage), attackerDamageDelay);
@@ -73,11 +73,10 @@ public class Projectile : MonoBehaviour
             Vector3 direction = (collision.transform.position - attacker.transform.position).normalized;
 
             DamageInfo info = new DamageInfo(
-                damageData.damageAmount,
+                damage,
                 hitPoint,
                 direction,
-                attacker,
-                damageData.hitStopDuration
+                attacker
             );
 
             damageable.TakeDamage(info);
@@ -113,7 +112,7 @@ public class Projectile : MonoBehaviour
         }
 
         explosion.Initialize(
-            damageData,
+            damage,
             attacker,
             explosionRadius,
             explosionDamageableLayers,

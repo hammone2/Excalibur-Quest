@@ -5,7 +5,6 @@ public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private bool destroyOnPickup = true;
     [SerializeField] private string pickupName;
-    public AudioClip[] pickupSounds;
     public UnityEvent OnPickedUp;
 
     private void OnTriggerEnter(Collider other)
@@ -13,16 +12,11 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnPickedUp?.Invoke();
-            
 
             //useful for instances where you run over health potions but your HP is full and you dont want to destroy the pickup
             if (destroyOnPickup)
             {
                 ShowPickupText();
-                if (pickupSounds != null && pickupSounds.Length > 0)
-                {
-                    SoundFXManager.Instance.PlayRandomSoundFXClip(pickupSounds, transform, 1f);
-                }
                 Destroy(gameObject);
             }
                 

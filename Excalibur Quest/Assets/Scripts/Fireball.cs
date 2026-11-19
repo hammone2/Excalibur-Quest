@@ -11,13 +11,13 @@ public class Fireball : MonoBehaviour
     public void Initialize(
         Transform target, 
         float fireballSpeed, 
-        DamageData damageData, 
+        int fireballDamage, 
         float timeAlive, 
         GameObject attacker, 
         float minimumVelocity)
     {
         Projectile projectile = GetComponent<Projectile>();
-        projectile.Initialize(damageData, attacker, minimumVelocity);
+        projectile.Initialize(fireballDamage, attacker, minimumVelocity);
 
         this.target = target;
         speed = fireballSpeed;

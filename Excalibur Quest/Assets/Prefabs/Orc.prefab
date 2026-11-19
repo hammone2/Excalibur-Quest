@@ -383,9 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
-  damageData:
-    damageAmount: 0
-    hitStopDuration: 0
+  damage: 25
   hitbox: {fileID: 812256526674850113}
   damageableLayers:
     serializedVersion: 2
@@ -1638,21 +1636,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   weaponName: Mace
   attackAnimation: OrcAttack
-  damageData:
-    damageAmount: 25
-    hitStopDuration: 0.2
   meleeHitbox: {fileID: 7138185186761265371}
   owner: {fileID: 4165767943272909679}
   animator: {fileID: 7416306318110624101}
   enemyFriendlyFire: 0
   isEquipped: 1
-  weaponType: 0
-  projectilePrefab: {fileID: 0}
-  muzzle: {fileID: 0}
-  projectileSpeed: 20
-  projectileLifetime: 5
-  ammoCount: 10
-  shootSounds: []
 --- !u!114 &7138185186761265371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1665,9 +1653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f852d9f5cb16d45a612abac6fdf542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeHitbox
-  damageData:
-    damageAmount: 0
-    hitStopDuration: 0
+  damage: 25
   hitbox: {fileID: 322159885057756151}
   damageableLayers:
     serializedVersion: 2
