@@ -34,9 +34,13 @@ public class Wizard : MonoBehaviour
     [SerializeField] private DamageData fireballDamageData;
     [SerializeField] private float fireballTimeAlive = 15f;
 
+    [Header("References")]
+    [SerializeField] private Animator animator;
+
     private NavMeshAgent agent;
     private Transform target;
     private float teleportTimer;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -53,6 +57,9 @@ public class Wizard : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+            return;
+
         if (target == null)
             return;
 
@@ -243,6 +250,12 @@ public class Wizard : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        isDead = true;
+        agent.isStopped = true;
+
+        GetComponent<Collider>().enabled = false;
+        
+        animator.StopPlayback();
+        animator.enabled = false;
     }
 }
