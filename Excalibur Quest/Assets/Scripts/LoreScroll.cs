@@ -7,6 +7,8 @@ public class LoreScroll : MonoBehaviour
     [SerializeField] private string loreContent;
     bool isPlayerInRange = false;
 
+    [SerializeField] private AudioClip[] interactSounds;
+
     public enum ScrollState
     {
         Reading,
@@ -42,6 +44,10 @@ public class LoreScroll : MonoBehaviour
                 if (isPlayerInRange && Input.GetKeyDown(KeyCode.E)) //replace with input action later
                 {
                     HUDManager.Instance.ShowLoreScroll(loreContent, this);
+                    if (interactSounds.Length > 0)
+                    {
+                        SoundFXManager.Instance.PlayRandomSoundFXClip(interactSounds, transform, 1f);
+                    }
                 }
                 break;
         }
