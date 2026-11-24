@@ -42,10 +42,18 @@ public class HUDManager : MonoBehaviour
         checkpointText.SetTrigger("Checkpoint");
     }
 
-    public void ShowItemPickupText(string itemName)
+    public void ShowItemPickupText(string itemName, bool showPrefix = true)
     {
         GameObject itemPickupText = Instantiate(itemPickupTextPrefab, itemPickupTextLayout);
-        itemPickupText.GetComponent<TextMeshProUGUI>().SetText("Picked up " + itemName);
+
+        if (showPrefix)
+        {
+            itemPickupText.GetComponent<TextMeshProUGUI>().SetText("Picked up " + itemName);
+        }
+        else
+        {
+            itemPickupText.GetComponent<TextMeshProUGUI>().SetText(itemName);
+        }
     }
 
     public void UpdateLocationName(string locationName)
