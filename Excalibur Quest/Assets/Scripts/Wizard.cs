@@ -3,8 +3,10 @@ using UnityEngine.AI;
 
 public class Wizard : MonoBehaviour
 {
+    [Header("General Settings")]
+    [SerializeField] private float detectionRange = 20f;
+
     [Header("Teleport Settings")]
-    [SerializeField] private float teleportInterval = 5f;
     [SerializeField] private float minimumDistanceFromPlayer = 5f;
     [SerializeField] private float maximumDistanceFromPlayer = 12f;
     [SerializeField] private int positionAttempts = 30;
@@ -39,8 +41,19 @@ public class Wizard : MonoBehaviour
 
     private NavMeshAgent agent;
     private Transform target;
-    private float teleportTimer;
-    private bool isDead = false;
+    private NavMeshHit currentHit;
+    private bool isTeleporting = false;
+    private bool isCastingSpell = false;
+
+    private enum WizardState
+    {
+        Idle,
+        Teleporting,
+        Hit,
+        Spellcasting,
+        Dead
+    }
+    private WizardState state = WizardState.Idle;
 
     private void Awake()
     {
@@ -49,7 +62,7 @@ public class Wizard : MonoBehaviour
 
     private void Start()
     {
-        teleportTimer = teleportInterval;
+        animator.SetTrigger("Idle");
 
         if (PlayerController.Instance != null)
             target = PlayerController.Instance.transform;
@@ -57,18 +70,56 @@ public class Wizard : MonoBehaviour
 
     private void Update()
     {
-        if (isDead)
-            return;
-
-        if (target == null)
-            return;
-
-        teleportTimer -= Time.deltaTime;
-
-        if (teleportTimer <= 0f)
+        switch (state)
         {
-            TeleportAroundPlayer();
-            teleportTimer = teleportInterval;
+            case WizardState.Idle:
+
+                if (IsTargetInRange())
+                    state = WizardState.Teleporting;
+
+                break;
+
+            case WizardState.Teleporting:
+
+                if (target == null)
+                    return;
+
+                if (!IsTargetInRange())
+                {
+                    isTeleporting = false;
+                    isCastingSpell = false;
+
+                    animator.SetTrigger("Idle");
+                    state = WizardState.Idle;
+                    return;
+                }
+
+                if (!isTeleporting && !isCastingSpell)
+                    TeleportAroundPlayer();
+
+                break;
+
+            case WizardState.Spellcasting:
+
+                if (target == null || !IsTargetInRange())
+                {
+                    animator.SetTrigger("Idle");
+                    state = WizardState.Idle;
+                }
+
+                break;
+
+            case WizardState.Hit:
+
+
+
+                break;
+
+            case WizardState.Dead:
+
+
+
+                break;
         }
     }
 
@@ -117,31 +168,63 @@ public class Wizard : MonoBehaviour
                     continue;
                 }
 
-                if (agent != null && agent.isOnNavMesh)
-                {
-                    agent.Warp(hit.position);
-                }
-                else
-                {
-                    transform.position = hit.position;
-                }
-
-                if (facePlayerAfterTeleport)
-                {
-                    FacePlayer();
-                }
-
-                //choose spell
-                if (Random.value < 0.5f)
-                    FireballAttack();
-                else
-                    SummonEnemy();
-
+                currentHit = hit;
+                animator.SetTrigger("Teleport");
+                isTeleporting = true;
                 return;
             }
         }
 
         Debug.LogWarning($"{name} could not find a valid NavMesh teleport position.");
+    }
+
+    public void OnTeleport()
+    {
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.Warp(currentHit.position);
+        }
+        else
+        {
+            transform.position = currentHit.position;
+        }
+
+        animator.SetTrigger("TeleportCooldown");
+    }
+
+    public void OnTeleportCooldownComplete()
+    {
+        isTeleporting = false;
+        isCastingSpell = true;
+
+        if (facePlayerAfterTeleport)
+        {
+            FacePlayer();
+        }
+
+        //state = WizardState.Spellcasting;
+        animator.SetTrigger("Spell");
+    }
+
+    public void OnHitAnimationComplete()
+    {
+        state = WizardState.Teleporting;
+        isTeleporting = false;
+    }
+
+    public void CastRandomSpell()
+    {
+        if (Random.value < 0.5f)
+            FireballAttack();
+        else
+            SummonEnemy();
+    }
+
+    public void OnSpellAnimationComplete()
+    {
+        //state = WizardState.Teleporting;
+        //isTeleporting = false;
+        isCastingSpell = false;
     }
 
     private void SummonEnemy()
@@ -157,6 +240,7 @@ public class Wizard : MonoBehaviour
 
         int amountToSummon = Random.Range(summonMinAmount, summonMaxAmount + 1);
         amountToSummon = Mathf.Min(amountToSummon, maxActiveSummons - currentActiveSummons);
+
 
         for (int i = 0; i < amountToSummon; i++)
         {
@@ -243,14 +327,28 @@ public class Wizard : MonoBehaviour
         }
     }
 
+    private bool IsTargetInRange()
+    {
+        if (target == null)
+            return false;
+        float distance = Vector3.Distance(transform.position, target.position);
+        return distance <= detectionRange;
+    }
+
     public void OnSummonedEnemyDestroyed()
     {
         currentActiveSummons--;
     }
 
+    public void OnHit()
+    {
+        animator.SetTrigger("Hit");
+        state = WizardState.Hit;
+    }
+
     public void Die()
     {
-        isDead = true;
+        state = WizardState.Dead;
         agent.isStopped = true;
 
         GetComponent<Collider>().enabled = false;

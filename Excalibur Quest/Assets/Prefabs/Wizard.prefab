@@ -63,7 +63,7 @@ Transform:
   m_Children:
   - {fileID: 2675230654723297895}
   m_Father: {fileID: 1068680544013586251}
-  m_LocalEulerAnglesHint: {x: 4.9129543, y: 0.8757697, z: -9.137079}
+  m_LocalEulerAnglesHint: {x: 4.912954, y: 0.8757697, z: -9.137078}
 --- !u!1 &249602472285146651
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ Transform:
   m_Children:
   - {fileID: 5250866959234869555}
   m_Father: {fileID: 7732388282646309526}
-  m_LocalEulerAnglesHint: {x: -4.205287, y: -3.6958787, z: 9.033105}
+  m_LocalEulerAnglesHint: {x: -4.205287, y: -3.6958787, z: 9.033107}
 --- !u!1 &441112251004829802
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ Transform:
   m_Children:
   - {fileID: 6299276368469367941}
   m_Father: {fileID: 7039567930960541813}
-  m_LocalEulerAnglesHint: {x: -47.12847, y: 24.875025, z: -18.302862}
+  m_LocalEulerAnglesHint: {x: -40.207447, y: 16.052256, z: -6.031681}
 --- !u!136 &2132894187126338729
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ Transform:
   - {fileID: 986403606094426460}
   - {fileID: 6614857236524250951}
   m_Father: {fileID: 1885342999254962848}
-  m_LocalEulerAnglesHint: {x: 5.33442, y: -0.007558737, z: 2.775048}
+  m_LocalEulerAnglesHint: {x: 5.3344197, y: -0.007558898, z: 2.7750463}
 --- !u!136 &5791465492208903992
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -603,14 +603,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642365470553852010}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07248241, y: 0.033555675, z: -0.20497441, w: 0.9755029}
+  m_LocalRotation: {x: -0.060659777, y: 0.05196234, z: 0.06737755, w: 0.9945253}
   m_LocalPosition: {x: 0.0000000076089055, y: 0.012241305, z: 2.8120467e-10}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7732388282646309526}
   m_Father: {fileID: 157648152721110139}
-  m_LocalEulerAnglesHint: {x: -7.3342466, y: 5.506953, z: -24.08614}
+  m_LocalEulerAnglesHint: {x: -7.334, y: 5.507, z: 7.398}
 --- !u!136 &8533559985839035442
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -865,7 +865,7 @@ Transform:
   m_Children:
   - {fileID: 2892546557574570892}
   m_Father: {fileID: 986403606094426460}
-  m_LocalEulerAnglesHint: {x: -5.1375904, y: -0.17056607, z: 1.4117541}
+  m_LocalEulerAnglesHint: {x: -5.1375914, y: -0.17056637, z: 1.4117544}
 --- !u!1 &1110863962713729596
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,7 +960,7 @@ Transform:
   m_Children:
   - {fileID: 6511480945191293631}
   m_Father: {fileID: 1720043325708628138}
-  m_LocalEulerAnglesHint: {x: 10.6006775, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.600679, y: 0, z: 0}
 --- !u!1 &1707729270556790699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,7 +1278,7 @@ Transform:
   m_Children:
   - {fileID: 1648234460530100670}
   m_Father: {fileID: 6614857236524250951}
-  m_LocalEulerAnglesHint: {x: -19.464052, y: -0.14771865, z: 3.4247243}
+  m_LocalEulerAnglesHint: {x: -19.464048, y: -0.14771912, z: 3.4247236}
 --- !u!1 &2187625055375700971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1344,7 @@ Transform:
   m_Children:
   - {fileID: 587608077337260228}
   m_Father: {fileID: 6874273909020894315}
-  m_LocalEulerAnglesHint: {x: -7.474333, y: -4.9080815, z: 20.025604}
+  m_LocalEulerAnglesHint: {x: -4.437435, y: 3.5373633, z: -42.142757}
 --- !u!136 &7729604129859119391
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1473,7 +1473,7 @@ Transform:
   - {fileID: 1068680544013586251}
   - {fileID: 4798643488526367124}
   m_Father: {fileID: 587608077337260228}
-  m_LocalEulerAnglesHint: {x: -4.205286, y: 3.6958787, z: -9.033104}
+  m_LocalEulerAnglesHint: {x: -4.2052865, y: 3.6958787, z: -9.033106}
 --- !u!1 &2877768941319091021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,7 +1626,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ce6823d88fee24298db87dc56d5209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterRigAnimationEventController
-  animationEvents: []
+  animationEvents:
+  - eventName: OnTeleport
+    eventAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6628022398414254949}
+          m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+          m_MethodName: OnTeleport
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: OnTeleportCooldownFinished
+    eventAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6628022398414254949}
+          m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+          m_MethodName: OnTeleportCooldownComplete
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: OnHitStaggerFinished
+    eventAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6628022398414254949}
+          m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+          m_MethodName: OnHitAnimationComplete
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: OnSpellAnimationComplete
+    eventAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6628022398414254949}
+          m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+          m_MethodName: OnSpellAnimationComplete
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventName: OnSpellCasted
+    eventAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6628022398414254949}
+          m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+          m_MethodName: CastRandomSpell
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3054130865081774000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,7 +2092,7 @@ Transform:
   m_Children:
   - {fileID: 1849385763768101627}
   m_Father: {fileID: 6299276368469367941}
-  m_LocalEulerAnglesHint: {x: -10.536287, y: -18.55944, z: 73.32476}
+  m_LocalEulerAnglesHint: {x: -10.536288, y: -18.559443, z: 73.32477}
 --- !u!1 &3535597580072331357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,7 +2627,7 @@ Transform:
   m_Children:
   - {fileID: 2752659767287775039}
   m_Father: {fileID: 6876983221617808895}
-  m_LocalEulerAnglesHint: {x: 0.03273263, y: 0.014371596, z: 0.09340319}
+  m_LocalEulerAnglesHint: {x: 11.513287, y: 3.715629, z: 35.542213}
 --- !u!136 &4484955685367161207
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2868,7 +2948,7 @@ Transform:
   m_Children:
   - {fileID: 7812596323159467853}
   m_Father: {fileID: 8720373313400832580}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.260021, y: 0, z: 0}
 --- !u!135 &6525932421989885616
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3061,7 +3141,7 @@ Transform:
   m_Children:
   - {fileID: 1981836025417813196}
   m_Father: {fileID: 236214471615064748}
-  m_LocalEulerAnglesHint: {x: -2.7399242, y: -1.1948227, z: 2.4232223}
+  m_LocalEulerAnglesHint: {x: -2.7399251, y: -1.1948223, z: 2.4232237}
 --- !u!1 &5581032852593259664
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,7 +3173,7 @@ Transform:
   m_Children:
   - {fileID: 3940003619160690166}
   m_Father: {fileID: 3329013236644314386}
-  m_LocalEulerAnglesHint: {x: -19.464048, y: 0.147718, z: -3.4247236}
+  m_LocalEulerAnglesHint: {x: -19.464048, y: 0.1477182, z: -3.4247262}
 --- !u!1 &5873410572096296043
 GameObject:
   m_ObjectHideFlags: 0
@@ -3128,7 +3208,7 @@ Transform:
   m_Children:
   - {fileID: 7104927684213509144}
   m_Father: {fileID: 5370409497624150217}
-  m_LocalEulerAnglesHint: {x: -46.156204, y: -24.154179, z: 19.46048}
+  m_LocalEulerAnglesHint: {x: -48.04475, y: -20.463322, z: -4.1481323}
 --- !u!136 &7660085678022519870
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3415,7 +3495,7 @@ Transform:
   m_Children:
   - {fileID: 2560038256094553516}
   m_Father: {fileID: 5250866959234869555}
-  m_LocalEulerAnglesHint: {x: 4.912956, y: -0.87576896, z: 9.137079}
+  m_LocalEulerAnglesHint: {x: 4.9129567, y: -0.8757692, z: 9.137079}
 --- !u!1 &6422126491706239226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,7 +3654,7 @@ Transform:
   m_Children:
   - {fileID: 236214471615064748}
   m_Father: {fileID: 7732388282646309526}
-  m_LocalEulerAnglesHint: {x: 34.87652, y: 10.756624, z: 23.390163}
+  m_LocalEulerAnglesHint: {x: 34.876522, y: 10.756625, z: 23.390165}
 --- !u!1 &6540268572381976783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,7 +3690,7 @@ Transform:
   - {fileID: 3257638545665577910}
   - {fileID: 3329013236644314386}
   m_Father: {fileID: 1950872652924043326}
-  m_LocalEulerAnglesHint: {x: 5.334419, y: 0.007558858, z: -2.7750456}
+  m_LocalEulerAnglesHint: {x: 5.3344183, y: 0.0075584427, z: -2.775045}
 --- !u!136 &4703493890108002675
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3865,7 +3945,7 @@ Transform:
   m_Children:
   - {fileID: 8529209847575666094}
   m_Father: {fileID: 4857922272390003626}
-  m_LocalEulerAnglesHint: {x: 17.910704, y: -17.878443, z: 21.778374}
+  m_LocalEulerAnglesHint: {x: 17.910702, y: -17.878443, z: 21.77837}
 --- !u!1 &6958709834414299837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4147,7 +4227,7 @@ Transform:
   m_GameObject: {fileID: 7193255363971989018}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0.05940497}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05940497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4253,7 +4333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472fb085f8b37f441b9733c8ddf9d09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  teleportInterval: 5
+  detectionRange: 30
   minimumDistanceFromPlayer: 15
   maximumDistanceFromPlayer: 25
   positionAttempts: 30
@@ -4291,7 +4371,19 @@ MonoBehaviour:
   maxHealth: 50
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6628022398414254949}
+        m_TargetAssemblyTypeName: Wizard, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -4426,7 +4518,7 @@ Transform:
   m_Children:
   - {fileID: 108771858250027344}
   m_Father: {fileID: 3257638545665577910}
-  m_LocalEulerAnglesHint: {x: -5.1375904, y: 0.17056605, z: -1.4117546}
+  m_LocalEulerAnglesHint: {x: -5.1375895, y: 0.17056622, z: -1.411748}
 --- !u!1 &7778054487203075657
 GameObject:
   m_ObjectHideFlags: 0
@@ -4493,7 +4585,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: d4ad222eb65bfcf42b7af555055f5733, type: 3}
+  - {fileID: 2100000, guid: ffe9ce10336601245940557add45826a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4548,7 +4640,7 @@ Transform:
   m_Children:
   - {fileID: 4857922272390003626}
   m_Father: {fileID: 587608077337260228}
-  m_LocalEulerAnglesHint: {x: 34.876522, y: -10.756626, z: -23.390163}
+  m_LocalEulerAnglesHint: {x: 34.876522, y: -10.756625, z: -23.390163}
 --- !u!1 &7974534547217680209
 GameObject:
   m_ObjectHideFlags: 0
@@ -4741,7 +4833,7 @@ Transform:
   m_Children:
   - {fileID: 8090502618873563496}
   m_Father: {fileID: 2219509740069120776}
-  m_LocalEulerAnglesHint: {x: 1.0168743, y: -0.04011094, z: -2.903332}
+  m_LocalEulerAnglesHint: {x: 12.231834, y: -4.2662144, z: -38.216816}
 --- !u!136 &1891089100130292820
 CapsuleCollider:
   m_ObjectHideFlags: 0

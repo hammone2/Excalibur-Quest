@@ -82,4 +82,14 @@ public class PauseManager : MonoBehaviour
     {
         return isPaused;
     }
+
+    public void DisablePause()
+    {
+        toggleDisabled = true;
+    }
+
+    public void EnablePause()
+    {
+        toggleDisabled = false;
+    }
 }
